@@ -19,6 +19,13 @@ library(tidyverse)
 ```{r}
 oced_violence_women_data <- 
   read_csv("oced_violence_women_data.csv")
+
+view(violence)
+
+filter(violence, SUBJECT == "PREVVIOLLIFETIME")
+filter(violence, SUBJECT == "ATTITUDEVIOL")
+filter(violence, SUBJECT== "LAWDOMVIOL")
+
 ```
 
 # Introduction
