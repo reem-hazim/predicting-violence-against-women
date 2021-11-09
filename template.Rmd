@@ -17,8 +17,8 @@ library(tidyverse)
 ```
 
 ```{r}
-oced_violence_women_data <- 
-  read_csv("oced_violence_women_data.csv")
+violence <- 
+  read_csv("violence.csv")
 
 view(violence)
 
