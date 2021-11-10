@@ -26,6 +26,68 @@ filter(violence, SUBJECT == "PREVVIOLLIFETIME", TIME == 2019)
 filter(violence, SUBJECT == "ATTITUDEVIOL", TIME == 2019)
 filter(violence, SUBJECT== "LAWDOMVIOL", TIME == 2019)
 
+##merging data so i have the continents/regions of the world
+
+regionsdata<-
+  read_csv("regionsdata.csv")
+
+regionsdata <- rename(regionsdata, c("LOCATION" = "Country Code"))
+view(regionsdata)
+
+#Merging datasets
+
+violence2 <- merge(violence,regionsdata,by="LOCATION")
+
+LAWDOMVIOL2019 <- violence2 %>% 
+  filter(SUBJECT=="LAWDOMVIOL", TIME==2019) %>% 
+  mutate(LAWDOMVIOL=Value)
+
+ATTITUDEVIOL2019 <- violence2 %>% 
+  filter(SUBJECT=="ATTITUDEVIOL", TIME==2019) %>% 
+  mutate(ATTITUDEVIOL=Value)
+
+PREVVIOLLIFETIME2019 <- violence2 %>% 
+  filter(SUBJECT=="PREVVIOLLIFETIME", TIME==2019) %>% 
+  mutate(PREVVIOLLIFETIME=Value)
+
+mergeddata1 <- merge(LAWDOMVIOL2019, ATTITUDEVIOL2019, by="LOCATION")
+finalmergeddata<- merge(mergeddata1,PREVVIOLLIFETIME2019, by="LOCATION" )
+
+violencedata<- finalmergeddata[c(1,6,9,10,14,27,40)]
+violencedata<- rename(violencedata, c("Year" = "TIME.x"))
+violencedata<- rename(violencedata, c("Region" = "Region.x"))
+violencedata<- rename(violencedata, c("IncomeGroup" = "IncomeGroup.x"))
+
+##Organized the Dataset in a way in which countries are in the same row
+
+#Exploring LAWDOMVIOL by region and incomegroup
+ggplot(violencedata)+
+  geom_bar(mapping=aes(x=LAWDOMVIOL))+
+  facet_wrap(~IncomeGroup)
+
+ggplot(violencedata)+
+  geom_bar(mapping=aes(x=LAWDOMVIOL))+
+  facet_wrap(~Region)
+
+#Exploring ATTITUDEVIOL by region and incomegroup
+ggplot(violencedata)+
+  geom_bar(mapping=aes(x=ATTITUDEVIOL))+
+  facet_wrap(~IncomeGroup)
+
+ggplot(violencedata)+
+  geom_bar(mapping=aes(x=ATTITUDEVIOL))+
+  facet_wrap(~Region)
+
+#Exploring PREVVLIFETIME by region and incomegroup
+ggplot(violencedata)+
+  geom_bar(mapping=aes(x=PREVVIOLLIFETIME))+
+  facet_wrap(~IncomeGroup)
+
+ggplot(violencedata)+
+  geom_bar(mapping=aes(x=PREVVIOLLIFETIME))+
+  facet_wrap(~Region)
+
+
 ```
 
 # Introduction
