@@ -22,9 +22,9 @@ violence <-
 
 view(violence)
 
-filter(violence, SUBJECT == "PREVVIOLLIFETIME")
-filter(violence, SUBJECT == "ATTITUDEVIOL")
-filter(violence, SUBJECT== "LAWDOMVIOL")
+filter(violence, SUBJECT == "PREVVIOLLIFETIME", TIME == 2019)
+filter(violence, SUBJECT == "ATTITUDEVIOL", TIME == 2019)
+filter(violence, SUBJECT== "LAWDOMVIOL", TIME == 2019)
 
 ```
 
