@@ -141,21 +141,31 @@ ggplot(violencedata, aes(ATTITUDEVIOL, after_stat(density), colour = IncomeGroup
 ```{r}
 #Plotting data 
 
-ggplot(violencedata, aes(x = LAWDOMVIOL2019, y = ATTITUDEVIOL2019)) +
+ggplot(violencedata, aes(x = LAWDOMVIOL, y = ATTITUDEVIOL)) +
   geom_point()+
   labs(title = "Relationship between Law on domestic violence and attitudes towards violence", x = "Law on domestic violence", y = "attitudes towards violence")
 
 ###
 
-ggplot(violencedata, aes(x = LAWDOMVIOL2019, y = PREVVIOLLIFETIME2019)) +
+ggplot(violencedata, aes(x = LAWDOMVIOL, y = PREVVIOLLIFETIME)) +
   geom_point()+
   labs(title = "Relationship between Law on domestic violence and Prevalance in Lifetime", x = "Law on domestic violence", y = "Prevalance in lifetime")
 
 ###
 
-ggplot(violencedata, aes(x = PREVVIOLLIFETIME2019, y = ATTITUDEVIOL2019)) +
+ggplot(violencedata, aes(x = PREVVIOLLIFETIME, y = ATTITUDEVIOL)) +
   geom_point()+
   labs(title = "Relationship between Prevelance on lifteime and attitudes towards violence", x = "Prevalance on lifetime", y = "attitudes towards violence")
+```
+
+```{r}
+#Problems and limits with the data
+#- causation and correlation: Even though we find that NA and European countries ( high income countries) have better laws on domestic violence, as well as less worse attitudes on violence against women, and lower prevalence of women who experience abuse, this does not really tell us that these countries are "better" for women or men 
+#- questions that indicators are asking versus what they are trying to measure, analyse each indicator and how they are measure the stuff they are measuring
+#ex: prevalence in lifetime: they are only calculating violence coming from intimate partner, what about the levels of harassment that come from outside intimate circles?
+#ex: law on domestic violence, how do you quantify that?
+#ex: attitude towards violence: what questions are they asking. "the percentage of women who agree that a husband/partner is justified in beating his wife/partner under certain circumstances" why is this only women's complicity on it? is this really the best question to ask around attitude towards violence?
+
 ```
 
 # Introduction
