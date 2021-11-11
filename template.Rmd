@@ -93,19 +93,19 @@ ggplot(violencedata)+
 ```{r}
 #Plotting data 
 
-ggplot(violencedata, aes(x = LAWDOMVIOL2019, y = ATTITUDEVIOL2019)) +
+ggplot(violencedata, aes(x = LAWDOMVIOL, y = ATTITUDEVIOL)) +
   geom_point()+
   labs(title = "Relationship between Law on domestic violence and attitudes towards violence", x = "Law on domestic violence", y = "attitudes towards violence")
 
 ###
 
-ggplot(violencedata, aes(x = LAWDOMVIOL2019, y = PREVVIOLLIFETIME2019)) +
+ggplot(violencedata, aes(x = LAWDOMVIOL, y = PREVVIOLLIFETIME)) +
   geom_point()+
   labs(title = "Relationship between Law on domestic violence and Prevalance in Lifetime", x = "Law on domestic violence", y = "Prevalance in lifetime")
 
 ###
 
-ggplot(violencedata, aes(x = PREVVIOLLIFETIME2019, y = ATTITUDEVIOL2019)) +
+ggplot(violencedata, aes(x = PREVVIOLLIFETIME, y = ATTITUDEVIOL)) +
   geom_point()+
   labs(title = "Relationship between Prevelance on lifteime and attitudes towards violence", x = "Prevalance on lifetime", y = "attitudes towards violence")
 ```
