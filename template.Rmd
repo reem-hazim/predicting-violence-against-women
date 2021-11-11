@@ -14,126 +14,154 @@ output: distill::distill_article
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
+library(maps)
+library(ggfortify)
 ```
 
-```{r}
-violence <- 
-  read_csv("violence.csv")
+```{r read-clean-oecd-data}
+oecd_violence <- 
+  read_csv("violence.csv") %>% 
+  filter(TIME=="2019") %>% 
+  select(LOCATION, SUBJECT, Value) %>% 
+  rename(location=LOCATION, indicator=SUBJECT, value=Value) 
+```
 
-view(violence)
 
-filter(violence, SUBJECT == "PREVVIOLLIFETIME", TIME == 2019)
-filter(violence, SUBJECT == "ATTITUDEVIOL", TIME == 2019)
-filter(violence, SUBJECT== "LAWDOMVIOL", TIME == 2019)
-
+```{r join-regions-data}
 ##merging data so i have the continents/regions of the world
+regions_data<-
+  read_csv("regionsdata.csv") %>% 
+  select(-"...6", -"SpecialNotes")
 
-regionsdata<-
-  read_csv("regionsdata.csv")
 
-regionsdata <- rename(regionsdata, c("LOCATION" = "Country Code"))
-view(regionsdata)
+regions_data <- rename(regions_data, c("location" = "Country Code"))
 
 #Merging datasets
 
-violence2 <- merge(violence,regionsdata,by="LOCATION")
+violence_with_region <- merge(oecd_violence, regions_data, by="location")
 
-LAWDOMVIOL2019 <- violence2 %>% 
-  filter(SUBJECT=="LAWDOMVIOL", TIME==2019) %>% 
-  mutate(LAWDOMVIOL=Value)
+# Change indicators to their own columns
+violence_region_wide <- violence_with_region %>% 
+  pivot_wider(names_from="indicator", values_from="value") %>% 
+  mutate(LAWDOMVIOL = as.character(LAWDOMVIOL)) %>% 
+  mutate(LAWDOMVIOL = fct_relevel(LAWDOMVIOL, "0.25", "0.5",  "0.75", "1")) 
 
-ATTITUDEVIOL2019 <- violence2 %>% 
-  filter(SUBJECT=="ATTITUDEVIOL", TIME==2019) %>% 
-  mutate(ATTITUDEVIOL=Value)
+#LAWDOMVIOL2019 <- violence_with_region %>% 
+ # filter(SUBJECT=="LAWDOMVIOL", TIME==2019) %>% 
+ # mutate(LAWDOMVIOL=Value)
 
-PREVVIOLLIFETIME2019 <- violence2 %>% 
-  filter(SUBJECT=="PREVVIOLLIFETIME", TIME==2019) %>% 
-  mutate(PREVVIOLLIFETIME=Value)
+#ATTITUDEVIOL2019 <- violence_with_region %>% 
+ # filter(SUBJECT=="ATTITUDEVIOL", TIME==2019) %>% 
+ # mutate(ATTITUDEVIOL=Value)
 
-mergeddata1 <- merge(LAWDOMVIOL2019, ATTITUDEVIOL2019, by="LOCATION")
-finalmergeddata<- merge(mergeddata1,PREVVIOLLIFETIME2019, by="LOCATION" )
+#PREVVIOLLIFETIME2019 <- violence_with_region %>% 
+# filter(SUBJECT=="PREVVIOLLIFETIME", TIME==2019) %>% 
+#  mutate(PREVVIOLLIFETIME=Value)
 
-violencedata<- finalmergeddata[c(1,6,9,10,14,27,40)]
-violencedata<- rename(violencedata, c("Year" = "TIME.x"))
-violencedata<- rename(violencedata, c("Region" = "Region.x"))
-violencedata<- rename(violencedata, c("IncomeGroup" = "IncomeGroup.x"))
+#mergeddata1 <- merge(LAWDOMVIOL2019, ATTITUDEVIOL2019, by="LOCATION")
+#finalmergeddata<- merge(mergeddata1,PREVVIOLLIFETIME2019, by="LOCATION" )
+```
+
+```{r}
+
+#violence_region_wide<- finalmergeddata[c(1,6,9,10,14,27,40)]
 
 ##Organized the Dataset in a way in which countries are in the same row
 
 #Exploring LAWDOMVIOL by region and incomegroup
-ggplot(violencedata)+
-  geom_histogram(mapping=aes(x=LAWDOMVIOL))+
+ggplot(violence_region_wide)+
+  geom_bar(mapping=aes(x=LAWDOMVIOL))+
   facet_wrap(~IncomeGroup)
+```
 
-ggplot(violencedata)+
-  geom_histogram(mapping=aes(x=LAWDOMVIOL))+
+```{r}
+ggplot(violence_region_wide)+
+  geom_bar(mapping=aes(x=LAWDOMVIOL))+
   facet_wrap(~Region)
+```
 
+```{r}
 #Exploring ATTITUDEVIOL by region and incomegroup
-ggplot(violencedata)+
+ggplot(violence_region_wide)+
   geom_histogram(mapping=aes(x=ATTITUDEVIOL))+
   facet_wrap(~IncomeGroup)
+```
 
-ggplot(violencedata)+
+```{r}
+ggplot(violence_region_wide)+
   geom_histogram(mapping=aes(x=ATTITUDEVIOL))+
   facet_wrap(~Region)
+```
 
+```{r}
 #Exploring PREVVLIFETIME by region and incomegroup
-ggplot(violencedata)+
+ggplot(violence_region_wide)+
   geom_histogram(mapping=aes(x=PREVVIOLLIFETIME))+
   facet_wrap(~IncomeGroup)
+```
 
-ggplot(violencedata)+
+```{r}
+ggplot(violence_region_wide)+
   geom_histogram(mapping=aes(x=PREVVIOLLIFETIME), bins=40)+
   facet_wrap(~Region)
+```
 
+```{r}
 #Weakness: not a lot of NA and MENA region countries
 
 #Plotting data 
 
-ggplot(violencedata, aes(x = LAWDOMVIOL, y = ATTITUDEVIOL, color=Region)) +
+ggplot(violence_region_wide, aes(x = LAWDOMVIOL, y = ATTITUDEVIOL, color=Region)) +
   geom_point(alpha=0.5)+
   labs(title = "Relationship between Law on domestic violence and attitudes towards violence", x = "Law on domestic violence", y = "attitudes towards violence")
+```
 
+```{r}
 #barstack comparing this data by incomegroup
 
-ggplot(violencedata, 
+ggplot(violence_region_wide, 
        aes(x = LAWDOMVIOL, 
            fill = IncomeGroup)) + 
   geom_bar(position = "stack")
+```
 
-ggplot(violencedata, 
+```{r}
+ggplot(violence_region_wide, 
        aes(x = ATTITUDEVIOL, 
            fill = IncomeGroup,
            )) + 
   geom_histogram(position = "stack", bins=50)
+```
 
-ggplot(violencedata, 
+```{r}
+ggplot(violence_region_wide, 
        aes(x = PREVVIOLLIFETIME, 
            fill = IncomeGroup,
            )) + 
   geom_histogram(position = "stack", bins=50)
+```
 
+```{r}
 #barstack by region 
 
-ggplot(violencedata, 
+ggplot(violence_region_wide, 
        aes(x = LAWDOMVIOL, 
            fill = Region)) + 
   geom_bar(position = "stack")
 
-ggplot(violencedata, 
+ggplot(violence_region_wide, 
        aes(x = PREVVIOLLIFETIME, 
            fill = Region)) + 
   geom_histogram(position = "stack")
 
-ggplot(violencedata, 
+ggplot(violence_region_wide, 
        aes(x = ATTITUDEVIOL, 
            fill = Region)) + 
   geom_bar(position = "stack")
 
 ##mi
 
-ggplot(violencedata, aes(ATTITUDEVIOL, after_stat(density), colour = IncomeGroup)) +
+ggplot(violence_region_wide, aes(ATTITUDEVIOL, after_stat(density), colour = IncomeGroup)) +
   geom_freqpoly(binwidth = 50)
 
 ```
@@ -141,19 +169,19 @@ ggplot(violencedata, aes(ATTITUDEVIOL, after_stat(density), colour = IncomeGroup
 ```{r}
 #Plotting data 
 
-ggplot(violencedata, aes(x = LAWDOMVIOL, y = ATTITUDEVIOL)) +
+ggplot(violence_region_wide, aes(x = LAWDOMVIOL, y = ATTITUDEVIOL)) +
   geom_point()+
   labs(title = "Relationship between Law on domestic violence and attitudes towards violence", x = "Law on domestic violence", y = "attitudes towards violence")
 
 ###
 
-ggplot(violencedata, aes(x = LAWDOMVIOL, y = PREVVIOLLIFETIME)) +
+ggplot(violence_region_wide, aes(x = LAWDOMVIOL, y = PREVVIOLLIFETIME)) +
   geom_point()+
   labs(title = "Relationship between Law on domestic violence and Prevalance in Lifetime", x = "Law on domestic violence", y = "Prevalance in lifetime")
 
 ###
 
-ggplot(violencedata, aes(x = PREVVIOLLIFETIME, y = ATTITUDEVIOL)) +
+ggplot(violence_region_wide, aes(x = PREVVIOLLIFETIME, y = ATTITUDEVIOL)) +
   geom_point()+
   labs(title = "Relationship between Prevelance on lifteime and attitudes towards violence", x = "Prevalance on lifetime", y = "attitudes towards violence")
 ```
@@ -166,6 +194,120 @@ ggplot(violencedata, aes(x = PREVVIOLLIFETIME, y = ATTITUDEVIOL)) +
 #ex: law on domestic violence, how do you quantify that?
 #ex: attitude towards violence: what questions are they asking. "the percentage of women who agree that a husband/partner is justified in beating his wife/partner under certain circumstances" why is this only women's complicity on it? is this really the best question to ask around attitude towards violence?
 
+```
+
+
+```{r read-country-coordinates}
+# Read country coordinates
+country_coordinates <- read_csv("countries_codes_and_coordinates.csv")
+
+# Clean country coordinates
+country_coordinates <- country_coordinates %>% 
+  select(Country, `Alpha-3 code`, `Latitude (average)`, `Longitude (average)`) %>%
+  rename(country=Country, alpha_code=`Alpha-3 code`, lat=`Latitude (average)`, long=`Longitude (average)`) %>% 
+  distinct(alpha_code, .keep_all= TRUE)
+
+# Join country coordinates with violence data to get longitude and latitude
+violence_region_coordinates <- 
+  violence_with_region %>% 
+  left_join(country_coordinates, by= c("location" = "alpha_code"))
+
+violence_region_coordinates_wide <- 
+  violence_region_wide %>% 
+  left_join(country_coordinates, by= c("location" = "alpha_code"))
+```
+
+
+```{r}
+violence_region_coordinates %>% 
+  filter(indicator!= "LAWDOMVIOL") %>% 
+  ggplot(aes(x=value, fill=indicator)) + 
+  geom_histogram(alpha=0.8)
+```
+
+
+```{r compare-all-three-indicators}
+violence_region_coordinates_wide %>%
+  ggplot(aes(x=ATTITUDEVIOL, y=PREVVIOLLIFETIME, color=LAWDOMVIOL)) +
+  geom_point(size=5, alpha=0.8) +
+  labs(
+    title = "Prevalence of Violence Against Attitudes Towards Violence",
+    subtitle = "Grouped by Laws on Domestic Violence",
+    x="Attitude Towards Violence",
+    y="Prevalence of Violence in Lifetime",
+    color="Laws on Dom Violence"
+) +
+  theme_gray() +
+  scale_colour_viridis_d(direction=-1)
+
+```
+
+```{r join-un-data}
+
+# Read UN data on prevalence of violence in past 12 months
+un_women_violence <- read_csv("un_women_violence_data.csv") %>% 
+  select(-`Source Link`) %>% 
+  rename(country = `Country Name`, un_year = `Reference year`, un_prev_viol_12m = `48. Proportion of women subjected to physical and/or sexual violence by a current or former intimate partner, in the last 12 months`)
+
+un_oecd_women_violence_wide <- violence_region_coordinates_wide %>% 
+  left_join(un_women_violence, by=c("country"="country"))
+```
+
+```{r pivot-un-oecd-data-longer}
+# Pivot longer
+un_oecd_women_prev_violence <- un_oecd_women_violence_wide %>%
+  select(-LAWDOMVIOL, -ATTITUDEVIOL)  %>% 
+  rename(un_prev_viol = un_prev_viol_12m, oecd_prev_viol = PREVVIOLLIFETIME) %>% 
+  pivot_longer(c("oecd_prev_viol", "un_prev_viol"), names_to="indicator", values_to="prev_viol")
+```
+
+
+```{r comparison-map, layout="l-body-outset", fig.height=7}
+# Compare OECD data with UN data
+world_map <- map('world', fill=TRUE, plot=FALSE)
+
+labels <- list(
+  "oecd_prev_viol"="OECD Prevalence of Violence (lifetime)",
+  "un_prev_viol" ="UN Prevalence of Violence (12 months)"
+)
+
+facet_labeller <- function(variable,value){
+  return(labels[value])
+}
+
+autoplot(world_map, geom = 'polygon', col="white", fill="grey", ylim=c(-54,85), xlim=c(-160, 200)) +
+  geom_point(data=un_oecd_women_prev_violence, aes(x=long, y=lat, color=prev_viol, size=prev_viol), alpha=0.8) +
+  theme_minimal() +
+  scale_colour_viridis_c(direction=-1) +
+  labs(
+    size="",
+    color = "",
+    title="Comparison Between OECD and UN on Prevalence of Domestic Violence Against Women",
+  ) +
+  facet_wrap(~indicator,
+             labeller = facet_labeller,
+             ncol=1)
+```
+
+
+
+```{r}
+# Compare OECD data with UN data
+un_oecd_women_violence_wide %>% 
+  ggplot(mapping=aes(x=PREVVIOLLIFETIME, y=un_prev_viol_12m, color=LAWDOMVIOL)) +
+  geom_point(alpha=0.8, size=5) +
+  scale_colour_viridis_d(direction=-1) +
+  labs(
+    x="Prevalence of Violence (OECD)",
+    y="Prevalence of Violence (UN)",
+    color="Laws on Domestic Violence",
+    title="UN vs OECD Prevalence of Domestic Violence"
+  )
+```
+
+```{r corr-un-oecd}
+# Compare OECD data with UN data
+cor(un_oecd_women_violence_wide$PREVVIOLLIFETIME, un_oecd_women_violence_wide$un_prev_viol_12m, use="complete.obs")
 ```
 
 # Introduction
