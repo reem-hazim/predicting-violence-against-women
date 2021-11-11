@@ -62,31 +62,79 @@ violencedata<- rename(violencedata, c("IncomeGroup" = "IncomeGroup.x"))
 
 #Exploring LAWDOMVIOL by region and incomegroup
 ggplot(violencedata)+
-  geom_bar(mapping=aes(x=LAWDOMVIOL))+
+  geom_histogram(mapping=aes(x=LAWDOMVIOL))+
   facet_wrap(~IncomeGroup)
 
 ggplot(violencedata)+
-  geom_bar(mapping=aes(x=LAWDOMVIOL))+
+  geom_histogram(mapping=aes(x=LAWDOMVIOL))+
   facet_wrap(~Region)
 
 #Exploring ATTITUDEVIOL by region and incomegroup
 ggplot(violencedata)+
-  geom_bar(mapping=aes(x=ATTITUDEVIOL))+
+  geom_histogram(mapping=aes(x=ATTITUDEVIOL))+
   facet_wrap(~IncomeGroup)
 
 ggplot(violencedata)+
-  geom_bar(mapping=aes(x=ATTITUDEVIOL))+
+  geom_histogram(mapping=aes(x=ATTITUDEVIOL))+
   facet_wrap(~Region)
 
 #Exploring PREVVLIFETIME by region and incomegroup
 ggplot(violencedata)+
-  geom_bar(mapping=aes(x=PREVVIOLLIFETIME))+
+  geom_histogram(mapping=aes(x=PREVVIOLLIFETIME))+
   facet_wrap(~IncomeGroup)
 
 ggplot(violencedata)+
-  geom_bar(mapping=aes(x=PREVVIOLLIFETIME))+
+  geom_histogram(mapping=aes(x=PREVVIOLLIFETIME), bins=40)+
   facet_wrap(~Region)
 
+#Weakness: not a lot of NA and MENA region countries
+
+#Plotting data 
+
+ggplot(violencedata, aes(x = LAWDOMVIOL, y = ATTITUDEVIOL, color=Region)) +
+  geom_point(alpha=0.5)+
+  labs(title = "Relationship between Law on domestic violence and attitudes towards violence", x = "Law on domestic violence", y = "attitudes towards violence")
+
+#barstack comparing this data by incomegroup
+
+ggplot(violencedata, 
+       aes(x = LAWDOMVIOL, 
+           fill = IncomeGroup)) + 
+  geom_bar(position = "stack")
+
+ggplot(violencedata, 
+       aes(x = ATTITUDEVIOL, 
+           fill = IncomeGroup,
+           )) + 
+  geom_histogram(position = "stack", bins=50)
+
+ggplot(violencedata, 
+       aes(x = PREVVIOLLIFETIME, 
+           fill = IncomeGroup,
+           )) + 
+  geom_histogram(position = "stack", bins=50)
+
+#barstack by region 
+
+ggplot(violencedata, 
+       aes(x = LAWDOMVIOL, 
+           fill = Region)) + 
+  geom_bar(position = "stack")
+
+ggplot(violencedata, 
+       aes(x = PREVVIOLLIFETIME, 
+           fill = Region)) + 
+  geom_histogram(position = "stack")
+
+ggplot(violencedata, 
+       aes(x = ATTITUDEVIOL, 
+           fill = Region)) + 
+  geom_bar(position = "stack")
+
+##mi
+
+ggplot(violencedata, aes(ATTITUDEVIOL, after_stat(density), colour = IncomeGroup)) +
+  geom_freqpoly(binwidth = 50)
 
 ```
 
