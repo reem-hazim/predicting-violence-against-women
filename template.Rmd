@@ -193,7 +193,7 @@ ggplot(violence_region_wide, aes(x = PREVVIOLLIFETIME, y = ATTITUDEVIOL)) +
 #ex: prevalence in lifetime: they are only calculating violence coming from intimate partner, what about the levels of harassment that come from outside intimate circles?
 #ex: law on domestic violence, how do you quantify that?
 #ex: attitude towards violence: what questions are they asking. "the percentage of women who agree that a husband/partner is justified in beating his wife/partner under certain circumstances" why is this only women's complicity on it? is this really the best question to ask around attitude towards violence?
-
+#- Which countries are excluded from the data? Are there countries excluded from the data? (Would be interesting to find out)
 ```
 
 
@@ -251,15 +251,18 @@ un_women_violence <- read_csv("un_women_violence_data.csv") %>%
 
 un_oecd_women_violence_wide <- violence_region_coordinates_wide %>% 
   left_join(un_women_violence, by=c("country"="country"))
-```
 
-```{r pivot-un-oecd-data-longer}
 # Pivot longer
 un_oecd_women_prev_violence <- un_oecd_women_violence_wide %>%
   select(-LAWDOMVIOL, -ATTITUDEVIOL)  %>% 
   rename(un_prev_viol = un_prev_viol_12m, oecd_prev_viol = PREVVIOLLIFETIME) %>% 
   pivot_longer(c("oecd_prev_viol", "un_prev_viol"), names_to="indicator", values_to="prev_viol")
 ```
+To determine whether the OECD indicator is an accurate representation of the prevalence of domestic violence against women, we decided to compare it to other available indicators on domestic violence. We have chosen the UN indicator, "Proportion of women subjected to physical and/or sexual violence by a current or former intimate partner in the last 12 months". 
+
+There are some clear distinctions between the UN and OECD indicators. While they both measure the proportion of women who have experienced violence by an intimate partner, the UN indicator only includes women who have experienced violence in the past 12 months, while the OECD includes those who experienced violence at any point in their lives Therefore, we would expect the OECD indicator to be larger than the UN indicator for most countries, given that many more women would have experience violence at some point in their lives.
+
+Another limitation is that the UN indicator comes from many different reference years. Some countries have collected this data in more recent years (2015), while others last collected this data in the year 2000. This discrepancy makes comparison between countries and between indicators more difficult, since peoples' attitudes towards domestic violence and countries' laws and regulations  may have changed significantly over the years, potentially reducing the prevalence of domestic violence. In addition, all the data from the OECD indicator was collected in 2019, much more recently than most of the UN data. Nonetheless, it would be interesting to find out whether both indicators are consistent with each other.
 
 
 ```{r comparison-map, layout="l-body-outset", fig.height=7}
@@ -289,7 +292,9 @@ autoplot(world_map, geom = 'polygon', col="white", fill="grey", ylim=c(-54,85), 
              ncol=1)
 ```
 
+The figure above shows two maps of the world, with colored markers to represent the prevalence of violence in different countries. The first map visualizes the OECD indicator, while the second map visualizes the UN indicator. As expected, we can see that the OECD map has much darker and larger markers in general than the UN map, suggesting that the prevalence of violence is higher in the OECD data. This makes sense since the OECD measured the prevalence of violence over womens' lifetimes, while the UN only measured violence in the past 12 months. 
 
+The two indicators also appear to be consistent across different regions. For instance, in both maps, Europe and Northern America appear to have less prevalence of domestic violence, as shown by the smaller, lighter markers. In contrast, markers across Africa, the Middle East and South America are consistently darker and larger, revealing patterns of higher prevalence of domestic violence.
 
 ```{r}
 # Compare OECD data with UN data
