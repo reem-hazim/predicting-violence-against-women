@@ -315,6 +315,26 @@ un_oecd_women_violence_wide %>%
 cor(un_oecd_women_violence_wide$PREVVIOLLIFETIME, un_oecd_women_violence_wide$un_prev_viol_12m, use="complete.obs")
 ```
 
+### Issues with the Data and Limitations
+One tidiness issue in the data is that the dataset is in long format, which makes it difficult to visualize the relationship between the different indicators. Therefore, we had to transform the dataset into wide format to create these plots. 
+
+There are also some discrepancies between what the indicators are trying to measure and what they actually measure. Quantifying such a large-scale phenomenon as violence against women is a non-trivial effort, since violence comes in many diverse forms. For example, the prevalence in lifetime indicator only quantifies violence from an intimate partner, excluding levels of harrasment that come from outside intimate circles, such as sex trafficking. Similarly, to measure "attitude towards violence", the dataset creators used "the percentage of women who agree that a husband/partner is justified in beating his wife/partner under certain circumstances." Why is this particular question used as a proxy for attitude towards violence? Why not ask whether non-intimate partners are also justified in beating women? Are there better or more comprehensive questions to gauge attitude towards violence?
+
+In addition, for the "laws on domestic violence" indicator, the dataset creators do not explain how they quantified the abstract concept of "laws and practices". They also do not specify what they mean by laws that "fully discriminate against women's rights". This makes it difficult to determine the accuracy of the indicator.
+
+The dataset also does not contain all the countries in the world. 
+
+```{r find-missing-countries}
+missing_countries <- 
+  country_coordinates %>% 
+  anti_join(violence_with_region, by= c("alpha_code" = "location"))
+
+head(missing_countries)
+```
+
+If we perform an anti-join of the countries dataset with the violence dataset, we can see that there are around `r nrow(missing_countries)` missing countries. Most of these countries are small islands that may not have enough data on violence against women.
+
+
 # Introduction
 
 # Theory/Hypotheses

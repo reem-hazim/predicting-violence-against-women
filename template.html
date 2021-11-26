@@ -93,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2021-11-20" />
-  <meta property="article:created" itemprop="dateCreated" content="2021-11-20" />
+  <meta property="article:published" itemprop="datePublished" content="2021-11-26" />
+  <meta property="article:created" itemprop="dateCreated" content="2021-11-26" />
   <meta name="article:author" content="Nora Jones" />
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -112,7 +112,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Untitled"]},{"type":"character","attributes":{},"value":["A new article created using the Distill format.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Nora Jones"]},{"type":"character","attributes":{},"value":["https://example.com/norajones"]},{"type":"character","attributes":{},"value":["Spacely Sprockets"]},{"type":"character","attributes":{},"value":["https://example.com/spacelysprokets"]}]}]},{"type":"character","attributes":{},"value":["2021-11-20"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Untitled"]},{"type":"character","attributes":{},"value":["A new article created using the Distill format.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Nora Jones"]},{"type":"character","attributes":{},"value":["https://example.com/norajones"]},{"type":"character","attributes":{},"value":["Spacely Sprockets"]},{"type":"character","attributes":{},"value":["https://example.com/spacelysprokets"]}]}]},{"type":"character","attributes":{},"value":["2021-11-26"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1459,7 +1459,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Untitled","description":"A new article created using the Distill format.","authors":[{"author":"Nora Jones","authorURL":"https://example.com/norajones","affiliation":"Spacely Sprockets","affiliationURL":"https://example.com/spacelysprokets","orcidID":""}],"publishedDate":"2021-11-20T00:00:00.000+00:00","citationText":"Jones, 2021"}
+{"title":"Untitled","description":"A new article created using the Distill format.","authors":[{"author":"Nora Jones","authorURL":"https://example.com/norajones","affiliation":"Spacely Sprockets","affiliationURL":"https://example.com/spacelysprokets","orcidID":""}],"publishedDate":"2021-11-26T00:00:00.000+00:00","citationText":"Jones, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1478,7 +1478,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-byline">
   Nora Jones <a href="https://example.com/norajones" class="uri">https://example.com/norajones</a> (Spacely Sprockets)<a href="https://example.com/spacelysprokets" class="uri">https://example.com/spacelysprokets</a>
   
-<br />2021-11-20
+<br />2021-11-26
 </div>
 
 <div class="d-article">
@@ -1553,12 +1553,29 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="layout-chunk" data-layout="l-body">
 <pre><code>[1] 0.7551577</code></pre>
 </div>
+<h3 id="issues-with-the-data-and-limitations">Issues with the Data and Limitations</h3>
+<p>One tidiness issue in the data is that the dataset is in long format, which makes it difficult to visualize the relationship between the different indicators. Therefore, we had to transform the dataset into wide format to create these plots.</p>
+<p>There are also some discrepancies between what the indicators are trying to measure and what they actually measure. Quantifying such a large-scale phenomenon as violence against women is a non-trivial effort, since violence comes in many diverse forms. For example, the prevalence in lifetime indicator only quantifies violence from an intimate partner, excluding levels of harrasment that come from outside intimate circles, such as sex trafficking. Similarly, to measure “attitude towards violence”, the dataset creators used “the percentage of women who agree that a husband/partner is justified in beating his wife/partner under certain circumstances.” Why is this particular question used as a proxy for attitude towards violence? Why not ask whether non-intimate partners are also justified in beating women? Are there better or more comprehensive questions to gauge attitude towards violence?</p>
+<p>In addition, for the “laws on domestic violence” indicator, the dataset creators do not explain how they quantified the abstract concept of “laws and practices”. They also do not specify what they mean by laws that “fully discriminate against women’s rights”. This makes it difficult to determine the accuracy of the indicator.</p>
+<p>The dataset also does not contain all the countries in the world.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code># A tibble: 6 × 4
+  country             alpha_code   lat   long
+  &lt;chr&gt;               &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+1 American Samoa      ASM        -14.3 -170  
+2 Andorra             AND         42.5    1.6
+3 Anguilla            AIA         18.2  -63.2
+4 Antarctica          ATA        -90      0  
+5 Antigua and Barbuda ATG         17.0  -61.8
+6 Aruba               ABW         12.5  -70.0</code></pre>
+</div>
+<p>If we perform an anti-join of the countries dataset with the violence dataset, we can see that there are around 82 missing countries. Most of these countries are small islands that may not have enough data on violence against women.</p>
 <h1 id="introduction">Introduction</h1>
 <h1 id="theoryhypotheses">Theory/Hypotheses</h1>
 <h1 id="data">Data</h1>
 <h1 id="analysis-and-interpretation-of-results">Analysis and Interpretation of Results</h1>
 <h1 id="conclusions">Conclusions</h1>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
