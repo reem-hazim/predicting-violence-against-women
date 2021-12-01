@@ -23,12 +23,11 @@ oecd_violence <-
   read_csv("violence.csv") %>% 
   filter(TIME=="2019") %>% 
   select(LOCATION, SUBJECT, Value) %>% 
-  rename(location=LOCATION, indicator=SUBJECT, value=Value) 
+  rename(location=LOCATION, indicator=SUBJECT, value=Value)
 ```
 
-
 ```{r join-regions-data}
-##merging data so i have the continents/regions of the world
+# Reading continents/regions data
 regions_data<-
   read_csv("regionsdata.csv") %>% 
   select(-"...6", -"SpecialNotes")
@@ -36,8 +35,7 @@ regions_data<-
 
 regions_data <- rename(regions_data, c("location" = "Country Code"))
 
-#Merging datasets
-
+# Merging datasets
 violence_with_region <- merge(oecd_violence, regions_data, by="location")
 
 # Change indicators to their own columns
@@ -45,29 +43,9 @@ violence_region_wide <- violence_with_region %>%
   pivot_wider(names_from="indicator", values_from="value") %>% 
   mutate(LAWDOMVIOL = as.character(LAWDOMVIOL)) %>% 
   mutate(LAWDOMVIOL = fct_relevel(LAWDOMVIOL, "0.25", "0.5",  "0.75", "1")) 
-
-#LAWDOMVIOL2019 <- violence_with_region %>% 
- # filter(SUBJECT=="LAWDOMVIOL", TIME==2019) %>% 
- # mutate(LAWDOMVIOL=Value)
-
-#ATTITUDEVIOL2019 <- violence_with_region %>% 
- # filter(SUBJECT=="ATTITUDEVIOL", TIME==2019) %>% 
- # mutate(ATTITUDEVIOL=Value)
-
-#PREVVIOLLIFETIME2019 <- violence_with_region %>% 
-# filter(SUBJECT=="PREVVIOLLIFETIME", TIME==2019) %>% 
-#  mutate(PREVVIOLLIFETIME=Value)
-
-#mergeddata1 <- merge(LAWDOMVIOL2019, ATTITUDEVIOL2019, by="LOCATION")
-#finalmergeddata<- merge(mergeddata1,PREVVIOLLIFETIME2019, by="LOCATION" )
 ```
 
 ```{r}
-
-#violence_region_wide<- finalmergeddata[c(1,6,9,10,14,27,40)]
-
-##Organized the Dataset in a way in which countries are in the same row
-
 #Exploring LAWDOMVIOL by region and incomegroup
 ggplot(violence_region_wide)+
   geom_bar(mapping=aes(x=LAWDOMVIOL))+
@@ -196,7 +174,6 @@ ggplot(violence_region_wide, aes(x = PREVVIOLLIFETIME, y = ATTITUDEVIOL)) +
 #- Which countries are excluded from the data? Are there countries excluded from the data? (Would be interesting to find out)
 ```
 
-
 ```{r read-country-coordinates}
 # Read country coordinates
 country_coordinates <- read_csv("countries_codes_and_coordinates.csv")
@@ -217,14 +194,12 @@ violence_region_coordinates_wide <-
   left_join(country_coordinates, by= c("location" = "alpha_code"))
 ```
 
-
 ```{r}
 violence_region_coordinates %>% 
   filter(indicator!= "LAWDOMVIOL") %>% 
   ggplot(aes(x=value, fill=indicator)) + 
   geom_histogram(alpha=0.8)
 ```
-
 
 ```{r compare-all-three-indicators}
 violence_region_coordinates_wide %>%
@@ -258,12 +233,12 @@ un_oecd_women_prev_violence <- un_oecd_women_violence_wide %>%
   rename(un_prev_viol = un_prev_viol_12m, oecd_prev_viol = PREVVIOLLIFETIME) %>% 
   pivot_longer(c("oecd_prev_viol", "un_prev_viol"), names_to="indicator", values_to="prev_viol")
 ```
-To determine whether the OECD indicator is an accurate representation of the prevalence of domestic violence against women, we decided to compare it to other available indicators on domestic violence. We have chosen the UN indicator, "Proportion of women subjected to physical and/or sexual violence by a current or former intimate partner in the last 12 months". 
+
+To determine whether the OECD indicator is an accurate representation of the prevalence of domestic violence against women, we decided to compare it to other available indicators on domestic violence. We have chosen the UN indicator, "Proportion of women subjected to physical and/or sexual violence by a current or former intimate partner in the last 12 months".
 
 There are some clear distinctions between the UN and OECD indicators. While they both measure the proportion of women who have experienced violence by an intimate partner, the UN indicator only includes women who have experienced violence in the past 12 months, while the OECD includes those who experienced violence at any point in their lives Therefore, we would expect the OECD indicator to be larger than the UN indicator for most countries, given that many more women would have experience violence at some point in their lives.
 
-Another limitation is that the UN indicator comes from many different reference years. Some countries have collected this data in more recent years (2015), while others last collected this data in the year 2000. This discrepancy makes comparison between countries and between indicators more difficult, since peoples' attitudes towards domestic violence and countries' laws and regulations  may have changed significantly over the years, potentially reducing the prevalence of domestic violence. In addition, all the data from the OECD indicator was collected in 2019, much more recently than most of the UN data. Nonetheless, it would be interesting to find out whether both indicators are consistent with each other.
-
+Another limitation is that the UN indicator comes from many different reference years. Some countries have collected this data in more recent years (2015), while others last collected this data in the year 2000. This discrepancy makes comparison between countries and between indicators more difficult, since peoples' attitudes towards domestic violence and countries' laws and regulations may have changed significantly over the years, potentially reducing the prevalence of domestic violence. In addition, all the data from the OECD indicator was collected in 2019, much more recently than most of the UN data. Nonetheless, it would be interesting to find out whether both indicators are consistent with each other.
 
 ```{r comparison-map, layout="l-body-outset", fig.height=7}
 # Compare OECD data with UN data
@@ -292,7 +267,7 @@ autoplot(world_map, geom = 'polygon', col="white", fill="grey", ylim=c(-54,85), 
              ncol=1)
 ```
 
-The figure above shows two maps of the world, with colored markers to represent the prevalence of violence in different countries. The first map visualizes the OECD indicator, while the second map visualizes the UN indicator. As expected, we can see that the OECD map has much darker and larger markers in general than the UN map, suggesting that the prevalence of violence is higher in the OECD data. This makes sense since the OECD measured the prevalence of violence over womens' lifetimes, while the UN only measured violence in the past 12 months. 
+The figure above shows two maps of the world, with colored markers to represent the prevalence of violence in different countries. The first map visualizes the OECD indicator, while the second map visualizes the UN indicator. As expected, we can see that the OECD map has much darker and larger markers in general than the UN map, suggesting that the prevalence of violence is higher in the OECD data. This makes sense since the OECD measured the prevalence of violence over womens' lifetimes, while the UN only measured violence in the past 12 months.
 
 The two indicators also appear to be consistent across different regions. For instance, in both maps, Europe and Northern America appear to have less prevalence of domestic violence, as shown by the smaller, lighter markers. In contrast, markers across Africa, the Middle East and South America are consistently darker and larger, revealing patterns of higher prevalence of domestic violence.
 
@@ -316,13 +291,14 @@ cor(un_oecd_women_violence_wide$PREVVIOLLIFETIME, un_oecd_women_violence_wide$un
 ```
 
 ### Issues with the Data and Limitations
-One tidiness issue in the data is that the dataset is in long format, which makes it difficult to visualize the relationship between the different indicators. Therefore, we had to transform the dataset into wide format to create these plots. 
+
+One tidiness issue in the data is that the dataset is in long format, which makes it difficult to visualize the relationship between the different indicators. Therefore, we had to transform the dataset into wide format to create these plots.
 
 There are also some discrepancies between what the indicators are trying to measure and what they actually measure. Quantifying such a large-scale phenomenon as violence against women is a non-trivial effort, since violence comes in many diverse forms. For example, the prevalence in lifetime indicator only quantifies violence from an intimate partner, excluding levels of harrasment that come from outside intimate circles, such as sex trafficking. Similarly, to measure "attitude towards violence", the dataset creators used "the percentage of women who agree that a husband/partner is justified in beating his wife/partner under certain circumstances." Why is this particular question used as a proxy for attitude towards violence? Why not ask whether non-intimate partners are also justified in beating women? Are there better or more comprehensive questions to gauge attitude towards violence?
 
 In addition, for the "laws on domestic violence" indicator, the dataset creators do not explain how they quantified the abstract concept of "laws and practices". They also do not specify what they mean by laws that "fully discriminate against women's rights". This makes it difficult to determine the accuracy of the indicator.
 
-The dataset also does not contain all the countries in the world. 
+The dataset also does not contain all the countries in the world.
 
 ```{r find-missing-countries}
 missing_countries <- 
@@ -334,6 +310,75 @@ head(missing_countries)
 
 If we perform an anti-join of the countries dataset with the violence dataset, we can see that there are around `r nrow(missing_countries)` missing countries. Most of these countries are small islands that may not have enough data on violence against women.
 
+## Predicting Prevalence of Violence
+
+```{r read-datasets}
+# Select prevalence of violence to model it
+prev_viol <- violence_region_coordinates_wide %>% 
+  select(-LAWDOMVIOL, -ATTITUDEVIOL) %>% 
+  drop_na(PREVVIOLLIFETIME) 
+
+# Read alcohol consumption
+alcohol_consump <- read_csv("violence_factors/alcohol_consumption_oecd.csv") %>% 
+  filter(TIME == "2019", FREQUENCY == "A") %>% 
+  select("LOCATION", "Value") %>% 
+  rename("location" = "LOCATION", "alcohol_consump" = "Value")
+
+# Read child marriage
+child_marriage <- read_csv("violence_factors/child_marriage_rate.csv")  %>% 
+  filter(TIME == "2019", FREQUENCY == "A", SUBJECT == "EARMARRIAGE") %>% 
+  select("LOCATION", "Value") %>% 
+  rename("location" = "LOCATION", "child_marriage" = "Value")
+
+second_enrol <- read_csv("violence_factors/female_second_school_enrol.csv") %>% 
+  select("Country Code", "2019 [YR2019]") %>% 
+  rename("location" = "Country Code", "second_enrol" = "2019 [YR2019]") %>% 
+  mutate(second_enrol = na_if(second_enrol, ".."))
+
+labour_part_rate <- read_csv("violence_factors/female_labour_force_part.csv") %>% 
+  select("ref_area.label", "obs_value") %>% 
+  rename("country" = "ref_area.label", "labour_part" = "obs_value")
+
+poverty_rate_oecd <- read_csv("violence_factors/poverty_rate_oecd.csv") %>% 
+  filter(SUBJECT == "TOT", TIME == 2019) %>% 
+  select("LOCATION", "Value") %>% 
+  rename("location" = "LOCATION", "poverty_rate_oecd" = "Value")
+
+unemployment_rate_ILO <- read_csv("violence_factors/unemployment_rate_ILO.csv") %>% 
+  select("ref_area.label", "obs_value", "sex.label") %>% 
+  rename("country" = "ref_area.label", "unemployment_rate" = "obs_value", "sex"="sex.label")
+
+unemployment_rate_male <- unemployment_rate_ILO %>% 
+    filter(sex == "Sex: Male") %>% 
+    select(-sex) %>% 
+    rename("unemployment_male" = "unemployment_rate")
+
+unemployment_rate_female <- unemployment_rate_ILO %>% 
+  filter(sex == "Sex: Female") %>% 
+  select(-sex) %>% 
+  rename("unemployment_female" = "unemployment_rate")
+
+women_in_politics <- read_csv("violence_factors/women_in_politics.csv") %>% 
+  filter(TIME == "2019", FREQUENCY == "A") %>% 
+  select("LOCATION", "Value") %>% 
+  rename("location" = "LOCATION", "women_in_politics" = "Value")
+
+view(women_in_politics)
+
+# Join alcohol consumption with prev viol
+prev_viol_factors <- prev_viol %>% 
+  left_join(alcohol_consump, by="location") %>% 
+  left_join(child_marriage, by="location") %>% 
+  left_join(second_enrol, by="location") %>% 
+  left_join(labour_part_rate, by="country") %>% 
+  left_join(poverty_rate_oecd, by="location") %>% 
+  left_join(unemployment_rate_male, by="country") %>% 
+  left_join(unemployment_rate_female, by="country") %>% 
+  left_join(women_in_politics, by="location")
+
+view(prev_viol_factors)
+
+```
 
 # Introduction
 
@@ -344,8 +389,3 @@ If we perform an anti-join of the countries dataset with the violence dataset, w
 # Analysis and Interpretation of Results
 
 # Conclusions
-
-
-
-
-
