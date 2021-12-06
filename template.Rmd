@@ -488,8 +488,8 @@ womens_opp_index <- read_csv("violence_factors/womens-economic-opportunity-2012-
   rename("location" = "Code", "womens_opp_index" = "WEO Index overall score (Economist Intelligence Unit (2012))")
 
 women_opp_index_breakdown <- read_csv("violence_factors/women_opps_index_breakdown.csv") %>% 
-  select(-"NAME", -"Explanation") %>% 
-  rename("name"="INDI_CODE") %>% 
+  select(-"INDI_CODE", -"Explanation") %>% 
+  rename("name"="NAME") %>% 
   mutate(across(where(is.character), ~na_if(., "n/a"),)) %>% 
   mutate(across(!name, ~as.numeric(.))) %>% 
   pivot_longer(!name, names_to="country", values_to="value") %>% 
