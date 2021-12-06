@@ -16,6 +16,9 @@ knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(maps)
 library(ggfortify)
+library(brms)
+library(ggthemes)
+library(lubridate)
 ```
 
 ```{r read-clean-oecd-data}
@@ -423,39 +426,39 @@ If we perform an anti-join of the countries dataset with the violence dataset, w
 
 ## Predicting Prevalence of Violence
 
-```{r read-datasets}
+```{r read-datasets, show_col_types = FALSE}
 # Select prevalence of violence to model it
 prev_viol <- violence_region_coordinates_wide %>% 
-  select(-LAWDOMVIOL, -ATTITUDEVIOL) %>% 
   drop_na(PREVVIOLLIFETIME) 
 
 # Read alcohol consumption
-alcohol_consump <- read_csv("violence_factors/alcohol_consumption_oecd.csv") %>% 
+alcohol_consump <- read_csv("violence_factors/alcohol_consumption_oecd.csv", show_col_types = FALSE) %>% 
   filter(TIME == "2019", FREQUENCY == "A") %>% 
   select("LOCATION", "Value") %>% 
   rename("location" = "LOCATION", "alcohol_consump" = "Value")
 
 # Read child marriage
-child_marriage <- read_csv("violence_factors/child_marriage_rate.csv")  %>% 
+child_marriage <- read_csv("violence_factors/child_marriage_rate.csv", show_col_types = FALSE)  %>% 
   filter(TIME == "2019", FREQUENCY == "A", SUBJECT == "EARMARRIAGE") %>% 
   select("LOCATION", "Value") %>% 
   rename("location" = "LOCATION", "child_marriage" = "Value")
 
-second_enrol <- read_csv("violence_factors/female_second_school_enrol.csv") %>% 
+second_enrol <- read_csv("violence_factors/female_second_school_enrol.csv", show_col_types = FALSE) %>% 
   select("Country Code", "2019 [YR2019]") %>% 
   rename("location" = "Country Code", "second_enrol" = "2019 [YR2019]") %>% 
-  mutate(second_enrol = na_if(second_enrol, ".."))
+  mutate(second_enrol = na_if(second_enrol, ".."),
+         second_enrol = round(as.numeric(second_enrol), 2))
 
-labour_part_rate <- read_csv("violence_factors/female_labour_force_part.csv") %>% 
+labour_part_rate <- read_csv("violence_factors/female_labour_force_part.csv", show_col_types = FALSE) %>% 
   select("ref_area.label", "obs_value") %>% 
   rename("country" = "ref_area.label", "labour_part" = "obs_value")
 
-poverty_rate_oecd <- read_csv("violence_factors/poverty_rate_oecd.csv") %>% 
+poverty_rate_oecd <- read_csv("violence_factors/poverty_rate_oecd.csv", show_col_types = FALSE) %>% 
   filter(SUBJECT == "TOT", TIME == 2019) %>% 
   select("LOCATION", "Value") %>% 
   rename("location" = "LOCATION", "poverty_rate_oecd" = "Value")
 
-unemployment_rate_ILO <- read_csv("violence_factors/unemployment_rate_ILO.csv") %>% 
+unemployment_rate_ILO <- read_csv("violence_factors/unemployment_rate_ILO.csv", show_col_types = FALSE) %>% 
   select("ref_area.label", "obs_value", "sex.label") %>% 
   rename("country" = "ref_area.label", "unemployment_rate" = "obs_value", "sex"="sex.label")
 
@@ -469,12 +472,10 @@ unemployment_rate_female <- unemployment_rate_ILO %>%
   select(-sex) %>% 
   rename("unemployment_female" = "unemployment_rate")
 
-women_in_politics <- read_csv("violence_factors/women_in_politics.csv") %>% 
+women_in_politics <- read_csv("violence_factors/women_in_politics.csv", show_col_types = FALSE) %>% 
   filter(TIME == "2019", FREQUENCY == "A") %>% 
   select("LOCATION", "Value") %>% 
   rename("location" = "LOCATION", "women_in_politics" = "Value")
-
-view(women_in_politics)
 
 # Join alcohol consumption with prev viol
 prev_viol_factors <- prev_viol %>% 
@@ -487,8 +488,30 @@ prev_viol_factors <- prev_viol %>%
   left_join(unemployment_rate_female, by="country") %>% 
   left_join(women_in_politics, by="location")
 
-view(prev_viol_factors)
+glimpse(prev_viol_factors)
+```
+# Correlation Coefficients
 
+```{r}
+round(cor(select_if(prev_viol_factors, is.numeric), use="complete.obs"),
+  digits = 2 # rounded to 2 decimals
+)
+
+```
+
+
+# Predict
+```{r}
+prev_alcohol <- brm(formula = PREVVIOLLIFETIME~ATTITUDEVIOL ,data=prev_viol_factors,refresh=0)
+
+summary(prev_alcohol)
+```
+
+```{r}
+prev_viol_factors %>% 
+  ggplot(mapping=aes(x=ATTITUDEVIOL, y=PREVVIOLLIFETIME)) +
+  geom_point()+
+  theme_tufte()
 ```
 
 ```{r prevliftime-labourpart}
