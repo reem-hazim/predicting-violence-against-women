@@ -491,6 +491,59 @@ view(prev_viol_factors)
 
 ```
 
+```{r prevliftime-labourpart}
+ggplot(data=prev_viol_factors, mapping = aes(x = PREVVIOLLIFETIME, y = labour_part)) + 
+  stat_smooth(method="lm")+
+  geom_point()+
+  labs (
+    title="Prevalence of violence in the lifetime by Labour Participation",
+    x = "Prevalence of violence in the lifetime",
+    y = "Share of Women in the Labour Participation (%)") 
+```
+```{r}
+ggplot(data=prev_viol_factors, 
+       mapping = aes(x = PREVVIOLLIFETIME, y = labour_part, color=IncomeGroup)) + 
+  facet_wrap(~IncomeGroup)+
+  stat_smooth(method="lm")+
+  geom_point()+
+  labs (
+    title="Prevalence of violence in the lifetime by Labour Participation",
+    x = "Prevalence of violence in the lifetime",
+    y = "Share of Women in the Labour Participation (%)") 
+```
+
+
+```{r}
+ggplot(data=prev_viol_factors, mapping = aes(x = PREVVIOLLIFETIME, y = unemployment_female)) + 
+  stat_smooth(method="lm")+
+  geom_point()+
+  labs (
+    title="Prevalence of violence in the lifetime by Female Unemployment",
+    x = "Prevalence of violence in the lifetime",
+    y = "Share of Women Unemployed (%)") 
+```
+
+```{r}
+ggplot(data=prev_viol_factors, 
+       mapping = aes(x = PREVVIOLLIFETIME, y = unemployment_female, color=IncomeGroup)) + 
+  facet_wrap(~IncomeGroup)+
+  stat_smooth(method="lm")+
+  geom_point()+
+  labs (
+    title="Prevalence of violence in the lifetime by Female Unemployment",
+    x = "Prevalence of violence in the lifetime",
+    y = "Share of Women Unemployed (%)") 
+```
+```{r}
+ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = labour_part)) + 
+  stat_smooth(method="lm")+
+  geom_point()+
+  labs (
+    title="Prevalence of violence in the lifetime by Labour Participation",
+    x = "Prevalence of violence in the lifetime",
+    y = "Share of Women in the Labour Participation (%)") 
+```
+
 # Introduction
 
 # Theory/Hypotheses
