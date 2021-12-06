@@ -43,7 +43,6 @@ violence_region_wide <- violence_with_region %>%
   pivot_wider(names_from="indicator", values_from="value") %>% 
   mutate(LAWDOMVIOL = as.character(LAWDOMVIOL)) %>% 
   mutate(LAWDOMVIOL = fct_relevel(LAWDOMVIOL, "0.25", "0.5",  "0.75", "1")) 
-<<<<<<< HEAD
 
 # Reordering group factor levels for IncomeGroup
 violence_region_wide$IncomeGroup <- factor(violence_region_wide$IncomeGroup,
@@ -63,8 +62,7 @@ violence_region_wide$IncomeGroup <- factor(violence_region_wide$IncomeGroup,
 
 #mergeddata1 <- merge(LAWDOMVIOL2019, ATTITUDEVIOL2019, by="LOCATION")
 #finalmergeddata<- merge(mergeddata1,PREVVIOLLIFETIME2019, by="LOCATION" )
-=======
->>>>>>> ab7bde87747188ac8bd389c51b84c3e572d2c91d
+
 ```
 
 ```{r}
