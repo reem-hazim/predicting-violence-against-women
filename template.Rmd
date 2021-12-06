@@ -46,45 +46,128 @@ violence_region_wide <- violence_with_region %>%
   pivot_wider(names_from="indicator", values_from="value") %>% 
   mutate(LAWDOMVIOL = as.character(LAWDOMVIOL)) %>% 
   mutate(LAWDOMVIOL = fct_relevel(LAWDOMVIOL, "0.25", "0.5",  "0.75", "1")) 
+
+# Reordering group factor levels for IncomeGroup
+violence_region_wide$IncomeGroup <- factor(violence_region_wide$IncomeGroup,
+                         levels = c("High income", "Upper middle income", "Lower middle income", "Low income"))
+
+#LAWDOMVIOL2019 <- violence_with_region %>% 
+ # filter(SUBJECT=="LAWDOMVIOL", TIME==2019) %>% 
+ # mutate(LAWDOMVIOL=Value)
+
+#ATTITUDEVIOL2019 <- violence_with_region %>% 
+ # filter(SUBJECT=="ATTITUDEVIOL", TIME==2019) %>% 
+ # mutate(ATTITUDEVIOL=Value)
+
+#PREVVIOLLIFETIME2019 <- violence_with_region %>% 
+# filter(SUBJECT=="PREVVIOLLIFETIME", TIME==2019) %>% 
+#  mutate(PREVVIOLLIFETIME=Value)
+
+#mergeddata1 <- merge(LAWDOMVIOL2019, ATTITUDEVIOL2019, by="LOCATION")
+#finalmergeddata<- merge(mergeddata1,PREVVIOLLIFETIME2019, by="LOCATION" )
+
 ```
 
 ```{r}
 #Exploring LAWDOMVIOL by region and incomegroup
-ggplot(violence_region_wide)+
-  geom_bar(mapping=aes(x=LAWDOMVIOL))+
-  facet_wrap(~IncomeGroup)
+ggplot(violence_region_wide, aes(x=LAWDOMVIOL, fill=IncomeGroup))+
+  geom_bar()+
+  facet_wrap(~IncomeGroup)+
+  theme(legend.position = "none")+
+  labs (
+    title="Laws on Domestic Violence by Country Income Group",
+    subtitle="where the closer to 1, the more laws or practices discriminate against women’s 
+rights",
+    x="Laws on Domestic Violence Indicator",
+    y="Count"
+  )
+  
+## all regression models should run in the same dataset! pay attention to NA's
 ```
-
+#Analysis of Grap 1: Laws on Domestic Violence by Country Income Group
+#The graph shows that most countries, regardless of income group, fall in the "0.75" measure for Laws on Domestic Violence. That means that their laws and practices are unsuficcient to garantee the well-being of women. It is evident that even though there are few countries in which the number reaches the value 1 (laws and practices are completely discriminatory against women), the realization that most countries in the global still have unsuficcient laws that protect women's rights is incredibly worrying. We can also observe that there are more countries with better laws and practices for women's rights among high income countries (that is, countries in which the indicator equals 0.25). This also holds true in a lesser extent for upper middle income countries. For both lower middle income and low income, however, there seems to be more countries in the 0.5 and 0.75 levels then in the 0.25. This unvels a pattern that establishes that higher income coutries, despite also having large number of countries that have a indicator of law on domestic violence equal to 0.75, have also higher number of countries that have a somewhat benefitial laws and practices against domestic violence. However, this does not seem to be a causal effect. It is highly unlikely that a countrie's income group alone establishes the laws on domestic violence, but it points us in the direction of establishing a connection between higher levels of economic develpment and better legislation on domestic violence.
 ```{r}
 ggplot(violence_region_wide)+
-  geom_bar(mapping=aes(x=LAWDOMVIOL))+
-  facet_wrap(~Region)
+  geom_bar(mapping=aes(x=LAWDOMVIOL, fill=Region))+
+  facet_wrap(~Region, ncol=3)+
+  theme(legend.position = "none")+
+  labs (
+    title="Laws on Domestic Violence by Region of the World",
+    subtitle="where the closer to 1, the more laws or practices discriminate against women’s 
+rights",
+    x="Laws on Domestic Violence Indicator",
+    y="Count"
+  )
+?filter
+filter(violence_region_wide, IncomeGroup=="High income")
+#48 high income countries
+filter(violence_region_wide, IncomeGroup=="Upper middle income")
+#43 upper middle income
+filter(violence_region_wide, IncomeGroup=="Low income")
+#25 Low income countries
+filter(violence_region_wide, IncomeGroup=="Lower middle income")
+#45 lower middle income countries
 ```
+
+The problem with doing this split by regions is that the number of countries per category fluctuates a lot. There are only two high income countries compared to many Sub-Saharan African countries, which limit our possibilities of seeing patterns. 
 
 ```{r}
 #Exploring ATTITUDEVIOL by region and incomegroup
 ggplot(violence_region_wide)+
-  geom_histogram(mapping=aes(x=ATTITUDEVIOL))+
-  facet_wrap(~IncomeGroup)
+  geom_histogram(mapping=aes(x=ATTITUDEVIOL, fill=IncomeGroup))+
+  facet_wrap(~IncomeGroup)+
+  theme(legend.position = "none")+
+  labs (
+    title="Attitude toward violence by Income Group",
+    subtitle="The percentage of women who agree that a husband/partner is justified in 
+beating his wife/partner under certain circumstances",
+    x="Share of Women (%)",
+    y="Count"
+  )
 ```
-
+There seems to be a clear association between attitude towards violence against women and a countrie's group income. High and upper middle income countries seem to have a lower share of women who agree that the husband is justified in inflicted violence in their wives. What are the cultural, social, and political factors that seem to change that attitude in lower middle and low income countries?
 ```{r}
 ggplot(violence_region_wide)+
-  geom_histogram(mapping=aes(x=ATTITUDEVIOL))+
-  facet_wrap(~Region)
+  geom_histogram(mapping=aes(x=ATTITUDEVIOL, fill=Region))+
+  facet_wrap(~Region)+
+  theme(legend.position = "none")+
+  labs (
+    title="Attitude toward violence by Region",
+    subtitle="The percentage of women who agree that a husband/partner is justified in 
+beating his wife/partner under certain circumstances",
+    x="Share of Women (%)",
+    y="Count"
+  )
 ```
 
 ```{r}
 #Exploring PREVVLIFETIME by region and incomegroup
 ggplot(violence_region_wide)+
-  geom_histogram(mapping=aes(x=PREVVIOLLIFETIME))+
-  facet_wrap(~IncomeGroup)
+  geom_histogram(mapping=aes(x=PREVVIOLLIFETIME, fill=IncomeGroup))+
+  facet_wrap(~IncomeGroup)+
+  theme(legend.position = "none")+
+  labs (
+    title="Prevalence of violence in the lifetime by IncomeGroup",
+    subtitle="The percentage of women who have experienced physical and/or sexual 
+violence from an intimate partner at some time in their life",
+    x="Share of Women (%)",
+    y="Count"
+  )
+  
 ```
 
 ```{r}
 ggplot(violence_region_wide)+
-  geom_histogram(mapping=aes(x=PREVVIOLLIFETIME), bins=40)+
-  facet_wrap(~Region)
+  geom_histogram(mapping=aes(x=PREVVIOLLIFETIME, fill=Region), bins=40)+
+  facet_wrap(~Region)+
+  theme(legend.position = "none")+
+  labs (
+    title="Prevalence of violence in the lifetime by Region",
+    subtitle="The percentage of women who have experienced physical and/or sexual 
+violence from an intimate partner at some time in their life",
+    x="Share of Women (%)",
+    y="Count"
+  )
 ```
 
 ```{r}
@@ -103,7 +186,24 @@ ggplot(violence_region_wide, aes(x = LAWDOMVIOL, y = ATTITUDEVIOL, color=Region)
 ggplot(violence_region_wide, 
        aes(x = LAWDOMVIOL, 
            fill = IncomeGroup)) + 
-  geom_bar(position = "stack")
+  geom_bar(position = "fill")+
+labs (
+   title="Laws on Domestic Violence by Country Income Group",
+    subtitle="where the closer to 1, the more laws or practices discriminate against 
+women’s rights",
+    x="Laws on Domestic Violence Indicator",
+    y="Count"
+  )
+
+#ggplot(violence_region_wide, 
+#       aes(x = LAWDOMVIOL, 
+#           fill = IncomeGroup)) + 
+# geom_bar(position = "dodge")
+
+#ggplot(violence_region_wide, 
+#       aes(x = LAWDOMVIOL, 
+#           fill = IncomeGroup)) + 
+ # geom_bar(position = "stack")
 ```
 
 ```{r}
@@ -111,7 +211,15 @@ ggplot(violence_region_wide,
        aes(x = ATTITUDEVIOL, 
            fill = IncomeGroup,
            )) + 
-  geom_histogram(position = "stack", bins=50)
+  geom_histogram(alpha=0.8, position = "stack", bins=50)+
+ labs(
+   title="Prevalence of violence in the lifetime by Region",
+    subtitle="The percentage of women who have experienced physical and/or sexual 
+violence from an intimate partner at some time in their life",
+    x="Share of Women (%)",
+    y="Count"
+)
+  
 ```
 
 ```{r}
@@ -119,31 +227,34 @@ ggplot(violence_region_wide,
        aes(x = PREVVIOLLIFETIME, 
            fill = IncomeGroup,
            )) + 
-  geom_histogram(position = "stack", bins=50)
+  geom_histogram(alpha=0.8, position = "stack", bins=50)+
+  labs (
+    title="Prevalence of violence in the lifetime by income group",
+    subtitle="The percentage of women who have experienced physical and/or sexual 
+violence from an intimate partner at some time in their life",
+    x="Share of Women (%)",
+    y="Count"
+  )
 ```
 
 ```{r}
 #barstack by region 
 
-ggplot(violence_region_wide, 
-       aes(x = LAWDOMVIOL, 
-           fill = Region)) + 
-  geom_bar(position = "stack")
+##this is not very useful
+#ggplot(violence_region_wide, 
+#       aes(x = LAWDOMVIOL, 
+ #          fill = Region)) + 
+#  geom_bar(position = "dodge")
 
-ggplot(violence_region_wide, 
-       aes(x = PREVVIOLLIFETIME, 
-           fill = Region)) + 
-  geom_histogram(position = "stack")
+#ggplot(violence_region_wide, 
+     #  aes(x = PREVVIOLLIFETIME, 
+      #     fill = Region)) + 
+#  geom_histogram(position = "stack")
 
-ggplot(violence_region_wide, 
-       aes(x = ATTITUDEVIOL, 
-           fill = Region)) + 
-  geom_bar(position = "stack")
-
-##mi
-
-ggplot(violence_region_wide, aes(ATTITUDEVIOL, after_stat(density), colour = IncomeGroup)) +
-  geom_freqpoly(binwidth = 50)
+#ggplot(violence_region_wide, 
+#       aes(x = ATTITUDEVIOL, 
+ #          fill = Region)) + 
+ # geom_bar(position = "stack")
 
 ```
 
