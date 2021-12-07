@@ -429,7 +429,8 @@ If we perform an anti-join of the countries dataset with the violence dataset, w
 ```{r read-datasets, show_col_types = FALSE}
 # Select prevalence of violence to model it
 prev_viol <- violence_region_coordinates_wide %>% 
-  drop_na(PREVVIOLLIFETIME) 
+  drop_na(PREVVIOLLIFETIME) %>% 
+  mutate(LAWDOMVIOL = as.numeric(LAWDOMVIOL))
 
 # Read alcohol consumption
 alcohol_consump <- read_csv("violence_factors/alcohol_consumption_oecd.csv", show_col_types = FALSE) %>% 
@@ -477,6 +478,23 @@ women_in_politics <- read_csv("violence_factors/women_in_politics.csv", show_col
   select("LOCATION", "Value") %>% 
   rename("location" = "LOCATION", "women_in_politics" = "Value")
 
+poverty_rate_world_bank <- read_csv("violence_factors/poverty_rate_world_bank.csv", show_col_types = FALSE) 
+  #filter(TIME == "2019", FREQUENCY == "A") %>% 
+  #select("LOCATION", "Value") %>% 
+  #rename("location" = "LOCATION", "women_in_politics" = "Value")
+
+womens_opp_index <- read_csv("violence_factors/womens-economic-opportunity-2012-index.csv") %>% 
+  select(-Entity, -Year) %>% 
+  rename("location" = "Code", "womens_opp_index" = "WEO Index overall score (Economist Intelligence Unit (2012))")
+
+women_opp_index_breakdown <- read_csv("violence_factors/women_opps_index_breakdown.csv") %>% 
+  select(-"INDI_CODE", -"Explanation") %>% 
+  rename("name"="NAME") %>% 
+  mutate(across(where(is.character), ~na_if(., "n/a"),)) %>% 
+  mutate(across(!name, ~as.numeric(.))) %>% 
+  pivot_longer(!name, names_to="country", values_to="value") %>% 
+  pivot_wider(names_from=name, values_from=value)
+
 # Join alcohol consumption with prev viol
 prev_viol_factors <- prev_viol %>% 
   left_join(alcohol_consump, by="location") %>% 
@@ -486,10 +504,13 @@ prev_viol_factors <- prev_viol %>%
   left_join(poverty_rate_oecd, by="location") %>% 
   left_join(unemployment_rate_male, by="country") %>% 
   left_join(unemployment_rate_female, by="country") %>% 
-  left_join(women_in_politics, by="location")
+  left_join(women_in_politics, by="location") %>% 
+  left_join(womens_opp_index, by="location") %>% 
+  left_join(women_opp_index_breakdown, by="country")
 
 glimpse(prev_viol_factors)
 ```
+
 # Correlation Coefficients
 
 ```{r}
@@ -502,9 +523,9 @@ round(cor(select_if(prev_viol_factors, is.numeric), use="complete.obs"),
 
 # Predict
 ```{r}
-prev_alcohol <- brm(formula = PREVVIOLLIFETIME~ATTITUDEVIOL ,data=prev_viol_factors,refresh=0)
+prev_opp_index <- brm(formula = ATTITUDEVIOL~womens_opp_index,data=prev_viol_factors,refresh=0)
 
-summary(prev_alcohol)
+summary(prev_opp_index)
 ```
 
 ```{r}
@@ -513,6 +534,28 @@ prev_viol_factors %>%
   geom_point()+
   theme_tufte()
 ```
+```{r}
+ggplot(data=prev_viol_factors, mapping = aes(x = womens_opp_index, y = ATTITUDEVIOL, color=IncomeGroup)) + 
+  stat_smooth(method="lm")+
+  facet_wrap(~IncomeGroup)+
+  geom_point()+
+  labs (
+    title="Attitude Towards Violence by Women Opportunities Index",
+    x = "Women Opportunities Index",
+    y = "Attitude Towards Violence")
+```
+
+```{r}
+ggplot(data=prev_viol_factors, mapping = aes(x = LAWDOMVIOL, y = ATTITUDEVIOL, color=IncomeGroup)) + 
+  stat_smooth(method="lm")+
+  facet_wrap(~IncomeGroup)+
+  geom_point()+
+  labs (
+    title="Laws on Domestic Violence by Attitude Towards Violence",
+    x = "Laws on Domestic Violence",
+    y = "Attitude Towards Violence")
+```
+
 
 ```{r prevliftime-labourpart}
 ggplot(data=prev_viol_factors, mapping = aes(x = PREVVIOLLIFETIME, y = labour_part)) + 
