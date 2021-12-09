@@ -70,6 +70,7 @@ violence_region_wide$IncomeGroup <- factor(violence_region_wide$IncomeGroup,
 
 ```{r}
 #Exploring LAWDOMVIOL by region and incomegroup
+violence_region_wide <- na.omit(violence_region_wide)
 ggplot(violence_region_wide, aes(x=LAWDOMVIOL, fill=IncomeGroup))+
   geom_bar()+
   facet_wrap(~IncomeGroup)+
@@ -601,14 +602,10 @@ ggplot(data=prev_viol_factors,
     y = "Share of Women Unemployed (%)") 
 ```
 
-
 ```{r}
-install.packages("stargazer")
-library (stargazer)
-stargazer(data=prev_viol, type="text")
-stargazer(as.data.frame(prev_viol_factors, type = "html"))
-
+fit1 <- lm(y ~ x1 + x2 + x3 + x4, data=mydata)
 ```
+
 
 
 # Introduction
