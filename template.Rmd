@@ -603,10 +603,60 @@ ggplot(data=prev_viol_factors,
 ```
 
 ```{r}
-fit1 <- lm(y ~ x1 + x2 + x3 + x4, data=mydata)
+#geom_text()
+names(prev_viol_factors)[names(prev_viol_factors) == "LABOUR POLICY AND PRACTICE"] <- "labourpolicy"
+names(prev_viol_factors)[names(prev_viol_factors) == "ACCESS TO FINANCE"] <- "accessfinance"
+names(prev_viol_factors)[names(prev_viol_factors) == "EDUCATION AND TRAINING"] <- "educationtraining"
+names(prev_viol_factors)[names(prev_viol_factors) == "WOMEN'S LEGAL AND SOCIAL STATUS"] <- "legalstatus"
 ```
 
 
+PLOTTING ATTITUDE VIOLENCE AND LABOUR POLICY AND PRACTICE, ACCESS TO FINANCE, EDUCATION AND TRAINING AND WOMENS LEGAL STATUS 
+
+```{r}
+ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = labourpolicy)) + 
+  stat_smooth(method="lm")+
+  geom_point()
+```
+```{r}
+ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = accessfinance)) + 
+  stat_smooth(method="lm")+
+  geom_point()
+```
+```{r}
+ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = educationtraining)) + 
+  stat_smooth(method="lm")+
+  geom_point()
+```
+
+```{r}
+ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = legalstatus)) + 
+  stat_smooth(method="lm")+
+  geom_point()
+```
+
+PLOTTING PREVLIFTIME AND LABOUR POLICY AND PRACTICE, ACCESS TO FINANCE, EDUCATION AND TRAINING AND WOMENS LEGAL STATUS 
+```{r}
+ ggplot(data=prev_viol_factors, mapping = aes(x = PREVVIOLLIFETIME, y = labourpolicy)) + 
+  stat_smooth(method="lm")+
+  geom_point()
+```
+
+```{r}
+ ggplot(data=prev_viol_factors, mapping = aes(x = PREVVIOLLIFETIME, y = accessfinance)) + 
+  stat_smooth(method="lm")+
+  geom_point()
+```
+```{r}
+ ggplot(data=prev_viol_factors, mapping = aes(x = PREVVIOLLIFETIME, y = educationtraining)) + 
+  stat_smooth(method="lm")+
+  geom_point()
+```
+```{r}
+ggplot(data=prev_viol_factors, mapping = aes(x = PREVVIOLLIFETIME, y = legalstatus)) + 
+  stat_smooth(method="lm")+
+  geom_point()
+```
 
 # Introduction
 
