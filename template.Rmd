@@ -1,12 +1,11 @@
 ---
-title: "Untitled"
+title: "Predicting Violence Against Women Using Women's Opportunities Index"
 description: |
-  A new article created using the Distill format.
+  We use indicators from the women's opportunities index to predict the prevalence of violence against women.
 author:
-  - name: Nora Jones 
-    url: https://example.com/norajones
-    affiliation: Spacely Sprockets
-    affiliation_url: https://example.com/spacelysprokets
+  - name: Reem Hazim
+  - name: Lucas De Lellis
+  - name: Lateefa Al AlRemeithi 
 date: "`r Sys.Date()`"
 output: distill::distill_article
 ---
@@ -78,8 +77,7 @@ ggplot(violence_region_wide, aes(x=LAWDOMVIOL, fill=IncomeGroup))+
   theme(legend.position = "none")+
   labs (
     title="Laws on Domestic Violence by Country Income Group",
-    subtitle="where the closer to 1, the more laws or practices discriminate against women’s 
-rights",
+    subtitle="On a scale of 0 to 1, where 1 indicates that the laws completely discriminate against women’s rights",
     x="Laws on Domestic Violence Indicator",
     y="Count"
   )
@@ -181,7 +179,7 @@ violence from an intimate partner at some time in their life",
 
 ggplot(violence_region_wide, aes(x = LAWDOMVIOL, y = ATTITUDEVIOL, color=Region)) +
   geom_point(alpha=0.5)+
-  labs(title = "Relationship between Law on domestic violence and attitudes towards violence", x = "Law on domestic violence", y = "attitudes towards violence")
+  labs(title = "Law on domestic violence VS Attitudes Towards Violence", x = "Law on domestic violence", y = "attitudes towards violence")
 ```
 
 ```{r}
@@ -469,7 +467,9 @@ labour_part_rate <- read_csv("violence_factors/female_labour_force_part.csv", sh
   rename("country" = "ref_area.label", "labour_part" = "obs_value")
 
 poverty_rate_oecd <- read_csv("violence_factors/poverty_rate_oecd.csv", show_col_types = FALSE) %>% 
-  filter(SUBJECT == "TOT", TIME == 2019) %>% 
+  filter(SUBJECT == "TOT") %>% 
+  group_by(LOCATION) %>%
+  filter(TIME == max(TIME)) %>%
   select("LOCATION", "Value") %>% 
   rename("location" = "LOCATION", "poverty_rate_oecd" = "Value")
 
@@ -492,18 +492,13 @@ women_in_politics <- read_csv("violence_factors/women_in_politics.csv", show_col
   select("LOCATION", "Value") %>% 
   rename("location" = "LOCATION", "women_in_politics" = "Value")
 
-poverty_rate_world_bank <- read_csv("violence_factors/poverty_rate_world_bank.csv", show_col_types = FALSE) 
-  #filter(TIME == "2019", FREQUENCY == "A") %>% 
-  #select("LOCATION", "Value") %>% 
-  #rename("location" = "LOCATION", "women_in_politics" = "Value")
-
 womens_opp_index <- read_csv("violence_factors/womens-economic-opportunity-2012-index.csv", show_col_types=FALSE) %>% 
   select(-Entity, -Year) %>% 
   rename("location" = "Code", "womens_opp_index" = "WEO Index overall score (Economist Intelligence Unit (2012))")
 
 women_opp_index_breakdown <- read_csv("violence_factors/women_opps_index_breakdown.csv", show_col_types=FALSE) %>% 
   select(-"INDI_CODE", -"Explanation") %>% 
-  rename("name"="NAME") %>% 
+  rename("name"="NAME", ) %>% 
   mutate(across(where(is.character), ~na_if(., "n/a"),)) %>% 
   mutate(across(!name, ~as.numeric(.))) %>% 
   pivot_longer(!name, names_to="country", values_to="value") %>% 
@@ -557,8 +552,35 @@ corrplot(corr_matrix, method="color", tl.col="black", tl.srt=45, type="upper", p
 
 
 # Regression Model
+
+## Child Marriage Regression Model
 ```{r message=FALSE, warning=FALSE}
-prev_opp_index <- brm(formula = ATTITUDEVIOL~child_marriage,data=prev_viol_factors,refresh=0)
+child_marriage_reg <- brm(formula = ATTITUDEVIOL~child_marriage,data=prev_viol_factors,refresh=0)
+
+summary(child_marriage_reg)
+plot(child_marriage_reg)
+```
+
+## Labour Participation Rate Regression Model
+```{r message=FALSE, warning=FALSE}
+labour_part_reg <- brm(formula = PREVVIOLLIFETIME~labour_part,data=prev_viol_factors,refresh=0)
+
+summary(labour_part_reg)
+plot(labour_part_reg)
+```
+
+## Women's Opportunities Index Regression Model
+
+```{r message=FALSE, warning=FALSE}
+prev_opp_index <- brm(formula = prev_viol~womens_opp_index, data=relevant_factors,refresh=0)
+
+summary(prev_opp_index)
+plot(prev_opp_index)
+```
+
+## Women's Education Regression Model
+```{r message=FALSE, warning=FALSE}
+prev_opp_index <- brm(formula = prev_viol~education, data=relevant_factors,refresh=0)
 
 summary(prev_opp_index)
 plot(prev_opp_index)
