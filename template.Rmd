@@ -71,6 +71,7 @@ violence_region_wide$IncomeGroup <- factor(violence_region_wide$IncomeGroup,
 
 ```{r layout="l-body-outset"}
 #Exploring LAWDOMVIOL by region and incomegroup
+violence_region_wide <- na.omit(violence_region_wide)
 ggplot(violence_region_wide, aes(x=LAWDOMVIOL, fill=IncomeGroup))+
   geom_bar()+
   facet_wrap(~IncomeGroup)+
@@ -586,6 +587,106 @@ ggplot(data=prev_viol_factors, mapping = aes(x = LAWDOMVIOL, y = ATTITUDEVIOL, c
     y = "Attitude Towards Violence")
 ```
 
+
+```{r prevliftime-labourpart}
+ggplot(data=prev_viol_factors, mapping = aes(x = PREVVIOLLIFETIME, y = labour_part)) + 
+  stat_smooth(method="lm")+
+  geom_point()+
+  labs (
+    title="Prevalence of violence in the lifetime by Labour Participation",
+    x = "Prevalence of violence in the lifetime",
+    y = "Share of Women in the Labour Participation (%)") 
+```
+```{r}
+ggplot(data=prev_viol_factors, 
+       mapping = aes(x = PREVVIOLLIFETIME, y = labour_part, color=IncomeGroup)) + 
+  facet_wrap(~IncomeGroup)+
+  stat_smooth(method="lm")+
+  geom_point()+
+  labs (
+    title="Prevalence of violence in the lifetime by Labour Participation",
+    x = "Prevalence of violence in the lifetime",
+    y = "Share of Women in the Labour Participation (%)") 
+```
+
+
+```{r}
+ggplot(data=prev_viol_factors, mapping = aes(x = PREVVIOLLIFETIME, y = unemployment_female)) + 
+  stat_smooth(method="lm")+
+  geom_point()+
+  labs (
+    title="Prevalence of violence in the lifetime by Female Unemployment",
+    x = "Prevalence of violence in the lifetime",
+    y = "Share of Women Unemployed (%)") 
+```
+
+```{r}
+ggplot(data=prev_viol_factors, 
+       mapping = aes(x = PREVVIOLLIFETIME, y = unemployment_female, color=IncomeGroup)) + 
+  facet_wrap(~IncomeGroup)+
+  stat_smooth(method="lm")+
+  geom_point()+
+  labs (
+    title="Prevalence of violence in the lifetime by Female Unemployment",
+    x = "Prevalence of violence in the lifetime",
+    y = "Share of Women Unemployed (%)") 
+```
+
+```{r}
+#geom_text()
+names(prev_viol_factors)[names(prev_viol_factors) == "LABOUR POLICY AND PRACTICE"] <- "labourpolicy"
+names(prev_viol_factors)[names(prev_viol_factors) == "ACCESS TO FINANCE"] <- "accessfinance"
+names(prev_viol_factors)[names(prev_viol_factors) == "EDUCATION AND TRAINING"] <- "educationtraining"
+names(prev_viol_factors)[names(prev_viol_factors) == "WOMEN'S LEGAL AND SOCIAL STATUS"] <- "legalstatus"
+```
+
+
+PLOTTING ATTITUDE VIOLENCE AND LABOUR POLICY AND PRACTICE, ACCESS TO FINANCE, EDUCATION AND TRAINING AND WOMENS LEGAL STATUS 
+
+```{r}
+ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = labourpolicy)) + 
+  stat_smooth(method="lm")+
+  geom_point()
+```
+```{r}
+ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = accessfinance)) + 
+  stat_smooth(method="lm")+
+  geom_point()
+```
+```{r}
+ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = educationtraining)) + 
+  stat_smooth(method="lm")+
+  geom_point()
+```
+
+```{r}
+ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = legalstatus)) + 
+  stat_smooth(method="lm")+
+  geom_point()
+```
+
+PLOTTING PREVLIFTIME AND LABOUR POLICY AND PRACTICE, ACCESS TO FINANCE, EDUCATION AND TRAINING AND WOMENS LEGAL STATUS 
+```{r}
+ ggplot(data=prev_viol_factors, mapping = aes(x = PREVVIOLLIFETIME, y = labourpolicy)) + 
+  stat_smooth(method="lm")+
+  geom_point()
+```
+
+```{r}
+ ggplot(data=prev_viol_factors, mapping = aes(x = PREVVIOLLIFETIME, y = accessfinance)) + 
+  stat_smooth(method="lm")+
+  geom_point()
+```
+```{r}
+ ggplot(data=prev_viol_factors, mapping = aes(x = PREVVIOLLIFETIME, y = educationtraining)) + 
+  stat_smooth(method="lm")+
+  geom_point()
+```
+```{r}
+ggplot(data=prev_viol_factors, mapping = aes(x = PREVVIOLLIFETIME, y = legalstatus)) + 
+  stat_smooth(method="lm")+
+  geom_point()
+```
 
 # Introduction
 
