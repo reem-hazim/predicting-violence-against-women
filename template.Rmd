@@ -109,6 +109,7 @@ ggplot(violencedata, aes(x = PREVVIOLLIFETIME, y = ATTITUDEVIOL)) +
   geom_point()+
   labs(title = "Relationship between Prevelance on lifteime and attitudes towards violence", x = "Prevalance on lifetime", y = "attitudes towards violence")
 ```
+Relationship between Prevalence on lifetime and attitudes towards violence. Analysis: The relationship between prevalence on lifetime and attitudes towards violence in this data set is sporadic however there is a clear visible relationship that there is a positive correlation between the two. When there is higher prevalence on lifetime the attitudes towards violence is also high & vice versa. 
 
 # Introduction
 
