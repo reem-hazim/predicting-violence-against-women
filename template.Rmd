@@ -590,7 +590,7 @@ plot(prev_opp_index)
 ```{r}
 ### Regression For Labour, Policy and Practice 
 
-labour_policy_practice_reg <- brm(formula= ATTITUDEVIOL ~ LABOURPOLICYANDPRACTICE, data= prev_viol_factors, refresh =0)
+labour_policy_practice_reg <- brm(formula= ATTITUDEVIOL ~ ``, data= prev_viol_factors, refresh =0)
 
 summary(labour_policy_practice_reg)
 plot(labour_policy_practice_reg)
