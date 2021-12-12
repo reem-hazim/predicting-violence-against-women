@@ -593,9 +593,7 @@ plot(prev_opp_index)
 labour_policy_practice_reg <- brm(formula= attitude ~ labour_policy, data= relevant_factors, refresh =0)
 
 summary(labour_policy_practice_reg)
-reg_plot <- plot(labour_policy_practice_reg)
-
-ggsave("labour_policy_practice_reg.png", plot=reg_plot)
+plot(labour_policy_practice_reg)
 
 ```
 
