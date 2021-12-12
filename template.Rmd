@@ -612,27 +612,59 @@ names(prev_viol_factors)[names(prev_viol_factors) == "WOMEN'S LEGAL AND SOCIAL S
 
 
 PLOTTING ATTITUDE VIOLENCE AND LABOUR POLICY AND PRACTICE, ACCESS TO FINANCE, EDUCATION AND TRAINING AND WOMENS LEGAL STATUS 
+```{r}
+
+```
+
 
 ```{r}
 ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = labourpolicy)) + 
   stat_smooth(method="lm")+
-  geom_point()
+  geom_point()+
+   labs (
+    title="Attitude Towards Violence by Labour Policy and Practice",
+    subtitle = "Share of Women (%) who agrees violence is justifibiable 
+by how favorable is labour policy and practice (0-100) to women",
+    x = "Attitude Towards Violence",
+    y = "Labour Policy and Practice")
+ggsave("plot1.png", last_plot())
 ```
 ```{r}
 ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = accessfinance)) + 
   stat_smooth(method="lm")+
-  geom_point()
+  geom_point()+
+  labs (
+    title="Attitude Towards Violence by Access to Finance",
+    subtitle = "Share of Women (%) who agrees violence is justifibiable 
+by how favorable is access to finance (0-100) to women",
+    x = "Attitude Towards Violence",
+    y = "Access to Finance")
+ggsave("plot2.png", last_plot())
 ```
 ```{r}
 ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = educationtraining)) + 
   stat_smooth(method="lm")+
-  geom_point()
+  geom_point()+
+  labs (
+    title="Attitude Towards Violence by Education and Training",
+    subtitle = "Share of Women (%) who agrees violence is justifibiable 
+by how favorable is Education and Traning (0-100) to women",
+    x = "Attitude Towards Violence",
+    y = "Education and Training")
+ggsave("plot3.png", last_plot())
 ```
 
 ```{r}
 ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = legalstatus)) + 
   stat_smooth(method="lm")+
-  geom_point()
+  geom_point()+
+  labs (
+    title="Attitude Towards Violence by Legal Status",
+    subtitle = "Share of Women (%) who agrees violence is justifibiable 
+by how favorable is women's legal stats (0-100)",
+    x = "Attitude Towards Violence",
+    y = "Women's Legal Status")
+ggsave("plot4.png", last_plot())
 ```
 
 PLOTTING PREVLIFTIME AND LABOUR POLICY AND PRACTICE, ACCESS TO FINANCE, EDUCATION AND TRAINING AND WOMENS LEGAL STATUS 
