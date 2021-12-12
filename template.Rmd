@@ -590,37 +590,41 @@ plot(prev_opp_index)
 ```{r}
 ### Regression For Labour, Policy and Practice 
 
-labour_policy_practice_reg <- brm(formula= ATTITUDEVIOL ~ ``, data= prev_viol_factors, refresh =0)
+labour_policy_practice_reg <- brm(formula= attitude ~ labour_policy, data= relevant_factors, refresh =0)
 
 summary(labour_policy_practice_reg)
 plot(labour_policy_practice_reg)
+
 ```
 
 ```{r}
 ### Regression on Education and Training 
 
-edu_training_reg <- brm(formula = ATTITUDEVIOL ~ EDUCATIONANDTRAINING, data= prev_viol_factors, refresh=0)
+edu_training_reg <- brm(formula = attitude ~ education, data= relevant_factors, refresh=0)
 
 summary(edu_training_reg)
 plot(edu_training_reg)
+
 ```
 
 ```{r}
 ### Regression on Access To Finance 
 
-access_finance_reg <- brm(formula = ATTITUDEVIOL ~ ACCESSTOFINANCE, data= prev_viol_factors, refresh=0)
+access_finance_reg <- brm(formula = attitude ~ finance_access, data= relevant_factors, refresh=0)
 
 summary(access_finance_reg)
 plot(access_finance_reg)
+
 ```
 
 ```{r}
 ### Regression on Women's Legal and Social Status 
 
-women_legal_social_status_reg <- brm(formula= ATTITUDEVIOL ~ WOMENSLEGALANDSOCIALSTATUS, data= prev_viol_factors, refresh=0)
+women_legal_social_status_reg <- brm(formula= attitude ~ legal_status, data= relevant_factors, refresh=0)
 
 summary(women_legal_social_status_reg)
 plot(women_legal_social_status_reg)
+
 ```
 
 # Plot
