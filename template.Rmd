@@ -564,7 +564,7 @@ plot(child_marriage_reg)
 
 ## Labour Participation Rate Regression Model
 ```{r message=FALSE, warning=FALSE}
-labour_part_reg <- brm(formula = PREVVIOLLIFETIME~labour_part,data=prev_viol_factors,refresh=0)
+labour_part_reg <- brm(formula = ATTITUDEVIOL~labour_part,data=prev_viol_factors,refresh=0)
 
 summary(labour_part_reg)
 plot(labour_part_reg)
@@ -585,6 +585,42 @@ prev_opp_index <- brm(formula = prev_viol~education, data=relevant_factors,refre
 
 summary(prev_opp_index)
 plot(prev_opp_index)
+```
+
+```{r}
+### Regression For Labour, Policy and Practice 
+
+labour_policy_practice_reg <- brm(formula= ATTITUDEVIOL ~ LABOURPOLICYANDPRACTICE, data= prev_viol_factors, refresh =0)
+
+summary(labour_policy_practice_reg)
+plot(labour_policy_practice_reg)
+```
+
+```{r}
+### Regression on Education and Training 
+
+edu_training_reg <- brm(formula = ATTITUDEVIOL ~ EDUCATIONANDTRAINING, data= prev_viol_factors, refresh=0)
+
+summary(edu_training_reg)
+plot(edu_training_reg)
+```
+
+```{r}
+### Regression on Access To Finance 
+
+access_finance_reg <- brm(formula = ATTITUDEVIOL ~ ACCESSTOFINANCE, data= prev_viol_factors, refresh=0)
+
+summary(access_finance_reg)
+plot(access_finance_reg)
+```
+
+```{r}
+### Regression on Women's Legal and Social Status 
+
+women_legal_social_status_reg <- brm(formula= ATTITUDEVIOL ~ WOMENSLEGALANDSOCIALSTATUS, data= prev_viol_factors, refresh=0)
+
+summary(women_legal_social_status_reg)
+plot(women_legal_social_status_reg)
 ```
 
 # Plot
