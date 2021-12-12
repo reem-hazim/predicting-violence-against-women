@@ -1,12 +1,11 @@
 ---
-title: "Untitled"
+title: "Predicting Violence Against Women Using Women's Opportunities Index"
 description: |
-  A new article created using the Distill format.
+  We use indicators from the women's opportunities index to predict the prevalence of violence against women.
 author:
-  - name: Nora Jones 
-    url: https://example.com/norajones
-    affiliation: Spacely Sprockets
-    affiliation_url: https://example.com/spacelysprokets
+  - name: Reem Hazim
+  - name: Lucas De Lellis
+  - name: Lateefa Al AlRemeithi 
 date: "`r Sys.Date()`"
 output: distill::distill_article
 ---
@@ -19,11 +18,12 @@ library(ggfortify)
 library(brms)
 library(ggthemes)
 library(lubridate)
+library(corrplot)
 ```
 
 ```{r read-clean-oecd-data}
 oecd_violence <- 
-  read_csv("violence.csv") %>% 
+  read_csv("violence.csv", show_col_types=FALSE) %>% 
   filter(TIME=="2019") %>% 
   select(LOCATION, SUBJECT, Value) %>% 
   rename(location=LOCATION, indicator=SUBJECT, value=Value)
@@ -32,7 +32,7 @@ oecd_violence <-
 ```{r join-regions-data}
 # Reading continents/regions data
 regions_data<-
-  read_csv("regionsdata.csv") %>% 
+  read_csv("regionsdata.csv", show_col_types=FALSE) %>% 
   select(-"...6", -"SpecialNotes")
 
 
@@ -68,7 +68,7 @@ violence_region_wide$IncomeGroup <- factor(violence_region_wide$IncomeGroup,
 
 ```
 
-```{r}
+```{r layout="l-body-outset"}
 #Exploring LAWDOMVIOL by region and incomegroup
 violence_region_wide <- na.omit(violence_region_wide)
 ggplot(violence_region_wide, aes(x=LAWDOMVIOL, fill=IncomeGroup))+
@@ -77,16 +77,19 @@ ggplot(violence_region_wide, aes(x=LAWDOMVIOL, fill=IncomeGroup))+
   theme(legend.position = "none")+
   labs (
     title="Laws on Domestic Violence by Country Income Group",
-    subtitle="where the closer to 1, the more laws or practices discriminate against women’s 
-rights",
+    subtitle="On a scale of 0 to 1, where 1 indicates that the laws completely discriminate against women’s rights",
     x="Laws on Domestic Violence Indicator",
     y="Count"
   )
   
-## all regression models should run in the same dataset! pay attention to NA's
 ```
-#Analysis of Grap 1: Laws on Domestic Violence by Country Income Group
-#The graph shows that most countries, regardless of income group, fall in the "0.75" measure for Laws on Domestic Violence. That means that their laws and practices are unsuficcient to garantee the well-being of women. It is evident that even though there are few countries in which the number reaches the value 1 (laws and practices are completely discriminatory against women), the realization that most countries in the global still have unsuficcient laws that protect women's rights is incredibly worrying. We can also observe that there are more countries with better laws and practices for women's rights among high income countries (that is, countries in which the indicator equals 0.25). This also holds true in a lesser extent for upper middle income countries. For both lower middle income and low income, however, there seems to be more countries in the 0.5 and 0.75 levels then in the 0.25. This unvels a pattern that establishes that higher income coutries, despite also having large number of countries that have a indicator of law on domestic violence equal to 0.75, have also higher number of countries that have a somewhat benefitial laws and practices against domestic violence. However, this does not seem to be a causal effect. It is highly unlikely that a countrie's income group alone establishes the laws on domestic violence, but it points us in the direction of establishing a connection between higher levels of economic develpment and better legislation on domestic violence.
+
+
+# Analysis of Grap 1: Laws on Domestic Violence by Country Income Group
+
+The graph shows that most countries, regardless of income group, fall in the "0.75" measure for Laws on Domestic Violence. That means that their laws and practices are unsuficcient to garantee the well-being of women. It is evident that even though there are few countries in which the number reaches the value 1 (laws and practices are completely discriminatory against women), the realization that most countries in the global still have unsuficcient laws that protect women's rights is incredibly worrying. We can also observe that there are more countries with better laws and practices for women's rights among high income countries (that is, countries in which the indicator equals 0.25). This also holds true in a lesser extent for upper middle income countries. For both lower middle income and low income, however, there seems to be more countries in the 0.5 and 0.75 levels then in the 0.25. This unvels a pattern that establishes that higher income coutries, despite also having large number of countries that have a indicator of law on domestic violence equal to 0.75, have also higher number of countries that have a somewhat benefitial laws and practices against domestic violence. However, this does not seem to be a causal effect. It is highly unlikely that a countrie's income group alone establishes the laws on domestic violence, but it points us in the direction of establishing a connection between higher levels of economic develpment and better legislation on domestic violence.
+
+
 ```{r}
 ggplot(violence_region_wide)+
   geom_bar(mapping=aes(x=LAWDOMVIOL, fill=Region))+
@@ -94,20 +97,16 @@ ggplot(violence_region_wide)+
   theme(legend.position = "none")+
   labs (
     title="Laws on Domestic Violence by Region of the World",
-    subtitle="where the closer to 1, the more laws or practices discriminate against women’s 
-rights",
+    subtitle="On a scale of 0 to 1, where 1 indicates that the laws completely discriminate against women’s rights",
     x="Laws on Domestic Violence Indicator",
     y="Count"
   )
-?filter
-filter(violence_region_wide, IncomeGroup=="High income")
-#48 high income countries
-filter(violence_region_wide, IncomeGroup=="Upper middle income")
-#43 upper middle income
-filter(violence_region_wide, IncomeGroup=="Low income")
-#25 Low income countries
-filter(violence_region_wide, IncomeGroup=="Lower middle income")
-#45 lower middle income countries
+```
+
+```{r}
+violence_region_wide %>% 
+  group_by(IncomeGroup) %>% 
+  summarize(count = n())
 ```
 
 The problem with doing this split by regions is that the number of countries per category fluctuates a lot. There are only two high income countries compared to many Sub-Saharan African countries, which limit our possibilities of seeing patterns. 
@@ -126,7 +125,9 @@ beating his wife/partner under certain circumstances",
     y="Count"
   )
 ```
+
 There seems to be a clear association between attitude towards violence against women and a countrie's group income. High and upper middle income countries seem to have a lower share of women who agree that the husband is justified in inflicted violence in their wives. What are the cultural, social, and political factors that seem to change that attitude in lower middle and low income countries?
+
 ```{r}
 ggplot(violence_region_wide)+
   geom_histogram(mapping=aes(x=ATTITUDEVIOL, fill=Region))+
@@ -178,7 +179,7 @@ violence from an intimate partner at some time in their life",
 
 ggplot(violence_region_wide, aes(x = LAWDOMVIOL, y = ATTITUDEVIOL, color=Region)) +
   geom_point(alpha=0.5)+
-  labs(title = "Relationship between Law on domestic violence and attitudes towards violence", x = "Law on domestic violence", y = "attitudes towards violence")
+  labs(title = "Law on domestic violence VS Attitudes Towards Violence", x = "Law on domestic violence", y = "attitudes towards violence")
 ```
 
 ```{r}
@@ -278,6 +279,7 @@ ggplot(violence_region_wide, aes(x = PREVVIOLLIFETIME, y = ATTITUDEVIOL)) +
   geom_point()+
   labs(title = "Relationship between Prevelance on lifteime and attitudes towards violence", x = "Prevalance on lifetime", y = "attitudes towards violence")
 ```
+Relationship between Prevalence on lifetime and attitudes towards violence. Analysis: The relationship between prevalence on lifetime and attitudes towards violence in this data set is sporadic however there is a clear visible relationship that there is a positive correlation between the two. When there is higher prevalence on lifetime the attitudes towards violence is also high & vice versa. 
 
 ```{r}
 #Problems and limits with the data
@@ -317,6 +319,14 @@ violence_region_coordinates %>%
 ```
 
 ```{r compare-all-three-indicators}
+outlier_high <- violence_region_coordinates_wide %>% 
+  filter(ATTITUDEVIOL > 50, LAWDOMVIOL == 1) %>% 
+  pull(country)
+
+outlier_low <- violence_region_coordinates_wide %>% 
+  filter(ATTITUDEVIOL < 50, LAWDOMVIOL == 1) %>%
+  pull(country)
+
 violence_region_coordinates_wide %>%
   ggplot(aes(x=ATTITUDEVIOL, y=PREVVIOLLIFETIME, color=LAWDOMVIOL)) +
   geom_point(size=5, alpha=0.8) +
@@ -328,8 +338,9 @@ violence_region_coordinates_wide %>%
     color="Laws on Dom Violence"
 ) +
   theme_gray() +
-  scale_colour_viridis_d(direction=-1)
-
+  scale_colour_viridis_d(direction=-1) +
+  geom_label(aes(x=52.6, y=56.9), label=outlier_high,fill = "white", fontface="bold",color="black", nudge_y=7, size=4, alpha=0.01) +
+  geom_label(aes(x=23.3, y=19.6), label=outlier_low,fill = "white", fontface="bold",color="black", nudge_y=7, size=4, alpha=0.01)
 ```
 
 ```{r join-un-data}
@@ -443,6 +454,7 @@ alcohol_consump <- read_csv("violence_factors/alcohol_consumption_oecd.csv", sho
 child_marriage <- read_csv("violence_factors/child_marriage_rate.csv", show_col_types = FALSE)  %>% 
   filter(TIME == "2019", FREQUENCY == "A", SUBJECT == "EARMARRIAGE") %>% 
   select("LOCATION", "Value") %>% 
+  mutate(Value = as.numeric(Value)) %>% 
   rename("location" = "LOCATION", "child_marriage" = "Value")
 
 second_enrol <- read_csv("violence_factors/female_second_school_enrol.csv", show_col_types = FALSE) %>% 
@@ -456,7 +468,9 @@ labour_part_rate <- read_csv("violence_factors/female_labour_force_part.csv", sh
   rename("country" = "ref_area.label", "labour_part" = "obs_value")
 
 poverty_rate_oecd <- read_csv("violence_factors/poverty_rate_oecd.csv", show_col_types = FALSE) %>% 
-  filter(SUBJECT == "TOT", TIME == 2019) %>% 
+  filter(SUBJECT == "TOT") %>% 
+  group_by(LOCATION) %>%
+  filter(TIME == max(TIME)) %>%
   select("LOCATION", "Value") %>% 
   rename("location" = "LOCATION", "poverty_rate_oecd" = "Value")
 
@@ -479,18 +493,13 @@ women_in_politics <- read_csv("violence_factors/women_in_politics.csv", show_col
   select("LOCATION", "Value") %>% 
   rename("location" = "LOCATION", "women_in_politics" = "Value")
 
-poverty_rate_world_bank <- read_csv("violence_factors/poverty_rate_world_bank.csv", show_col_types = FALSE) 
-  #filter(TIME == "2019", FREQUENCY == "A") %>% 
-  #select("LOCATION", "Value") %>% 
-  #rename("location" = "LOCATION", "women_in_politics" = "Value")
-
-womens_opp_index <- read_csv("violence_factors/womens-economic-opportunity-2012-index.csv") %>% 
+womens_opp_index <- read_csv("violence_factors/womens-economic-opportunity-2012-index.csv", show_col_types=FALSE) %>% 
   select(-Entity, -Year) %>% 
   rename("location" = "Code", "womens_opp_index" = "WEO Index overall score (Economist Intelligence Unit (2012))")
 
-women_opp_index_breakdown <- read_csv("violence_factors/women_opps_index_breakdown.csv") %>% 
+women_opp_index_breakdown <- read_csv("violence_factors/women_opps_index_breakdown.csv", show_col_types=FALSE) %>% 
   select(-"INDI_CODE", -"Explanation") %>% 
-  rename("name"="NAME") %>% 
+  rename("name"="NAME", ) %>% 
   mutate(across(where(is.character), ~na_if(., "n/a"),)) %>% 
   mutate(across(!name, ~as.numeric(.))) %>% 
   pivot_longer(!name, names_to="country", values_to="value") %>% 
@@ -508,33 +517,113 @@ prev_viol_factors <- prev_viol %>%
   left_join(women_in_politics, by="location") %>% 
   left_join(womens_opp_index, by="location") %>% 
   left_join(women_opp_index_breakdown, by="country")
-
-glimpse(prev_viol_factors)
 ```
 
 # Correlation Coefficients
 
-```{r}
-round(cor(select_if(prev_viol_factors, is.numeric), use="complete.obs"),
-  digits = 2 # rounded to 2 decimals
+```{r layout="l-body-outset", fig.height=5}
+relevant_factors <- prev_viol_factors %>% 
+        select(LAWDOMVIOL, PREVVIOLLIFETIME, ATTITUDEVIOL, `LABOUR POLICY AND PRACTICE`, `ACCESS TO FINANCE`, `EDUCATION AND TRAINING`, `WOMEN'S LEGAL AND SOCIAL STATUS`, womens_opp_index) %>% 
+        rename("law" = LAWDOMVIOL, "prev_viol" = PREVVIOLLIFETIME, "attitude"=ATTITUDEVIOL, "labour_policy"= `LABOUR POLICY AND PRACTICE`, "finance_access"= `ACCESS TO FINANCE`, "education" = `EDUCATION AND TRAINING`, "legal_status" = `WOMEN'S LEGAL AND SOCIAL STATUS`)
+  
+corr_matrix <- round(
+  cor(relevant_factors, use="complete.obs"),
+  digits = 2 
 )
 
+cor.mtest <- function(mat, ...) {
+    mat <- as.matrix(mat)
+    n <- ncol(mat)
+    p.mat<- matrix(NA, n, n)
+    diag(p.mat) <- 0
+    for (i in 1:(n - 1)) {
+        for (j in (i + 1):n) {
+            tmp <- cor.test(mat[, i], mat[, j], ...)
+            p.mat[i, j] <- p.mat[j, i] <- tmp$p.value
+        }
+    }
+  colnames(p.mat) <- rownames(p.mat) <- colnames(mat)
+  p.mat
+}
+# matrix of the p-value of the correlation
+p.mat <- cor.mtest(relevant_factors)
+
+corrplot(corr_matrix, method="color", tl.col="black", tl.srt=45, type="upper", p.mat=p.mat, sig.level = 0.05, addCoef.col = "black",number.font= 55, diag=FALSE, insig = "blank")
 ```
 
 
-# Predict
-```{r}
-prev_opp_index <- brm(formula = ATTITUDEVIOL~womens_opp_index,data=prev_viol_factors,refresh=0)
+# Regression Model
+
+## Child Marriage Regression Model
+```{r message=FALSE, warning=FALSE}
+child_marriage_reg <- brm(formula = ATTITUDEVIOL~child_marriage,data=prev_viol_factors,refresh=0)
+
+summary(child_marriage_reg)
+plot(child_marriage_reg)
+```
+
+## Labour Participation Rate Regression Model
+```{r message=FALSE, warning=FALSE}
+labour_part_reg <- brm(formula = ATTITUDEVIOL~labour_part,data=prev_viol_factors,refresh=0)
+
+summary(labour_part_reg)
+plot(labour_part_reg)
+```
+
+## Women's Opportunities Index Regression Model
+
+```{r message=FALSE, warning=FALSE}
+prev_opp_index <- brm(formula = prev_viol~womens_opp_index, data=relevant_factors,refresh=0)
 
 summary(prev_opp_index)
+plot(prev_opp_index)
+```
+
+## Women's Education Regression Model
+```{r message=FALSE, warning=FALSE}
+prev_opp_index <- brm(formula = prev_viol~education, data=relevant_factors,refresh=0)
+
+summary(prev_opp_index)
+plot(prev_opp_index)
 ```
 
 ```{r}
-prev_viol_factors %>% 
-  ggplot(mapping=aes(x=ATTITUDEVIOL, y=PREVVIOLLIFETIME)) +
-  geom_point()+
-  theme_tufte()
+### Regression For Labour, Policy and Practice 
+
+labour_policy_practice_reg <- brm(formula= ATTITUDEVIOL ~ LABOURPOLICYANDPRACTICE, data= prev_viol_factors, refresh =0)
+
+summary(labour_policy_practice_reg)
+plot(labour_policy_practice_reg)
 ```
+
+```{r}
+### Regression on Education and Training 
+
+edu_training_reg <- brm(formula = ATTITUDEVIOL ~ EDUCATIONANDTRAINING, data= prev_viol_factors, refresh=0)
+
+summary(edu_training_reg)
+plot(edu_training_reg)
+```
+
+```{r}
+### Regression on Access To Finance 
+
+access_finance_reg <- brm(formula = ATTITUDEVIOL ~ ACCESSTOFINANCE, data= prev_viol_factors, refresh=0)
+
+summary(access_finance_reg)
+plot(access_finance_reg)
+```
+
+```{r}
+### Regression on Women's Legal and Social Status 
+
+women_legal_social_status_reg <- brm(formula= ATTITUDEVIOL ~ WOMENSLEGALANDSOCIALSTATUS, data= prev_viol_factors, refresh=0)
+
+summary(women_legal_social_status_reg)
+plot(women_legal_social_status_reg)
+```
+
+# Plot
 ```{r}
 ggplot(data=prev_viol_factors, mapping = aes(x = womens_opp_index, y = ATTITUDEVIOL, color=IncomeGroup)) + 
   stat_smooth(method="lm")+
@@ -689,6 +778,42 @@ ggplot(data=prev_viol_factors, mapping = aes(x = PREVVIOLLIFETIME, y = legalstat
   stat_smooth(method="lm")+
   geom_point()
 ```
+
+
+```{r}
+### regression 
+
+
+```
+
+```{r}
+###causal diagram 
+library(dagitty)
+library(ggdag)
+
+attitude_dag <- dagitty("dag{ 
+                      prevalance of violence -> violence towards women;
+                      attitudes towards violence-> violence towards women;
+                      laws on domestic violence -> violence towards women;
+                      labor policy and practice -> attitudes towards violence;
+                      education and training -> attitudes towards violence;
+                      women legal status -> attitudes towards violence;
+                      access to finance -> attitudes towards violence;}")
+                      
+#ggdag(prevalance, node_size = 30, text_size = 4, text_col = "blue")+
+  #theme_dag()+
+ # geom_dag_node(colour="white")
+
+tidy_dagitty(attitude_dag) %>% 
+  ggplot(aes(x=x, y=y, xend=xend, yend=yend))+
+  geom_dag_point(colour="red", size=25)+
+  geom_dag_text(colour="white")+
+  geom_dag_edges(colour="black")+
+  theme_dag()+
+  expand_plot()
+
+```
+
 
 # Introduction
 
