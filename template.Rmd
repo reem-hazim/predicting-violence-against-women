@@ -1,7 +1,6 @@
 ---
-title: "Predicting Violence Against Women Using Women's Opportunities Index"
-description: |
-  We use indicators from the women's opportunities index to predict the prevalence of violence against women.
+title: "Predicting Violence Against Women by the Women's Economic Opportunity Index (WEOI)"
+description: "An exploration of the the main indicators of the WEOI and what they can tell us about violence against women"
 author:
   - name: Reem Hazim
   - name: Lucas De Lellis
@@ -9,22 +8,25 @@ author:
 date: "`r Sys.Date()`"
 output: distill::distill_article
 ---
-
 # Introduction
-This study consists on two parts. 
+Even though "[Achieving] gender equality and empower all women and girls" is among one of the 17 Sustainable Development Goals by the United Nations (United Nations), such goal swims against an enormous wave of violence against women in the contemporary world. Investigation on the causes of such violence is neither non-exhaustive nor simple. This paper aims to investigate what are possible reasons for the bugging persistence of violence against women, specifically positive attitudes towards violence against women, in our society. Believing in the importance of promoting women's economic well-being in order to achieve equality, we aim to understand the relationship between violence against women and the Women's Economic Opportunity Index (WEOI). Providing a violence-free environment for women and girls will immensely support their empowerment, which in turn represents countless gains for society as a whole (King 6).
 
-The first part is an exploration of three variables that the Organisation for Economic Co-operation and Development (OECD) has linked to Violence Against Women. The first one is attitude towards violence, which consists on an indicator varying from 0-100% revealing the share of women who agree that a husband is justified in beating his wive(s). The second is prevalence of violence in lifetime (0-100%), which indicates the share of women exposed to physical and/or sexual violence at least one time from their intimate partner. Finally laws on domestic violence (0.25-1) measures whether legal frameworks protect women from domestic violence. The closer to 1, the more discriminatory the laws are against women.
-
-Then, the second part of this research uses the Women's Economic Opportunity Index (WEO) to predict violence against women.Created by Economist Intelligence Unit (research division of the Economist Group), “The Women’s Economic Opportunity Index is a dynamic quantitative and qualitative scoring model, constructed from 29 indicators, that measures specific attributes of the environment for women employees and entrepreneurs in 128 economies.” (Economist Inteliggence Union). The index is on a scale from 0 - 100, in which 0 refers to a least favourable situation to women and 100 refers to a more favourable situation to women.
-
-We dissect the index into four out of its five main variables: labour participation, access to finance, women's legal status, and women's education and training, moving forward to using them as our independent variables. We finally move forward by focusing in attitude towards women as our dependent variable. We draw a causal graph that intends to predict what can be causing high levels of attitude towards violence. We then run several univariate and multivariate regression models were drawn between our dependent and independent variables.
+After a brief literature review on the subject of women's economic well-being, we explain our two-part methodology. Then, we present the data we obtained. Data was pulled from the Organisation for Economic Co-operation and Development (OECD), the United Nations (UN), and the World Bank (WB). Our analysis points out that even though women's legal status seem to be one of the best predictors within the WEOI for violence against women, we must be attentive to ways in which indicators interact and affect each other.
 
 # Literature Review
 There is an extensive literature on what regards violence against women. Since our research focuses on the Women Economic Opportunitie's index, and specifically, Labour Participation, Access to Finance, Women's Legal Status, and Education and Training.
 
-Women are disadvantaged in entrepreneuship. An assumption that instituitions of entrepreneuship are genderless have resulted in structures that pretend to be "genderless" when they are not (Pathak et. al.). It is well-known that organizations, by not identifying or addressing the barriers that women might uniquely face, such as childrearing and domestic labour (Acker). Our research dialogues with previous literature in assering that difficulty in women's access to finance and labour participation further limit the possibility of firming women's independence from, at best, their domestic and childrearing duties, and at worse,  from their partners. By constraining women from participating in labout in equal and fair manners, as well accessing finance, we argue that this could be increasing violence against women. 
+Women are disadvantaged in entrepreneuship. An assumption that instituitions of entrepreneuship are genderless have resulted in structures that pretend to be "genderless" when they are not (Pathak et. al.). It is well-known that organizations, by not identifying or addressing the barriers that women might uniquely face, such as childrearing and domestic labour (Acker). Our research dialogues with previous literature in assering that difficulty in women's access to finance and labor participation further limit the possibility of firming women's independence from, at best, their domestic and childrearing duties, and at worse,  from their partners. By constraining women from participating in labor in equal and fair manners, as well accessing finance, we argue that this could be increasing violence against women. 
 
 Women's education and legal status are essential features for their empowerment and reduction of dependency. 
+
+
+# Methodology
+This study consists on two parts. The first part is an exploration of three variables that the Organisation for Economic Co-operation and Development (OECD) has linked to Violence Against Women. The first one is attitude towards violence, which consists on an indicator varying from 0-100% revealing the share of women who agree that a husband is justified in beating his wive(s). The second is prevalence of violence in lifetime (0-100%), which indicates the share of women exposed to physical and/or sexual violence at least one time from their intimate partner. Finally laws on domestic violence (0.25-1) measures whether legal frameworks protect women from domestic violence. The closer to 1, the more discriminatory the laws are against women.
+
+Then, the second part of this research uses the Women's Economic Opportunity Index (WEO) to predict violence against women.Created by Economist Intelligence Unit (research division of the Economist Group), “The Women’s Economic Opportunity Index is a dynamic quantitative and qualitative scoring model, constructed from 29 indicators, that measures specific attributes of the environment for women employees and entrepreneurs in 128 economies.” (Economist Inteliggence Union). The index is on a scale from 0 - 100, in which 0 refers to a least favourable situation to women and 100 refers to a more favourable situation to women.
+
+We dissect the index into four out of its five main variables: labour participation, access to finance, women's legal status, and women's education and training, moving forward to using them as our independent variables. We finally move forward by focusing in attitude towards women as our dependent variable. We draw a causal graph that intends to predict what can be causing high levels of attitude towards violence. We then run several univariate and multivariate regression models were drawn between our dependent and independent variables.
 
 # Theory/Hypotheses
 
