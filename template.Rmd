@@ -20,7 +20,6 @@ Women are disadvantaged in entrepreneuship. An assumption that instituitions of 
 
 Women's education and legal status are essential features for their empowerment and reduction of dependency. 
 
-
 # Methodology
 This study consists on two parts. The first part is an exploration of three variables that the Organisation for Economic Co-operation and Development (OECD) has linked to Violence Against Women. The first one is attitude towards violence, which consists on an indicator varying from 0-100% revealing the share of women who agree that a husband is justified in beating his wive(s). The second is prevalence of violence in lifetime (0-100%), which indicates the share of women exposed to physical and/or sexual violence at least one time from their intimate partner. Finally laws on domestic violence (0.25-1) measures whether legal frameworks protect women from domestic violence. The closer to 1, the more discriminatory the laws are against women.
 
@@ -33,7 +32,6 @@ We dissect the index into four out of its five main variables: labour participat
 How do labour participation, women's legal status, access to finance and women's education and training appear to reduce or increase violence against women? Specifically, which one of those four variables seem to be the best predictor for an increase or reduction in attitude towards violence?
 
 Even though we explore four out of the five indicators used in WEOI in order to possibly find out which indicators seem to best predict attitude towards violence, we also pay attention to the  interactions between such indicators. We do so because we are well aware of possible confounding variables.
-
 
 # Data
 Part 1: Exploration of Dependent Variables
@@ -555,7 +553,32 @@ corrplot(corr_matrix, method="color", tl.col="black", tl.srt=45, type="upper", p
 ```
 [CORRELATION MATRIX EXPLAINATION]
 
-# Regression Model
+
+```{r causal-diagram}
+###causal diagram 
+
+attitude_dag <- dagitty("dag{ 
+                      prevalance of violence -> violence towards women;
+                      attitudes towards violence-> violence towards women;
+                      laws on domestic violence -> violence towards women;
+                      labor policy and practice -> attitudes towards violence;
+                      education and training -> attitudes towards violence;
+                      women legal status -> attitudes towards violence;
+                      access to finance -> attitudes towards violence;}")
+                      
+#ggdag(prevalance, node_size = 30, text_size = 4, text_col = "blue")+
+  #theme_dag()+
+ # geom_dag_node(colour="white")
+
+tidy_dagitty(attitude_dag) %>% 
+  ggplot(aes(x=x, y=y, xend=xend, yend=yend))+
+  geom_dag_point(colour="red", size=25)+
+  geom_dag_text(colour="white")+
+  geom_dag_edges(colour="black")+
+  theme_dag()+
+  expand_plot()
+
+```
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 #child_marriage_reg <- brm(formula = #ATTITUDEVIOL~child_marriage,data=prev_viol_factors,refresh=0)
@@ -571,7 +594,6 @@ corrplot(corr_matrix, method="color", tl.col="black", tl.srt=45, type="upper", p
 #plot(labour_part_reg)
 ```
 
-## Women's Opportunities Index Regression Model
 
 ```{r message=FALSE, warning=FALSE}
 prev_opp_index <- brm(formula = prev_viol~womens_opp_index, data=relevant_factors,refresh=0)
@@ -588,43 +610,29 @@ plot(prev_opp_index)
 
 labour_policy_practice_reg <- brm(formula= attitude ~ labour_policy, data= relevant_factors, refresh =0)
 
-summary(labour_policy_practice_reg)
-plot(labour_policy_practice_reg)
-
 ```
-[interpretation]
 ```{r regression-eat}
 ### Regression on Education and Training 
 
 edu_training_reg <- brm(formula = attitude ~ education, data= relevant_factors, refresh=0)
 
-summary(edu_training_reg)
-plot(edu_training_reg)
-
 ```
-[interpretation]
+
 ```{r regression-atf}
 ### Regression on Access To Finance 
 
 access_finance_reg <- brm(formula = attitude ~ finance_access, data= relevant_factors, refresh=0)
-
-summary(access_finance_reg)
-plot(access_finance_reg)
-
 ```
-[interpretation]
+
+
 ```{r regression-wllss}
 ### Regression on Women's Legal and Social Status 
 
 women_legal_social_status_reg <- brm(formula= attitude ~ legal_status, data= relevant_factors, refresh=0)
 
-summary(women_legal_social_status_reg)
-plot(women_legal_social_status_reg)
-
 ```
 
-# Plot
-```{r plotreg-index}
+```{r plotreg-index, include=FALSE}
 ggplot(data=prev_viol_factors, mapping = aes(x = womens_opp_index, y = ATTITUDEVIOL, color=IncomeGroup)) + 
   stat_smooth(method="lm")+
   facet_wrap(~IncomeGroup)+
@@ -669,6 +677,9 @@ by how favorable is labour policy and practice (0-100) to women",
     y = "Labour Policy and Practice")
 
 ggsave("plot1.png", last_plot())
+
+summary(labour_policy_practice_reg)
+plot(labour_policy_practice_reg)
 ```
 
 ```{r plotreg-accesstofinance}
@@ -682,7 +693,11 @@ by how favorable is access to finance (0-100) to women",
     x = "Attitude Towards Violence",
     y = "Access to Finance")
 ggsave("plot2.png", last_plot())
+
+summary(access_finance_reg)
+plot(access_finance_reg)
 ```
+
 ```{r}
 ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = educationtraining)) + 
   stat_smooth(method="lm")+
@@ -694,6 +709,9 @@ by how favorable is Education and Traning (0-100) to women",
     x = "Attitude Towards Violence",
     y = "Education and Training")
 ggsave("plot3.png", last_plot())
+
+summary(edu_training_reg)
+plot(edu_training_reg)
 ```
 
 ```{r plotreg-legalstatus}
@@ -707,8 +725,18 @@ by how favorable is women's legal stats (0-100)",
     x = "Attitude Towards Violence",
     y = "Women's Legal Status")
 ggsave("plot4.png", last_plot())
+
+summary(women_legal_social_status_reg)
+plot(women_legal_social_status_reg)
 ```
 
+We draw a multivariate regression:
+```{r multivariate regression}
+multivariate_reg <- brm(formula= attitude ~ labour_policy + education + legal_status + finance_access, data=relevant_factors, refresh =0)
+
+summary(multivariate_reg)
+plot(multivariate_reg)
+```
 
 ```{r plotreg-prevlifetime, include=FALSE}
  #ggplot(data=prev_viol_factors, mapping = aes(x = #PREVVIOLLIFETIME, y = labourpolicy)) + 
@@ -728,31 +756,6 @@ ggsave("plot4.png", last_plot())
   #geom_point()
 ```
 
-```{r causal-diagram}
-###causal diagram 
-
-attitude_dag <- dagitty("dag{ 
-                      prevalance of violence -> violence towards women;
-                      attitudes towards violence-> violence towards women;
-                      laws on domestic violence -> violence towards women;
-                      labor policy and practice -> attitudes towards violence;
-                      education and training -> attitudes towards violence;
-                      women legal status -> attitudes towards violence;
-                      access to finance -> attitudes towards violence;}")
-                      
-#ggdag(prevalance, node_size = 30, text_size = 4, text_col = "blue")+
-  #theme_dag()+
- # geom_dag_node(colour="white")
-
-tidy_dagitty(attitude_dag) %>% 
-  ggplot(aes(x=x, y=y, xend=xend, yend=yend))+
-  geom_dag_point(colour="red", size=25)+
-  geom_dag_text(colour="white")+
-  geom_dag_edges(colour="black")+
-  theme_dag()+
-  expand_plot()
-
-```
 
 # Analysis and Interpretation of Results
 
