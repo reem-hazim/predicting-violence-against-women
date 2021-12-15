@@ -18,6 +18,7 @@ library(ggfortify)
 library(brms)
 library(ggthemes)
 library(lubridate)
+install.packages("corrplot")
 library(corrplot)
 ```
 
@@ -564,7 +565,7 @@ plot(child_marriage_reg)
 
 ## Labour Participation Rate Regression Model
 ```{r message=FALSE, warning=FALSE}
-labour_part_reg <- brm(formula = ATTITUDEVIOL~labour_part,data=prev_viol_factors,refresh=0)
+labour_part_reg <- brm(formula = ATTITUDEVIOL~labourpolicy,data=prev_viol_factors,refresh=0)
 
 summary(labour_part_reg)
 plot(labour_part_reg)
