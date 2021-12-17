@@ -298,9 +298,16 @@ violence_region_coordinates_wide %>%
   theme_gray() +
   scale_colour_viridis_d(direction=-1) +
   geom_label(aes(x=52.6, y=56.9), label=outlier_high,fill = "white", fontface="bold",color="black", nudge_y=7, size=4, alpha=0.01) +
-  geom_label(aes(x=23.3, y=19.6), label=outlier_low,fill = "white", fontface="bold",color="black", nudge_y=7, size=4, alpha=0.01)
-ggsave("dependent_var_analysis.png")
+  geom_label(aes(x=23.3, y=19.6), label=outlier_low,fill = "white", fontface="bold",color="black", nudge_y=4, size=4, alpha=0.01)
 ```
+
+```{r prevviol_attitude_corr}
+cor(violence_region_coordinates_wide$PREVVIOLLIFETIME, violence_region_coordinates_wide$ATTITUDEVIOL, use="complete.obs")
+```
+
+
+
+### Comparing OECD and UN in Prevalence of Violence Againt Women
 
 ```{r join-un-data}
 
@@ -345,7 +352,7 @@ autoplot(world_map, geom = 'polygon', col="white", fill="grey", ylim=c(-54,85), 
   labs(
     size="",
     color = "",
-    title="Comparison Between OECD and UN on Prevalence of Domestic Violence Against Women",
+    title="OECD vs. UN on Prevalence of Domestic Violence Against Women",
   ) +
   facet_wrap(~indicator,
              labeller = facet_labeller,
@@ -375,9 +382,22 @@ un_oecd_women_violence_wide %>%
 cor(un_oecd_women_violence_wide$PREVVIOLLIFETIME, un_oecd_women_violence_wide$un_prev_viol_12m, use="complete.obs")
 ```
 
+### Mapping Attitudes Towards Violence
+```{r}
+autoplot(world_map, geom = 'polygon', col="white", fill="grey", ylim=c(-54,85), xlim=c(-160, 200)) +
+  geom_point(data=violence_region_coordinates_wide, aes(x=long, y=lat, color=ATTITUDEVIOL, size=ATTITUDEVIOL), alpha=0.8) +
+  theme_minimal() +
+  scale_colour_viridis_c(direction=-1) +
+  labs(
+    size="",
+    color = "",
+    title="Attitudes Towards Violence Against Women",
+  )
+```
+
 ### Visualizing Independent Variables
 
-#### Read in Dependent variables
+#### Read in Independent variables
 ```{r read-datasets, show_col_types = FALSE}
 # Select prevalence of violence to model it
 prev_viol <- violence_region_coordinates_wide %>% 
@@ -476,9 +496,8 @@ relevant_factors_long %>%
     x="Value",
     y="Number of Countries"
   )
-
-ggsave("ind_var_histogram.png", width=20,height=16, units="cm")
 ```
+
 
 ### Issues with the Data and Limitations
 
@@ -507,13 +526,15 @@ If we perform an anti-join of the countries dataset with the violence dataset, w
 
 ```{r layout="l-body-outset", fig.height=7}
 relevant_factors <- prev_viol_factors %>% 
-        select(LAWDOMVIOL, PREVVIOLLIFETIME, ATTITUDEVIOL, `LABOUR POLICY AND PRACTICE`, `ACCESS TO FINANCE`, `EDUCATION AND TRAINING`, `WOMEN'S LEGAL AND SOCIAL STATUS`, womens_opp_index) %>% 
+        select(LAWDOMVIOL, PREVVIOLLIFETIME, ATTITUDEVIOL, `LABOUR POLICY AND PRACTICE`, `ACCESS TO FINANCE`, `EDUCATION AND TRAINING`, `WOMEN'S LEGAL AND SOCIAL STATUS`, womens_opp_index, location, IncomeGroup, TableName) %>% 
         rename("law" = LAWDOMVIOL, "prev_viol" = PREVVIOLLIFETIME, "attitude"=ATTITUDEVIOL, "labour_policy"= `LABOUR POLICY AND PRACTICE`, "finance_access"= `ACCESS TO FINANCE`, "education" = `EDUCATION AND TRAINING`, "legal_status" = `WOMEN'S LEGAL AND SOCIAL STATUS`)
   
-corr_matrix <- round(
-  cor(relevant_factors, use="complete.obs"),
-  digits = 2 
-)
+corr_matrix <- 
+  relevant_factors %>% 
+  select_if(is.numeric) %>% 
+  select(-prev_viol, -law) %>% 
+  cor(use="na.or.complete") %>% 
+  round(digits = 2)
 
 cor.mtest <- function(mat, ...) {
     mat <- as.matrix(mat)
@@ -530,11 +551,23 @@ cor.mtest <- function(mat, ...) {
   p.mat
 }
 # matrix of the p-value of the correlation
-p.mat <- cor.mtest(relevant_factors)
+p.mat <- 
+  relevant_factors %>% 
+  select_if(is.numeric) %>% 
+  select(-prev_viol, -law) %>% 
+  cor.mtest()
 
-corrplot(corr_matrix, method="color", tl.col="black", tl.srt=45, type="upper", p.mat=p.mat, sig.level = 0.05, addCoef.col = "black", diag=FALSE, insig = "blank", tl.cex=1.75, number.font=7, number.cex=1.75 )
+corrplot(corr_matrix, method="color", tl.col="black", tl.srt=45, type="upper", addCoef.col = "black", diag=FALSE, insig = "blank", tl.cex=1.75, number.font=7, number.cex=1.75 )
 ```
 
+```{r}
+  relevant_factors %>% 
+  select(attitude, law, prev_viol) %>% 
+  cor(y=relevant_factors$womens_opp_index, use="na.or.complete") %>% 
+  round(digits = 2)
+
+
+```
 
 # Regression Model
 
