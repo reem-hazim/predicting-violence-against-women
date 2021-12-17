@@ -726,8 +726,9 @@ plot(multivariate_reg)
 summary(multivariate_reg)
 ```
 
-[todo]: interpretation
-[todo]: further explore legal status as an explanatory variable
+When running a multivariate regression of all of the four indicators with attitude towards violence we found that the indicators education, legal status and access to finance still hold a negative decrease effect on attitudes towards violence with every one unit increase, however labour policy now has a positive increase in attitudes towards violence with every one unit increase which is interesting to see. The confidence intervals of each has increased as well as the standard error coefficient which means there is a larger uncertainty range. 
+
+Even when running the multivariate regression the best indicator remains still to be the legal status with the highest negitave decrease in attitudes towards violence with the coefficients of -0.45. Therefore, further exploration on the indicator should be done. 
 
 ### Breakdown of Legal Status
 
