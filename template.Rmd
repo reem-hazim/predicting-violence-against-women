@@ -47,6 +47,8 @@ Women's legal status consists of five indicators: existence of laws protecting w
 
 ## Part 1: Exploration of Dependent Variables
 
+### Visualizing Dependent Variables: The OECD Violence Against Women Indicator
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
@@ -108,18 +110,6 @@ ggplot(violence_region_wide)+
   )
 ```
 
-```{r n-countries, include=FALSE}
-violence_region_wide %>% 
-  group_by(IncomeGroup) %>% 
-  summarize(count = n())
-
-violence_region_wide %>% 
-  group_by(IncomeGroup) %>% 
-  summarize(count = n())
-#The problem with doing this split by regions is that the number of countries per category fluctuates a lot. There are only two high income countries compared to many Sub-Saharan African countries, which limit our possibilities of seeing patterns. 
-
-```
-
 ```{r plot-ATTITUDEVIOL-by-IncomeGroup}
 #Exploring ATTITUDEVIOL by incomegroup
 ggplot(violence_region_wide)+
@@ -152,7 +142,7 @@ beating his wife/partner under certain circumstances",
 ```
 
 ```{r PREVVLIFETIMEByIncome}
-#Exploring PREVVLIFETIME by region and incomegroup
+#Exploring PREVVLIFETIME by incomegroup
 ggplot(violence_region_wide)+
   geom_histogram(mapping=aes(x=PREVVIOLLIFETIME, fill=IncomeGroup))+
   facet_wrap(~IncomeGroup)+
@@ -183,14 +173,6 @@ violence from an intimate partner at some time in their life",
   )
 ```
 
-```{r plotting-LAWDOMVIOLandATTITUDEVIOL, include=FALSE}
-#Plotting data 
-
-ggplot(violence_region_wide, aes(x = LAWDOMVIOL, y = ATTITUDEVIOL, color=Region)) +
-  geom_point(alpha=0.5)+
-  labs(title = "Law on domestic violence VS Attitudes Towards Violence", x = "Law on domestic violence", y = "attitudes towards violence")
-```
-
 ```{r LAWDOMVIOLincome}
 #Exploring LAWDOMVIOL by incomegroup
 ggplot(violence_region_wide, aes(x=LAWDOMVIOL, fill=IncomeGroup))+
@@ -213,6 +195,8 @@ We proceed to design stacked bars in order to bette r understand patterns in the
 violence_region_wide %>% 
   group_by(IncomeGroup) %>% 
   summarize(count = n())
+
+#The problem with doing this split by regions is that the number of countries per category fluctuates a lot. There are only two high income countries compared to many Sub-Saharan African countries, which limit our possibilities of seeing patterns. 
 ```
 
 There are 39 high income, 33 upper middle income, 37 lowe middle income, and only 19 lower income countries in the dataset.
@@ -231,16 +215,6 @@ women’s rights",
     x="Laws on Domestic Violence Indicator",
     y="Count"
   )
-
-#ggplot(violence_region_wide, 
-#       aes(x = LAWDOMVIOL, 
-#           fill = IncomeGroup)) + 
-# geom_bar(position = "dodge")
-
-#ggplot(violence_region_wide, 
-#       aes(x = LAWDOMVIOL, 
-#           fill = IncomeGroup)) + 
- # geom_bar(position = "stack")
 ```
 
 A stacked bar helps in the visualization and reveals that indeed most of the countries that have a value of 0.25 on Laws on Domestic Violence (better laws on domestic violence) are high income countries. However, it is important to notice that in the 0.75 value, there seems to be a more balanced distribution throughout all income groups. In the value of "1", i.e., laws on domestic violence that completely discriminate against women, we find only upper middle income countries.
@@ -331,7 +305,7 @@ violence_region_coordinates_wide <-
   left_join(country_coordinates, by= c("location" = "alpha_code"))
 ```
 
-After drawing analysis by Income Group, a comparison between all three indicators unveiled their relationship among one another.
+After drawing analysis by Income Group, we make a comparison between all three indicators to determine their relationship to one another.
 
 ```{r compare-all-three-indicators}
 outlier_high <- violence_region_coordinates_wide %>% 
@@ -357,8 +331,6 @@ violence_region_coordinates_wide %>%
   geom_label(aes(x=52.6, y=56.9), label=outlier_high,fill = "white", fontface="bold",color="black", nudge_y=7, size=4, alpha=0.01) +
   geom_label(aes(x=23.3, y=19.6), label=outlier_low,fill = "white", fontface="bold",color="black", nudge_y=4, size=4, alpha=0.01)
 ```
-
-\[Reem Writes Interpretation\]
 
 ```{r prevviol_attitude_corr}
 cor(violence_region_coordinates_wide$PREVVIOLLIFETIME, violence_region_coordinates_wide$ATTITUDEVIOL, use="complete.obs")
@@ -443,6 +415,8 @@ un_oecd_women_violence_wide %>%
 cor(un_oecd_women_violence_wide$PREVVIOLLIFETIME, un_oecd_women_violence_wide$un_prev_viol_12m, use="complete.obs")
 ```
 
+[todo]: More interpretation here
+
 ### Mapping Attitudes Towards Violence
 
 ```{r}
@@ -457,18 +431,36 @@ autoplot(world_map, geom = 'polygon', col="white", fill="grey", ylim=c(-54,85), 
   )
 ```
 
-### Visualizing Independent Variables
+[todo]: more interpretation here
 
-#### Read in Independent variables
+### Issues with the Dependent Variable Data and Limitations
 
-```{r read-datasets1, show_col_types = FALSE}
-#If we perform an anti-join of the countries dataset with the violence dataset, we can see that there are around `r nrow(missing_countries)` missing countries. Most of these countries are small islands that may not have enough data on violence against women.
+For our dependent variables, we found some recurring data limitations.
+
+Using Income Groups might reveal interesting patterns in what regards how differently countries with different income levels deal with violence against women, but it tells little about what are the causes of such discrepancies. Hence, whereas our graphs were helpful in revealing the path in which research can take, it did not necessary reveal to us what could be some of the causes for our indicators. Finally, using Income Group as a category might ignore nuances in regard to the socio-economic development of different countries. For example, countries like Brazil are classified as Upper Middle Income, but it also has one of the largest inequalities in the world (Gini Coefficient = 53.3), ranking 9th globally. Such incredible inequality could be driving some of our dependent variable, which separating countries by Income Group would not necessarily reveal.
+
+One tidiness issue in the data is that the dataset is in long format, which makes it difficult to visualize the relationship between the different indicators. Therefore, we had to transform the dataset into wide format to create these plots.
+
+There are also some discrepancies between what the indicators are trying to measure and what they actually measure. Quantifying such a large-scale phenomenon as violence against women is a non-trivial effort, since violence comes in many diverse forms. For example, the prevalence in lifetime indicator only quantifies violence from an intimate partner, excluding levels of harrasment that come from outside intimate circles, such as sex trafficking. Similarly, to measure "attitude towards violence", the dataset creators used "the percentage of women who agree that a husband/partner is justified in beating his wife/partner under certain circumstances." Why is this particular question used as a proxy for attitude towards violence? Why not ask whether non-intimate partners are also justified in beating women? Are there better or more comprehensive questions to gauge attitude towards violence?
+
+In addition, for the "laws on domestic violence" indicator, the dataset creators do not explain how they quantified the abstract concept of "laws and practices". They also do not specify what they mean by laws that "fully discriminate against women's rights". This makes it difficult to determine the accuracy of the indicator.
+
+The dataset also does not contain all the countries in the world.
+
+```{r find-missing-countries}
+missing_countries <- 
+  country_coordinates %>% 
+  anti_join(violence_with_region, by= c("alpha_code" = "location"))
 ```
 
-```{r read-datasets2, show_col_types = FALSE, include=FALSE}
-# Select prevalence of violence to model it
-prev_viol <- violence_region_coordinates_wide %>% 
-  drop_na(PREVVIOLLIFETIME) %>% 
+If we perform an anti-join of the countries dataset with the violence dataset, we can see that there are around `r nrow(missing_countries)` missing countries. Most of these countries are small islands that may not have enough data on violence against women.
+
+### Visualizing the Independent Variables
+
+```{r read-independent-dataset, show_col_types = FALSE, include=FALSE}
+# Clean up dependent variables to model them
+dep_vars <- violence_region_coordinates_wide %>% 
+  drop_na(ATTITUDEVIOL) %>% 
   mutate(LAWDOMVIOL = as.numeric(LAWDOMVIOL))
 
 womens_opp_index <- read_csv("data/violence_factors/womens-economic-opportunity-2012-index.csv", show_col_types=FALSE) %>% 
@@ -484,16 +476,17 @@ women_opp_index_breakdown <- read_csv("data/violence_factors/women_opps_index_br
   pivot_wider(names_from=name, values_from=value)
 
 # Join alcohol consumption with prev viol
-prev_viol_factors <- prev_viol %>% 
+violence_factors <- dep_vars %>% 
   left_join(womens_opp_index, by="location") %>% 
-  left_join(women_opp_index_breakdown, by="country")
+  left_join(women_opp_index_breakdown, by="country") %>% 
+  rename("law" = LAWDOMVIOL, "prev_viol" = PREVVIOLLIFETIME, "attitude"=ATTITUDEVIOL, "labour_policy"= `LABOUR POLICY AND PRACTICE`, "finance_access"= `ACCESS TO FINANCE`, "education" = `EDUCATION AND TRAINING`, "legal_status" = `WOMEN'S LEGAL AND SOCIAL STATUS`)
+
+# Keep only the relevant factors
+relevant_factors <- violence_factors %>% 
+  select(law, prev_viol, attitude, labour_policy, finance_access, education, legal_status, womens_opp_index, location, Region, country, IncomeGroup)
 ```
 
-```{r plot-ind-vars}
-relevant_factors <- prev_viol_factors %>% 
-        select(LAWDOMVIOL, PREVVIOLLIFETIME, ATTITUDEVIOL, `LABOUR POLICY AND PRACTICE`, `ACCESS TO FINANCE`, `EDUCATION AND TRAINING`, `WOMEN'S LEGAL AND SOCIAL STATUS`, womens_opp_index) %>% 
-        rename("law" = LAWDOMVIOL, "prev_viol" = PREVVIOLLIFETIME, "attitude"=ATTITUDEVIOL, "labour_policy"= `LABOUR POLICY AND PRACTICE`, "finance_access"= `ACCESS TO FINANCE`, "education" = `EDUCATION AND TRAINING`, "legal_status" = `WOMEN'S LEGAL AND SOCIAL STATUS`)
-
+```{r plot-ind-vars} 
 relevant_factors_long <- relevant_factors %>% 
   pivot_longer(c(4:8), names_to="indicator", values_to="value")
 
@@ -508,37 +501,18 @@ relevant_factors_long %>%
   )
 ```
 
-### Issues with the Data and Limitations
+[Todo]: interpretation
 
-For our dependent variables, we found some recurring data limitations.
+### Issues with the Independent Variables and Limitations
 
-Using Income Groups might reveal interesting patterns in what regards how differently countries with different income levels deal with violence against women, but it tells little about what are the causes of such discrepancies. Hence, whereas our graphs were helpful in revealing the path in which research can take, it did not necessary reveal to us what could be some of the causes for our indicators. Finally, using Income Group as a category might ignore nuances in regard to the socio-economic development of different countries. For example, countries like Brazil are classified as Upper Middle Income, but it also has one of the largest inequalities in the world (Gini Coefficient = 53.3), ranking 9th globally. Such incredible inequality could be driving some of our dependent variable, which separating countries by Income Group would not necessarily reveal.
+[Todo]: Writeup
 
-One tidiness issue in the data is that the dataset is in long format, which makes it difficult to visualize the relationship between the different indicators. Therefore, we had to transform the dataset into wide format to create these plots.
 
-There are also some discrepancies between what the indicators are trying to measure and what they actually measure. Quantifying such a large-scale phenomenon as violence against women is a non-trivial effort, since violence comes in many diverse forms. For example, the prevalence in lifetime indicator only quantifies violence from an intimate partner, excluding levels of harrasment that come from outside intimate circles, such as sex trafficking. Similarly, to measure "attitude towards violence", the dataset creators used "the percentage of women who agree that a husband/partner is justified in beating his wife/partner under certain circumstances." Why is this particular question used as a proxy for attitude towards violence? Why not ask whether non-intimate partners are also justified in beating women? Are there better or more comprehensive questions to gauge attitude towards violence?
+## Part 2: Predicting Prevalence of Violence
 
-In addition, for the "laws on domestic violence" indicator, the dataset creators do not explain how they quantified the abstract concept of "laws and practices". They also do not specify what they mean by laws that "fully discriminate against women's rights". This makes it difficult to determine the accuracy of the indicator.
-
-The dataset also does not contain all the countries in the world. We identifies 82 missing countries in our analysis.
-
-```{r find-missing-countries}
-missing_countries <- 
-  country_coordinates %>% 
-  anti_join(violence_with_region, by= c("alpha_code" = "location"))
-```
-
-If we perform an anti-join of the countries dataset with the violence dataset, we can see that there are around `r nrow(missing_countries)` missing countries. Most of these countries are small islands that may not have enough data on violence against women.
-
-## Predicting Prevalence of Violence
-
-# Correlation Coefficients
+### Correlation Coefficients
 
 ```{r renaming, layout="l-body-outset", fig.height=5}
-relevant_factors <- prev_viol_factors %>% 
-        select(LAWDOMVIOL, PREVVIOLLIFETIME, ATTITUDEVIOL, `LABOUR POLICY AND PRACTICE`, `ACCESS TO FINANCE`, `EDUCATION AND TRAINING`, `WOMEN'S LEGAL AND SOCIAL STATUS`, womens_opp_index, location, IncomeGroup, TableName) %>% 
-        rename("law" = LAWDOMVIOL, "prev_viol" = PREVVIOLLIFETIME, "attitude"=ATTITUDEVIOL, "labour_policy"= `LABOUR POLICY AND PRACTICE`, "finance_access"= `ACCESS TO FINANCE`, "education" = `EDUCATION AND TRAINING`, "legal_status" = `WOMEN'S LEGAL AND SOCIAL STATUS`)
-  
 corr_matrix <- 
   relevant_factors %>% 
   select_if(is.numeric) %>% 
@@ -561,6 +535,8 @@ The matrix reveals that attitude towards women seem to negatively correlated wit
   round(digits = 2)
 ```
 
+### Causal Diagram
+
 ```{r causal-diagram}
 ###causal diagram 
 
@@ -573,9 +549,6 @@ attitude_dag <- dagitty("dag{
                       women legal status -> attitudes towards violence;
                       access to finance -> attitudes towards violence;}")
                       
-#ggdag(prevalance, node_size = 30, text_size = 4, text_col = "blue")+
-  #theme_dag()+
- # geom_dag_node(colour="white")
 
 tidy_dagitty(attitude_dag) %>% 
   ggplot(aes(x=x, y=y, xend=xend, yend=yend))+
@@ -587,67 +560,61 @@ tidy_dagitty(attitude_dag) %>%
 
 ```
 
-```{r message=FALSE, warning=FALSE}
-prev_opp_index <- brm(formula = prev_viol~womens_opp_index, data=relevant_factors,refresh=0)
+[todo]: clean up causal diagram
 
-summary(prev_opp_index)
-plot(prev_opp_index)
+[todo]: interpret causal diagram
+
+### Regressions
+
+```{r regression-woe, message=FALSE, warning=FALSE, results='hide'}
+# Regression for Women's Econoic Opportunity Index
+woe_reg <- brm(formula = prev_viol~womens_opp_index, data=relevant_factors,refresh=0)
 ```
 
-\[interpretation\]
-
-```{r regression-lpp}
+```{r regression-lpp, message=FALSE, warning=FALSE, results='hide'}
 # Regression For Labour, Policy and Practice 
 
-labour_policy_practice_reg <- brm(formula= attitude ~ labour_policy, data= relevant_factors, refresh =0)
-
+labour_policy_practice_reg <- brm(formula = attitude ~ labour_policy, data= relevant_factors, refresh =0)
 ```
 
-```{r regression-eat}
+```{r regression-eat, message=FALSE, warning=FALSE, results='hide'}
 ### Regression on Education and Training 
 
 edu_training_reg <- brm(formula = attitude ~ education, data= relevant_factors, refresh=0)
-
 ```
 
-```{r regression-atf}
+```{r regression-atf, message=FALSE, warning=FALSE, results='hide'}
 ### Regression on Access To Finance 
 
 access_finance_reg <- brm(formula = attitude ~ finance_access, data= relevant_factors, refresh=0)
 ```
 
-```{r regression-wllss}
+```{r regression-wllss, message=FALSE, warning=FALSE, results='hide'}
 ### Regression on Women's Legal and Social Status 
 
 women_legal_social_status_reg <- brm(formula= attitude ~ legal_status, data= relevant_factors, refresh=0)
-
 ```
 
-```{r plotreg-index, include=FALSE}
-ggplot(data=prev_viol_factors, mapping = aes(x = womens_opp_index, y = ATTITUDEVIOL, color=IncomeGroup)) + 
+```{r plot-reg-woe, include=FALSE, message=FALSE, warning=FALSE}
+ggplot(data=relevant_factors, mapping = aes(x = womens_opp_index, y = attitude, color=IncomeGroup)) + 
   stat_smooth(method="lm")+
   facet_wrap(~IncomeGroup)+
   geom_point()+
   labs (
     title="Attitude Towards Violence by Women Opportunities Index",
-    x = "Women Economic Opportunities Index",
+    x = "Women's Economic Opportunities Index",
     y = "Attitude Towards Violence")
+
+summary(woe_reg)
+plot(woe_reg)
 ```
 
-\[interpretation\]
-
-```{r renaming-in-main-dataset, include=FALSE}
-#geom_text()
-names(prev_viol_factors)[names(prev_viol_factors) == "LABOUR POLICY AND PRACTICE"] <- "labourpolicy"
-names(prev_viol_factors)[names(prev_viol_factors) == "ACCESS TO FINANCE"] <- "accessfinance"
-names(prev_viol_factors)[names(prev_viol_factors) == "EDUCATION AND TRAINING"] <- "educationtraining"
-names(prev_viol_factors)[names(prev_viol_factors) == "WOMEN'S LEGAL AND SOCIAL STATUS"] <- "legalstatus"
-```
+[todo]: interpretation
 
 ```{r plotreg-labour}
-# PLOTTING REGRESSIONS ATTITUDE VIOLENCE AND LABOUR POLICY AND PRACTICE, ACCESS TO FINANCE, EDUCATION AND TRAINING AND WOMENS LEGAL STATUS 
+# Plotting labour policy and practice
 
-ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = labourpolicy)) + 
+ggplot(data=relevant_factors, mapping = aes(x = attitude, y = labour_policy)) + 
   stat_smooth(method="lm")+
   geom_point()+
    labs (
@@ -661,8 +628,13 @@ summary(labour_policy_practice_reg)
 plot(labour_policy_practice_reg)
 ```
 
-```{r plotreg-accesstofinance}
-ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = accessfinance)) + 
+[todo]: interpretation
+
+```{r plotreg-access-to-finance}
+
+# Plotting access to finance
+
+ggplot(data=relevant_factors, mapping = aes(x = attitude, y = finance_access)) + 
   stat_smooth(method="lm")+
   geom_point()+
   labs (
@@ -676,8 +648,13 @@ summary(access_finance_reg)
 plot(access_finance_reg)
 ```
 
-```{r}
-ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = educationtraining)) + 
+[todo]: interpretation
+
+```{r plot-reg-ed-training}
+
+# Plotting education and training
+
+ggplot(data=relevant_factors, mapping = aes(x = attitude, y = education)) + 
   stat_smooth(method="lm")+
   geom_point()+
   labs (
@@ -691,8 +668,13 @@ summary(edu_training_reg)
 plot(edu_training_reg)
 ```
 
+[todo]: interpretation
+
 ```{r plotreg-legalstatus}
-ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = legalstatus)) + 
+
+# Plotting legal status
+
+ggplot(data=relevant_factors, mapping = aes(x = attitude, y = legal_status)) + 
   stat_smooth(method="lm")+
   geom_point()+
   labs (
@@ -708,12 +690,15 @@ plot(women_legal_social_status_reg)
 
 We draw a multivariate regression:
 
-```{r multivariate regression}
+```{r multivariate-regression, message=FALSE, warning=FALSE}
 multivariate_reg <- brm(formula= attitude ~ labour_policy + education + legal_status + finance_access, data=relevant_factors, refresh =0)
 
 summary(multivariate_reg)
 plot(multivariate_reg)
 ```
+
+[todo]: interpretation
+[todo]: further explore legal status as an explanatory variable
 
 # Analysis and Interpretation of Results
 
@@ -729,4 +714,5 @@ We cannot single out or highlight one single indicator in the WEOI that is most 
 
 # Bibliography
 
+[todo]: bibliography
 Pathak, S., Goltz, S. and W. Buche, M. "Influences of gendered institutions on women ' s entry into entrepreneurship", International Journal of Entrepreneurial Behavior & Research. 19:5 (2013), 478-502. <https://doi.org/10.1108/IJEBR-09-2011-0115> Acker, Joan. "HIERARCHIES, JOBS, BODIES: A Theory of Gendered Organizations." Gender and Society. 4:2 (1990): 139-158 Okenwa-Emgwa, L., von Strauss, E. Higher education as a platform for capacity building to address violence against women and promote gender equality: the Swedish example. Public Health Rev 39, 31 (2018). <https://doi.org/10.1186/s40985-018-0108-5> Tavares, Paula and Question Wodon."Global and Regional Trends in Women's Legal Protection Against Domestic Violence and Sexual Harassment." March 2018. Girl Rising
