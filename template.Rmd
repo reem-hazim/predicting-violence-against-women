@@ -558,7 +558,7 @@ p.mat <- cor.mtest(relevant_factors)
 
 corrplot(corr_matrix, method="color", tl.col="black", tl.srt=45, type="upper", p.mat=p.mat, sig.level = 0.05, addCoef.col = "black",number.font= 55, diag=FALSE, insig = "blank")
 ```
-[CORRELATION MATRIX EXPLAINATION]
+The matrix reveals that attitude towards women seem to negatively correlated with many of the indicators in the WEOI, especially education and training. However, it also evident that the indicators seem to be strongly correlated positively with each other as well. Such interactions could turn difficult to see confounding variables in our study. 
 
 
 ```{r causal-diagram}
@@ -773,7 +773,7 @@ A counterfactual that arises from our research is imagining a country in which t
 
 
 # Conclusions
-We cannot single out or highlight one single indicator in the WEOI that is most influential in decreasing violence against women. Our research highlights the complexities and the varying number of factors that result in the persistance of violence against women. However, it still might be useful to investigate further the subindicators within each indicator for the WEOI and analyze what they can provide as insights. Singling out countries, like Russia, and analyze closely what is the situation in violence agaisnt women through both quantitive and qualitive research can further reveal indicators that can be useful in measuring degress of such forms of gendered violence. 
+We cannot single out or highlight one single indicator in the WEOI that is most influential in decreasing violence against women. Our research highlights the complexities and the varying number of factors that result in the persistence of violence against women. However, it still might be useful to investigate further the sub-indicators within each indicator for the WEOI and analyze what they can provide as insights. Singling out countries, like Russia, and analyze closely what is the situation in violence against women through both quantitative and qualitative research can further reveal indicators that can be useful in measuring degrees of such forms of gendered violence. 
 
 #Bibliography
 Pathak, S., Goltz, S. and W. Buche, M. "Influences of gendered institutions on women ' s entry into entrepreneurship", International Journal of Entrepreneurial Behavior & Research. 19:5 (2013), 478-502. https://doi.org/10.1108/IJEBR-09-2011-0115
