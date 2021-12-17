@@ -1,5 +1,5 @@
 ---
-title: "Predicting Violence Against Women by the Women's Economic Opportunity Index (WEOI)"
+title: "Predicting Violence Against Women Using the Women's Economic Opportunity Index (WEOI)"
 description: "An exploration of the the main indicators of the WEOI and what they can tell us about violence against women"
 author:
   - name: Reem Hazim
@@ -8,40 +8,43 @@ author:
 date: "`r Sys.Date()`"
 output: distill::distill_article
 ---
+
 # Introduction
-Even though "[Achieving] gender equality and [empowering] all women and girls" is among one of the 17 Sustainable Development Goals by the United Nations (United Nations), such goal swims against an enormous wave of violence against women in the contemporary world. Investigation on the causes of such violence is neither non-exhaustive nor simple. This paper aims to investigate what are possible reasons for the bugging persistence of violence against women, specifically positive attitudes towards violence against women. Believing in the importance of promoting women's economic well-being in order to achieve equality, we aim to understand the relationship between violence against women and the Women's Economic Opportunity Index (WEOI). Providing a violence-free environment for women and girls will immensely support their empowerment, which in turn represents countless gains for society as a whole (King 6).
+
+Even though "\[Achieving\] gender equality and \[empowering\] all women and girls" is among one of the 17 Sustainable Development Goals by the United Nations (United Nations), such goal swims against an enormous wave of violence against women in the contemporary world. Investigation on the causes of such violence is neither non-exhaustive nor simple. This paper aims to investigate what are possible reasons for the bugging persistence of violence against women, specifically positive attitudes towards violence against women. Believing in the importance of promoting women's economic well-being in order to achieve equality, we aim to understand the relationship between violence against women and the Women's Economic Opportunity Index (WEOI). Providing a violence-free environment for women and girls will immensely support their empowerment, which in turn represents countless gains for society as a whole (King 6).
 
 After a brief literature review on the subject of women's economic well-being, we explain our two-part methodology. Then, we present the data we obtained. Data was pulled from the Organisation for Economic Co-operation and Development (OECD), the United Nations (UN), and the World Bank (WB). Our analysis points out that even though women's legal status seem to be one of the best predictors within the WEOI for violence against women, we must be attentive to ways in which indicators interact and affect each other.
 
 # Literature Review
-Women are disadvantaged in entrepreneurship. An assumption that institutions of entrepreneurship are genderless have resulted in structures that pretend to be "genderless" when they are not (Pathak et. al.). It is well-known that organizations, by not identifying or addressing the barriers that women might uniquely face, such as childrearing and domestic labour (Acker), have failed to provide equality in the workplace. Our research dialogues with previous literature in asserting that difficulty in women's access to finance and labor participation further limit the possibility of firming women's independence from, at best, their domestic and childrearing duties, and at worse, from their partners. By constraining women from participating in labor in equal and fair manners, as well accessing finance, we argue that this could be increasing violence against women. 
 
-Women's education and legal status can both decrease levels of violence against women. When education is intentionally design to address gender inequality, awareness on violence against women have the potential to provide the tools women need to both identify and report when they are experience violence (Okenwa-Emgwa et. al.). Similarly, women's legal status is important specially in what regards women having access to institutions and legal frameworks they can recur to when experiencing violence (Tavares & Wodon). This includes now only explicit regulation against violence experienced by intimate partners, but also legal frameworks protecting their right to freedom of movement, property ownership, adolescent fertility rate, and regulations addressing all forms of discrimination (Women's Economic Opportunity Index). However, the literature has raised questions on the effectiveness of both of education and legal status alone raising the status of women and preventing violence. In terms of education, even though the benefits of education by itself are evident (Girl Rising), in order to effectively reduce violence against women, it is necessary to formulate curriculum that include gender equality and information on violence against women (Okenwa-Emgwa et. al.). In the case of women's legal status, adequate implementation and observation of such laws are needed for the effective enforcement of laws (Tavares & Wodon). Our research dialogues with such limitations by exploring weather WEO's indicators on education and training; and women's legal status can adequately predict a decresed in a positive attitude against violence. 
+Women are disadvantaged in entrepreneurship. An assumption that institutions of entrepreneurship are genderless have resulted in structures that pretend to be "genderless" when they are not (Pathak et. al.). It is well-known that organizations, by not identifying or addressing the barriers that women might uniquely face, such as childrearing and domestic labour (Acker), have failed to provide equality in the workplace. Our research dialogues with previous literature in asserting that difficulty in women's access to finance and labor participation further limit the possibility of firming women's independence from, at best, their domestic and childrearing duties, and at worse, from their partners. By constraining women from participating in labor in equal and fair manners, as well accessing finance, we argue that this could be increasing violence against women.
+
+Women's education and legal status can both decrease levels of violence against women. When education is intentionally design to address gender inequality, awareness on violence against women have the potential to provide the tools women need to both identify and report when they are experience violence (Okenwa-Emgwa et. al.). Similarly, women's legal status is important specially in what regards women having access to institutions and legal frameworks they can recur to when experiencing violence (Tavares & Wodon). This includes now only explicit regulation against violence experienced by intimate partners, but also legal frameworks protecting their right to freedom of movement, property ownership, adolescent fertility rate, and regulations addressing all forms of discrimination (Women's Economic Opportunity Index). However, the literature has raised questions on the effectiveness of both of education and legal status alone raising the status of women and preventing violence. In terms of education, even though the benefits of education by itself are evident (Girl Rising), in order to effectively reduce violence against women, it is necessary to formulate curriculum that include gender equality and information on violence against women (Okenwa-Emgwa et. al.). In the case of women's legal status, adequate implementation and observation of such laws are needed for the effective enforcement of laws (Tavares & Wodon). Our research dialogues with such limitations by exploring weather WEO's indicators on education and training; and women's legal status can adequately predict a decresed in a positive attitude against violence.
 
 # Methodology
+
 This study consists on two parts. The first part is an exploration of three variables that the Organisation for Economic Co-operation and Development (OECD) has linked to Violence Against Women. The first one is attitude towards violence, which consists on an indicator varying from 0-100% revealing the share of women who agree that a husband is justified in beating his wive(s). The second is prevalence of violence in lifetime (0-100%), which indicates the share of women exposed to physical and/or sexual violence at least one time from their intimate partner. Finally laws on domestic violence (0.25-1) measures whether legal frameworks protect women from domestic violence. The closer to 1, the more discriminatory the laws are against women.
 
-Then, the second part of this research uses the Women's Economic Opportunity Index (WEO) to predict violence against women.Created by Economist Intelligence Unit (research division of the Economist Group), “The Women’s Economic Opportunity Index is a dynamic quantitative and qualitative scoring model, constructed from 29 indicators, that measures specific attributes of the environment for women employees and entrepreneurs in 128 economies.” (Economist Inteliggence Union). The index is on a scale from 0 - 100, in which 0 refers to a least favourable situation to women and 100 refers to a more favourable situation to women.
+Then, the second part of this research uses the Women's Economic Opportunity Index (WEO) to predict violence against women.Created by Economist Intelligence Unit (research division of the Economist Group), "The Women's Economic Opportunity Index is a dynamic quantitative and qualitative scoring model, constructed from 29 indicators, that measures specific attributes of the environment for women employees and entrepreneurs in 128 economies." (Economist Inteliggence Union). The index is on a scale from 0 - 100, in which 0 refers to a least favourable situation to women and 100 refers to a more favourable situation to women.
 
 We dissect the index into four out of its five main variables: labour participation, access to finance, women's legal status, and women's education and training, moving forward to using them as our independent variables. We finally move forward by focusing in attitude towards women as our dependent variable. We draw a causal graph that intends to predict what can be causing high levels of attitude towards violence. We then run several univariate and multivariate regression models were drawn between our dependent and independent variables.
 
 # Theory/Hypotheses
 
-With the literature in mind, and with a curiosity towards measurements taken by the Women's Economic Opportunity Index, our research question consists on 
-how do labour participation, women's legal status, access to finance and women's education and training appear to reduce or increase violence against women? Specifically, which one of those four variables seem to be the best predictor for an increase or reduction in attitude towards violence?
+With the literature in mind, and with a curiosity towards measurements taken by the Women's Economic Opportunity Index, our research question consists on how do labour participation, women's legal status, access to finance and women's education and training appear to reduce or increase violence against women? Specifically, which one of those four variables seem to be the best predictor for an increase or reduction in attitude towards violence?
 
-Even though we explore four out of the five indicators used in WEOI in order to possibly find out which indicators seem to best predict attitude towards violence, we also pay attention to the  interactions between such indicators. We do so because we are well aware of possible confounding variables.
+Even though we explore four out of the five indicators used in WEOI in order to possibly find out which indicators seem to best predict attitude towards violence, we also pay attention to the interactions between such indicators. We do so because we are well aware of possible confounding variables.
 
 Labour participation consists in four indicators: equal pay for equal work, non-discrimination, Degree of de facto discrimination against women in the workplace, and availability, affordability, and, quality of childcare services (Women's Economic Opportunity Index Report 10).
 
-Access to finance consists in four indicators: building credit histories, women’s access to finance programmes, delivering financial services, private-sector credit as a percent of Gross Domestic Product.(Women's Economic Opportunity Index Report 11). 
+Access to finance consists in four indicators: building credit histories, women's access to finance programmes, delivering financial services, private-sector credit as a percent of Gross Domestic Product.(Women's Economic Opportunity Index Report 11).
 
-Education and training consists of four indicators: School life expectancy (primary and secondary), School life expectancy (tertiary), Adult literacy rate, and Existence of government or non-government programmes offering small and medium-sized enterprise (SME) support/development training.(Women's Economic Opportunity Index Report 11). 
+Education and training consists of four indicators: School life expectancy (primary and secondary), School life expectancy (tertiary), Adult literacy rate, and Existence of government or non-government programmes offering small and medium-sized enterprise (SME) support/development training.(Women's Economic Opportunity Index Report 11).
 
-Women's legal status consists of five indicators: existence of laws protecting women against violence, freedom of movement, property ownership rights, adolescent fertility rate, and wether a country ratification of the Convention on the Elimination of All Forms of Discrimination against Women (CEDAW) [(Women's Economic Opportunity Index Report 11].
+Women's legal status consists of five indicators: existence of laws protecting women against violence, freedom of movement, property ownership rights, adolescent fertility rate, and wether a country ratification of the Convention on the Elimination of All Forms of Discrimination against Women (CEDAW) \[(Women's Economic Opportunity Index Report 11\].
 
 # Data
-# Part 1: Exploration of Dependent Variables
+## Part 1: Exploration of Dependent Variables
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -51,7 +54,10 @@ library(ggfortify)
 library(brms)
 library(ggthemes)
 library(lubridate)
-install.packages("corrplot")
+# Uncomment the following lines if you don't have these packages installed
+#install.packages("corrplot")
+#install.packages("dagitty")
+#install.packages("ggdag")
 library(corrplot)
 library(dagitty)
 library(ggdag)
@@ -59,7 +65,7 @@ library(ggdag)
 
 ```{r read-clean-oecd-data, include=FALSE}
 oecd_violence <- 
-  read_csv("violence.csv", show_col_types=FALSE) %>% 
+  read_csv("data/violence.csv", show_col_types=FALSE) %>% 
   filter(TIME=="2019") %>% 
   select(LOCATION, SUBJECT, Value) %>% 
   rename(location=LOCATION, indicator=SUBJECT, value=Value)
@@ -68,11 +74,9 @@ oecd_violence <-
 ```{r join-regions-data, include=FALSE}
 # Reading continents/regions data
 regions_data<-
-  read_csv("regionsdata.csv", show_col_types=FALSE) %>% 
-  select(-"...6", -"SpecialNotes")
-
-
-regions_data <- rename(regions_data, c("location" = "Country Code"))
+  read_csv("data/regionsdata.csv", show_col_types=FALSE) %>% 
+  select(-"...6", -"SpecialNotes") %>% 
+  rename(c("location" = "Country Code"))
 
 # Merging datasets
 violence_with_region <- merge(oecd_violence, regions_data, by="location")
@@ -81,13 +85,12 @@ violence_with_region <- merge(oecd_violence, regions_data, by="location")
 violence_region_wide <- violence_with_region %>% 
   pivot_wider(names_from="indicator", values_from="value") %>% 
   mutate(LAWDOMVIOL = as.character(LAWDOMVIOL)) %>% 
-  mutate(LAWDOMVIOL = fct_relevel(LAWDOMVIOL, "0.25", "0.5",  "0.75", "1")) 
+  mutate(LAWDOMVIOL = fct_relevel(LAWDOMVIOL, "0.25", "0.5",  "0.75", "1")) %>% 
+  na.omit()
 
 # Reordering group factor levels for IncomeGroup
 violence_region_wide$IncomeGroup <- factor(violence_region_wide$IncomeGroup,
                          levels = c("High income", "Upper middle income", "Lower middle income", "Low income"))
-
-violence_region_wide <- na.omit(violence_region_wide)
 
 ```
 
@@ -116,7 +119,6 @@ violence_region_wide %>%
 
 ```
 
-
 ```{r ATTITUDEVIOLbyIncomeGroup}
 #Exploring ATTITUDEVIOL by incomegroup
 ggplot(violence_region_wide)+
@@ -132,7 +134,7 @@ beating his wife/partner under certain circumstances",
   )
 ```
 
-There seems to be a clear association between attitude towards violence against women and a countries' group income. High and upper middle income countries seem to have a lower share of women who agree that the husband is justified in inflicted violence in their wives. 
+There seems to be a clear association between attitude towards violence against women and a countries' group income. High and upper middle income countries seem to have a lower share of women who agree that the husband is justified in inflicted violence in their wives.
 
 ```{r ATTITUDEVIOLByRegion, include=FALSE}
 ggplot(violence_region_wide)+
@@ -163,7 +165,8 @@ violence from an intimate partner at some time in their life",
   )
   
 ```
-Similar to Attitudes Towards Violence, when it comes to prevalence of violence in the lifetime, we can observe that high income countries (colored red) are concentrated towards the left side of the graph. This means that fewer women have been exposed to physical or sexual violence in comparison to countries falling in other income groups. 
+
+Similar to Attitudes Towards Violence, when it comes to prevalence of violence in the lifetime, we can observe that high income countries (colored red) are concentrated towards the left side of the graph. This means that fewer women have been exposed to physical or sexual violence in comparison to countries falling in other income groups.
 
 ```{r PREVVIOLIFETIMEByRegion, include=FALSE}
 ggplot(violence_region_wide)+
@@ -200,15 +203,17 @@ ggplot(violence_region_wide, aes(x=LAWDOMVIOL, fill=IncomeGroup))+
     y="Count"
   )
 ```
+
 Whereas in regards to the previous variables it was clearer to see the distribution of data in regards to income group, Laws on domestic violence don't see to follow the same pattern. The graph shows that most countries, regardless of income group, fall in the "0.75" measure for Laws on Domestic Violence. That means that their laws and practices are unsuficcient to garantee the well-being of women. It is evident that even though there are few countries in which the number reaches the value 1 (laws and practices are completely discriminatory against women), the realization that most countries in the global still have unsuficcient laws that protect women's rights is incredibly worrying. We can also observe that there are more countries with better laws and practices for women's rights among high income countries (that is, countries in which the indicator equals 0.25). This also holds true in a lesser extent for upper middle income countries. For both lower middle income and low income, however, there seems to be more countries in the 0.5 and 0.75 levels then in the 0.25. This unvels a pattern that establishes that higher income coutries, despite also having large number of countries that have a indicator of law on domestic violence equal to 0.75, have also higher number of countries that have a somewhat benefitial laws and practices against domestic violence. However, this does not seem to be a causal effect. It is highly unlikely that a countrie's income group alone establishes the laws on domestic violence, but it points us in the direction of establishing a connection between higher levels of economic develpment and better legislation on domestic violence.
 
-We proceed to design stacked bars in order to bette r understand patterns in the data, specially when it came to laws on domestic violence. However, one important aspect to notice is that the total number of countries in each income category will affect the visualization of these stack bars when they are not designed to take into acount proportion. 
+We proceed to design stacked bars in order to bette r understand patterns in the data, specially when it came to laws on domestic violence. However, one important aspect to notice is that the total number of countries in each income category will affect the visualization of these stack bars when they are not designed to take into acount proportion.
 
 ```{r n-countries-per-income-group}
 violence_region_wide %>% 
   group_by(IncomeGroup) %>% 
   summarize(count = n())
 ```
+
 There are 39 high income, 33 upper middle income, 37 lowe middle income, and only 19 lower income countries in the dataset.
 
 ```{r barstack-LAWDOMVIOLByIncome}
@@ -236,7 +241,8 @@ women’s rights",
 #           fill = IncomeGroup)) + 
  # geom_bar(position = "stack")
 ```
-A stacked bar helps in the visualization and reveals that indeed most of the countries that have a value of 0.25 on Laws on Domestic Violence (better laws on domestic violence) are high income countries. However, it is important to notice that in the 0.75 value, there seems to be a more balanced distribution throughout all income groups. In the value of "1", i.e., laws on domestic violence that completely discriminate against women, we find only upper middle income countries. 
+
+A stacked bar helps in the visualization and reveals that indeed most of the countries that have a value of 0.25 on Laws on Domestic Violence (better laws on domestic violence) are high income countries. However, it is important to notice that in the 0.75 value, there seems to be a more balanced distribution throughout all income groups. In the value of "1", i.e., laws on domestic violence that completely discriminate against women, we find only upper middle income countries.
 
 ```{r BarStackATTITUDEVIOLByIncomeGroup}
 ggplot(violence_region_wide, 
@@ -253,7 +259,8 @@ violence from an intimate partner at some time in their life",
 )
   
 ```
-We also produced a bar stack for prevalence of violence in the lifetime, but instead of using a proportion stacked bar we opted for a frequency one. Even though this plot suffers from the total number of high income countries being superior overall, the concentration of such countries in the left side of the graph once again reveal the pattern of high income countries performing better in such indicators. 
+
+We also produced a bar stack for prevalence of violence in the lifetime, but instead of using a proportion stacked bar we opted for a frequency one. Even though this plot suffers from the total number of high income countries being superior overall, the concentration of such countries in the left side of the graph once again reveal the pattern of high income countries performing better in such indicators.
 
 ```{r BarStackPREVVIOLLIFETIMEByIncomeGroup}
 ggplot(violence_region_wide, 
@@ -305,7 +312,7 @@ ggplot(violence_region_wide, aes(x = PREVVIOLLIFETIME, y = ATTITUDEVIOL)) +
 
 ```{r read-country-coordinates, include=FALSE}
 # Read country coordinates
-country_coordinates <- read_csv("countries_codes_and_coordinates.csv")
+country_coordinates <- read_csv("data/countries_codes_and_coordinates.csv")
 
 # Clean country coordinates
 country_coordinates <- country_coordinates %>% 
@@ -350,21 +357,31 @@ violence_region_coordinates_wide %>%
   geom_label(aes(x=23.3, y=19.6), label=outlier_low,fill = "white", fontface="bold",color="black", nudge_y=4, size=4, alpha=0.01)
 ```
 
+
+
+\[Reem Writes Interpretation\]
+
+
 ```{r prevviol_attitude_corr}
 cor(violence_region_coordinates_wide$PREVVIOLLIFETIME, violence_region_coordinates_wide$ATTITUDEVIOL, use="complete.obs")
 ```
+
 
 X-axis shows Prevalence of Violence in Lifetime, Y-axis shows Attitude Towards Violence, and the colored dots indicate Laws Against Domestic Violence.  The visualization shows a moderate positive relationship between Prevalence of Violence in the Lifetime and Attitude Towards Violence (correlation coefficient = 0.45). We can also visualize that yellow-dots countries are concentrated in the left lower side of the plot, thus revealing that countries that have decent laws on Domestic Violence also tend to perform better in the other two indicators. 
 
 The annotated countries in the graph are countries in which the Laws Against Domestic Violence are completely discriminatory against women: Equatorial Guinea and the Russian Federation. Whereas Equatorial Guinea, besides a completely discriminatory Laws Against Domestic Violence, also has higher levels of Prevalence of Violence and Attitude Towards Violence, the Russian Federation is an interesting case. It shows lower levels of Prevalence of Violence and Attitude Towards Violence, but its legislation seem to completely discriminate against women. It is closer to the yellow dots on the graph, which are countries with good Laws on Domestic Violence. This sets Russia apart as an notable out liar when plotting the relationship between the three dependent variable. Research on its case will be interesting when analyzing  potential causes for the persistence of violence against women. 
 
+X-axis shows Prevelance of Violence in Lifetime, Y-axis shows Attitude Towards Violence, and the colored dots indicate Laws Against Domestic Violence.  The visualization shows a moderate positive relationship between Prevalence of Violence in the Lifetime and Attitude Towards Violence (correlation coefficient = 0.45). We can also visualize that yellow-dots countries are concentrated in the left lower side of the plot, thus revealing that countries that have decent laws on Domestic Violence also tend to perform better in the other two indicators. 
+>>>>>>> d179090f983762c1646a2b961b6fe8e83125d06f
+
+The annotated countries in the graph are countries in which the Laws Against Domestic Violence are completely discriminatory against women: Equatorial Guinea and the Russian Federation. Whereas Equatorial Guinea, besides a completely discriminatory Laws Against Domestic Violence, also has higher levels of Prevalence of Violence and Attitude Towards Violence, the Russian Federation is an interesting case. It shows lower levels of Prevelance of Violence and Attitude Towards Violence, but its legislation seem to completely discriminate against women. It is closer to the yellow dots on the graph, which are countries with good Laws on Domestic Violence. This sets Russia apart as an notable outlier when plotting the relationship between the three dependent varibale. Research on its case will be interesting when analysizng potential causes for the persistance of violence against women. 
 
 ### Comparing OECD and UN in Prevalence of Violence Againt Women
 
 ```{r join-un-data}
 
 # Read UN data on prevalence of violence in past 12 months
-un_women_violence <- read_csv("un_women_violence_data.csv") %>% 
+un_women_violence <- read_csv("data/un_women_violence_data.csv") %>% 
   select(-`Source Link`) %>% 
   rename(country = `Country Name`, un_year = `Reference year`, un_prev_viol_12m = `48. Proportion of women subjected to physical and/or sexual violence by a current or former intimate partner, in the last 12 months`)
 
@@ -435,6 +452,7 @@ cor(un_oecd_women_violence_wide$PREVVIOLLIFETIME, un_oecd_women_violence_wide$un
 ```
 
 ### Mapping Attitudes Towards Violence
+
 ```{r}
 autoplot(world_map, geom = 'polygon', col="white", fill="grey", ylim=c(-54,85), xlim=c(-160, 200)) +
   geom_point(data=violence_region_coordinates_wide, aes(x=long, y=lat, color=ATTITUDEVIOL, size=ATTITUDEVIOL), alpha=0.8) +
@@ -449,7 +467,8 @@ autoplot(world_map, geom = 'polygon', col="white", fill="grey", ylim=c(-54,85), 
 
 ### Visualizing Independent Variables
 
-#### Read in Independent variables
+
+>>>>>>> d179090f983762c1646a2b961b6fe8e83125d06f
 ```{r read-datasets1, show_col_types = FALSE}
 #If we perform an anti-join of the countries dataset with the violence dataset, we can see that there are around `r nrow(missing_countries)` missing countries. Most of these countries are small islands that may not have enough data on violence against women.
 ```
@@ -460,60 +479,11 @@ prev_viol <- violence_region_coordinates_wide %>%
   drop_na(PREVVIOLLIFETIME) %>% 
   mutate(LAWDOMVIOL = as.numeric(LAWDOMVIOL))
 
-# Read alcohol consumption
-#alcohol_consump <- read_csv("violence_factors/alcohol_consumption_oecd.csv", show_col_types = FALSE) %>% 
-  #filter(TIME == "2019", FREQUENCY == "A") %>% 
-  #select("LOCATION", "Value") %>% 
- #rename("location" = "LOCATION", "alcohol_consump" = "Value")
-
-# Read child marriage
-#child_marriage <- read_csv("violence_factors/child_marriage_rate.csv", show_col_types = FALSE)  %>% 
-  #filter(TIME == "2019", FREQUENCY == "A", SUBJECT == "EARMARRIAGE") %>% 
- #select("LOCATION", "Value") %>% 
-  #mutate(Value = as.numeric(Value)) %>% 
-  #rename("location" = "LOCATION", "child_marriage" = "Value")
-
-#second_enrol <- read_csv("violence_factors/female_second_school_enrol.csv", show_col_types = FALSE) %>% 
-  #select("Country Code", "2019 [YR2019]") %>% 
-  #rename("location" = "Country Code", "second_enrol" = "2019 [YR2019]") %>% 
-  #mutate(second_enrol = na_if(second_enrol, ".."),
-        # second_enrol = round(as.numeric(second_enrol), 2))
-
-#labour_part_rate <- read_csv("violence_factors/female_labour_force_part.csv", show_col_types = FALSE) %>% 
- # select("ref_area.label", "obs_value") %>% 
- # rename("country" = "ref_area.label", "labour_part" = "obs_value")
-
-#poverty_rate_oecd <- read_csv("violence_factors/poverty_rate_oecd.csv", show_col_types = FALSE) %>% 
- # filter(SUBJECT == "TOT") %>% 
-  #group_by(LOCATION) %>%
-  #filter(TIME == max(TIME)) %>%
-  #select("LOCATION", "Value") %>% 
- # rename("location" = "LOCATION", "poverty_rate_oecd" = "Value")
-
-#unemployment_rate_ILO <- read_csv("violence_factors/unemployment_rate_ILO.csv", show_col_types = FALSE) %>% 
- # select("ref_area.label", "obs_value", "sex.label") %>% 
-  #rename("country" = "ref_area.label", "unemployment_rate" = "obs_value", "sex"="sex.label")
-
-#unemployment_rate_male <- unemployment_rate_ILO %>% 
-  #  filter(sex == "Sex: Male") %>% 
-  #  select(-sex) %>% 
-  #  rename("unemployment_male" = "unemployment_rate")
-
-# unemployment_rate_female <- unemployment_rate_ILO %>% 
- # filter(sex == "Sex: Female") %>% 
-#  select(-sex) %>% 
- # rename("unemployment_female" = "unemployment_rate")
-
-#women_in_politics <- read_csv("violence_factors/women_in_politics.csv", show_col_types = FALSE) %>% 
-  #filter(TIME == "2019", FREQUENCY == "A") %>% 
-  #select("LOCATION", "Value") %>% 
-  #rename("location" = "LOCATION", "women_in_politics" = "Value")
-
-womens_opp_index <- read_csv("violence_factors/womens-economic-opportunity-2012-index.csv", show_col_types=FALSE) %>% 
+womens_opp_index <- read_csv("data/violence_factors/womens-economic-opportunity-2012-index.csv", show_col_types=FALSE) %>% 
   select(-Entity, -Year) %>% 
   rename("location" = "Code", "womens_opp_index" = "WEO Index overall score (Economist Intelligence Unit (2012))")
 
-women_opp_index_breakdown <- read_csv("violence_factors/women_opps_index_breakdown.csv", show_col_types=FALSE) %>% 
+women_opp_index_breakdown <- read_csv("data/violence_factors/women_opps_index_breakdown.csv", show_col_types=FALSE) %>% 
   select(-"INDI_CODE", -"Explanation") %>% 
   rename("name"="NAME", ) %>% 
   mutate(across(where(is.character), ~na_if(., "n/a"),)) %>% 
@@ -525,16 +495,6 @@ women_opp_index_breakdown <- read_csv("violence_factors/women_opps_index_breakdo
 prev_viol_factors <- prev_viol %>% 
   left_join(womens_opp_index, by="location") %>% 
   left_join(women_opp_index_breakdown, by="country")
-
- # left_join(alcohol_consump, by="location") %>% 
-  #left_join(child_marriage, by="location") %>% 
-  #left_join(second_enrol, by="location") %>% 
- # left_join(labour_part_rate, by="country") %>% 
-  #left_join(poverty_rate_oecd, by="location") %>% 
-  #left_join(unemployment_rate_male, by="country") %>% 
-  #left_join(unemployment_rate_female, by="country") %>% 
-  #left_join(women_in_politics, by="location") %>% 
-
 ```
 
 ```{r plot-ind-vars}
@@ -557,6 +517,7 @@ relevant_factors_long %>%
 ```
 
 
+
 ### Issues with the Data and Limitations of Dependent Variables 
 
 For our dependent variables, we found some recurring data limitations. 
@@ -575,15 +536,14 @@ The dataset also does not contain all the countries in the world. We identifies 
 missing_countries <- 
   country_coordinates %>% 
   anti_join(violence_with_region, by= c("alpha_code" = "location"))
-
-head(missing_countries)
 ```
 
 If we perform an anti-join of the countries dataset with the violence dataset, we can see that there are around `r nrow(missing_countries)` missing countries. Most of these countries are small islands that may not have enough data on violence against women.
 
-# Part 2: Predicting Attitude Towards Violence
+## Part 2: Predicting Attitude Towards Violence
 
 Having explored out dependent variables, we proceed to exploring the relationship between out dependent variables and our chosen independent variable -- The Women's Economic Opportunity Index. (WOEI)
+
 
 # Correlation Coefficients
 
@@ -599,29 +559,12 @@ corr_matrix <-
   cor(use="na.or.complete") %>% 
   round(digits = 2)
 
-cor.mtest <- function(mat, ...) {
-    mat <- as.matrix(mat)
-    n <- ncol(mat)
-    p.mat<- matrix(NA, n, n)
-    diag(p.mat) <- 0
-    for (i in 1:(n - 1)) {
-        for (j in (i + 1):n) {
-            tmp <- cor.test(mat[, i], mat[, j], ...)
-            p.mat[i, j] <- p.mat[j, i] <- tmp$p.value
-        }
-    }
-  colnames(p.mat) <- rownames(p.mat) <- colnames(mat)
-  p.mat
-}
-# matrix of the p-value of the correlation
-p.mat <- 
-  relevant_factors %>% 
-  select_if(is.numeric) %>% 
-  select(-prev_viol, -law) %>% 
-  cor.mtest()
 
 corrplot(corr_matrix, method="color", tl.col="black", tl.srt=45, type="upper", addCoef.col = "black", diag=FALSE, insig = "blank", tl.cex=1.75, number.font=7, number.cex=1.75 )
 ```
+
+\[CORRELATION MATRIX EXPLAINATION\]
+
 The matrix reveals that attitude towards women seem to negatively correlated with many of the indicators in the WEOI, especially education and training. However, it also evident that the indicators seem to be strongly correlated positively with each other as well. Such interactions could turn difficult to see confounding variables in our study. 
 
 ```{r}
@@ -629,8 +572,6 @@ The matrix reveals that attitude towards women seem to negatively correlated wit
   select(attitude, law, prev_viol) %>% 
   cor(y=relevant_factors$womens_opp_index, use="na.or.complete") %>% 
   round(digits = 2)
-
-
 ```
 
 ```{r causal-diagram}
@@ -659,20 +600,6 @@ tidy_dagitty(attitude_dag) %>%
 
 ```
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
-#child_marriage_reg <- brm(formula = #ATTITUDEVIOL~child_marriage,data=prev_viol_factors,refresh=0)
-
-#summary(child_marriage_reg)
-#plot(child_marriage_reg)
-```
-
-```{r message=FALSE, warning=FALSE, include=FALSE}
-#labour_part_reg <- brm(formula = ATTITUDEVIOL~labourpolicy,data=prev_viol_factors,refresh=0)
-
-#summary(labour_part_reg)
-#plot(labour_part_reg)
-```
-
 
 ```{r message=FALSE, warning=FALSE}
 prev_opp_index <- brm(formula = prev_viol~womens_opp_index, data=relevant_factors,refresh=0)
@@ -681,8 +608,7 @@ summary(prev_opp_index)
 plot(prev_opp_index)
 ```
 
-[interpretation] 
-
+\[interpretation\]
 
 ```{r regression-lpp}
 # Regression For Labour, Policy and Practice 
@@ -690,6 +616,7 @@ plot(prev_opp_index)
 labour_policy_practice_reg <- brm(formula= attitude ~ labour_policy, data= relevant_factors, refresh =0)
 
 ```
+
 ```{r regression-eat}
 ### Regression on Education and Training 
 
@@ -702,7 +629,6 @@ edu_training_reg <- brm(formula = attitude ~ education, data= relevant_factors, 
 
 access_finance_reg <- brm(formula = attitude ~ finance_access, data= relevant_factors, refresh=0)
 ```
-
 
 ```{r regression-wllss}
 ### Regression on Women's Legal and Social Status 
@@ -721,17 +647,8 @@ ggplot(data=prev_viol_factors, mapping = aes(x = womens_opp_index, y = ATTITUDEV
     x = "Women Economic Opportunities Index",
     y = "Attitude Towards Violence")
 ```
-[interpretation]
 
-```{r prevliftime-labourpart, include=FALSE}
-#ggplot(data=prev_viol_factors, mapping = aes(x = PREVVIOLLIFETIME, y = labour_part)) + 
-  #stat_smooth(method="lm")+
-  #geom_point()+
-  #labs (
-   # title="Prevalence of violence in the lifetime by Labour Participation",
-  #  x = "Prevalence of violence in the lifetime",
-   # y = "Share of Women in the Labour Participation (%)") 
-```
+\[interpretation\]
 
 ```{r renaming-in-main-dataset, include=FALSE}
 #geom_text()
@@ -740,7 +657,6 @@ names(prev_viol_factors)[names(prev_viol_factors) == "ACCESS TO FINANCE"] <- "ac
 names(prev_viol_factors)[names(prev_viol_factors) == "EDUCATION AND TRAINING"] <- "educationtraining"
 names(prev_viol_factors)[names(prev_viol_factors) == "WOMEN'S LEGAL AND SOCIAL STATUS"] <- "legalstatus"
 ```
-
 
 ```{r plotreg-labour}
 # PLOTTING REGRESSIONS ATTITUDE VIOLENCE AND LABOUR POLICY AND PRACTICE, ACCESS TO FINANCE, EDUCATION AND TRAINING AND WOMENS LEGAL STATUS 
@@ -754,8 +670,6 @@ ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = labourpolicy)
 by how favorable is labour policy and practice (0-100) to women",
     x = "Attitude Towards Violence",
     y = "Labour Policy and Practice")
-
-ggsave("plot1.png", last_plot())
 
 summary(labour_policy_practice_reg)
 plot(labour_policy_practice_reg)
@@ -771,7 +685,6 @@ ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = accessfinance
 by how favorable is access to finance (0-100) to women",
     x = "Attitude Towards Violence",
     y = "Access to Finance")
-ggsave("plot2.png", last_plot())
 
 summary(access_finance_reg)
 plot(access_finance_reg)
@@ -787,7 +700,6 @@ ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = educationtrai
 by how favorable is Education and Traning (0-100) to women",
     x = "Attitude Towards Violence",
     y = "Education and Training")
-ggsave("plot3.png", last_plot())
 
 summary(edu_training_reg)
 plot(edu_training_reg)
@@ -803,13 +715,13 @@ ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = legalstatus))
 by how favorable is women's legal stats (0-100)",
     x = "Attitude Towards Violence",
     y = "Women's Legal Status")
-ggsave("plot4.png", last_plot())
 
 summary(women_legal_social_status_reg)
 plot(women_legal_social_status_reg)
 ```
 
 We draw a multivariate regression:
+
 ```{r multivariate regression}
 multivariate_reg <- brm(formula= attitude ~ labour_policy + education + legal_status + finance_access, data=relevant_factors, refresh =0)
 
@@ -817,6 +729,7 @@ summary(multivariate_reg)
 plot(multivariate_reg)
 ```
 
+<<<<<<< HEAD
 ```{r plotreg-prevlifetime, include=FALSE}
  #ggplot(data=prev_viol_factors, mapping = aes(x = #PREVVIOLLIFETIME, y = labourpolicy)) + 
   #stat_smooth(method="lm")+
@@ -837,13 +750,14 @@ plot(multivariate_reg)
 
 # Limitations of Independent Variable
 
+
 # Analysis and Interpretation of Results
+
 When we ran the regression between attitudes towards violence individually with each of the four indicators from WEOI, we noticed that women's legal status seemed to be the most strongly negatively correlated with the dependent variable (-0.80). Running a multivariate regression with all indicators, however, decreased the correlation of women's legal status to (NUMBER). Even though it remains moderately correlated, such interaction reveal that it is difficult to isolate one single cause for the increase or decrease of levels in attitudes towards violence.
 
-A counterfactual that arises from our research is imagining a country in which the women's legal status was signficantly lower than the rest of the indicators. Would such a country have lower levels of attitude against violence (less women agreeing that violence is justified)? Even though we cannot find such a case within the indicators of the WOEI, the exploration on the dependent variables highlighted the Russian Federation as having laws on domestic violence that completely discriminated against women but had decent levels in prevalence of violence in lifetime and attitude towards women. A further study on the case of the Russian Federation could reveal the effectiveness of women's legal status (and especifically laws against domestic violence) in causing a decrease in violence against women. 
+A counterfactual that arises from our research is imagining a country in which the women's legal status was signficantly lower than the rest of the indicators. Would such a country have lower levels of attitude against violence (less women agreeing that violence is justified)? Even though we cannot find such a case within the indicators of the WOEI, the exploration on the dependent variables highlighted the Russian Federation as having laws on domestic violence that completely discriminated against women but had decent levels in prevalence of violence in lifetime and attitude towards women. A further study on the case of the Russian Federation could reveal the effectiveness of women's legal status (and especifically laws against domestic violence) in causing a decrease in violence against women.
 
 (maybe write more about the russian case. what are its scores on the WEOI?)
-
 
 # Conclusions
 We cannot single out or highlight one single indicator in the WEOI that is most influential in decreasing violence against women. Our research highlights the complexities and the varying number of factors that result in the persistence of violence against women. However, it still might be useful to investigate further the sub-indicators within each indicator for the WEOI and analyze what they can provide as insights. Singling out countries, like Russia, and analyze closely what is the situation in violence against women through both quantitative and qualitative research can further reveal indicators that can be useful in measuring degrees of such forms of gendered violence. 
