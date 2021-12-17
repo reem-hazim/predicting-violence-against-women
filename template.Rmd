@@ -331,6 +331,8 @@ violence_region_coordinates_wide <-
   left_join(country_coordinates, by= c("location" = "alpha_code"))
 ```
 
+After drawing analysis by Income Group, a comparison between all three indicators unveiled their relationship among one another.
+
 ```{r compare-all-three-indicators}
 outlier_high <- violence_region_coordinates_wide %>% 
   filter(ATTITUDEVIOL > 50, LAWDOMVIOL == 1) %>% 
@@ -356,11 +358,16 @@ violence_region_coordinates_wide %>%
   geom_label(aes(x=23.3, y=19.6), label=outlier_low,fill = "white", fontface="bold",color="black", nudge_y=4, size=4, alpha=0.01)
 ```
 
+
 \[Reem Writes Interpretation\]
 
 ```{r prevviol_attitude_corr}
 cor(violence_region_coordinates_wide$PREVVIOLLIFETIME, violence_region_coordinates_wide$ATTITUDEVIOL, use="complete.obs")
 ```
+
+X-axis shows Prevelance of Violence in Lifetime, Y-axis shows Attitude Towards Violence, and the colored dots indicate Laws Against Domestic Violence.  The visualization shows a moderate positive relationship between Prevalence of Violence in the Lifetime and Attitude Towards Violence (correlation coefficient = 0.45). We can also visualize that yellow-dots countries are concentrated in the left lower side of the plot, thus revealing that countries that have decent laws on Domestic Violence also tend to perform better in the other two indicators. 
+
+The annotated countries in the graph are countries in which the Laws Against Domestic Violence are completely discriminatory against women: Equatorial Guinea and the Russian Federation. Whereas Equatorial Guinea, besides a completely discriminatory Laws Against Domestic Violence, also has higher levels of Prevalence of Violence and Attitude Towards Violence, the Russian Federation is an interesting case. It shows lower levels of Prevelance of Violence and Attitude Towards Violence, but its legislation seem to completely discriminate against women. It is closer to the yellow dots on the graph, which are countries with good Laws on Domestic Violence. This sets Russia apart as an notable outlier when plotting the relationship between the three dependent varibale. Research on its case will be interesting when analysizng potential causes for the persistance of violence against women. 
 
 ### Comparing OECD and UN in Prevalence of Violence Againt Women
 
@@ -455,7 +462,11 @@ autoplot(world_map, geom = 'polygon', col="white", fill="grey", ylim=c(-54,85), 
 
 #### Read in Independent variables
 
-```{r read-datasets, show_col_types = FALSE, include=FALSE}
+```{r read-datasets1, show_col_types = FALSE}
+#If we perform an anti-join of the countries dataset with the violence dataset, we can see that there are around `r nrow(missing_countries)` missing countries. Most of these countries are small islands that may not have enough data on violence against women.
+```
+
+```{r read-datasets2, show_col_types = FALSE, include=FALSE}
 # Select prevalence of violence to model it
 prev_viol <- violence_region_coordinates_wide %>% 
   drop_na(PREVVIOLLIFETIME) %>% 
@@ -500,13 +511,17 @@ relevant_factors_long %>%
 
 ### Issues with the Data and Limitations
 
+For our dependent variables, we found some recurring data limitations. 
+
+Using Income Groups might reveal interesting patterns in what regards how differently countries with different income levels deal with violence against women, but it tells little about what are the causes of such discrepancies. Hence, whereas our graphs were helpful in revealing the path in which research can take, it did not necessary reveal to us what could be some of the causes for our indicators. Finally, using Income Group as a category might ignore nuances in regard to the socio-economic development of different countries. For example, countries like Brazil are classified as Upper Middle Income, but it also has one of the largest inequalities in the world (Gini Coefficient = 53.3), ranking 9th globally. Such incredible inequality could be driving some of our dependent variable, which separating countries by Income Group would not necessarily reveal. 
+
 One tidiness issue in the data is that the dataset is in long format, which makes it difficult to visualize the relationship between the different indicators. Therefore, we had to transform the dataset into wide format to create these plots.
 
 There are also some discrepancies between what the indicators are trying to measure and what they actually measure. Quantifying such a large-scale phenomenon as violence against women is a non-trivial effort, since violence comes in many diverse forms. For example, the prevalence in lifetime indicator only quantifies violence from an intimate partner, excluding levels of harrasment that come from outside intimate circles, such as sex trafficking. Similarly, to measure "attitude towards violence", the dataset creators used "the percentage of women who agree that a husband/partner is justified in beating his wife/partner under certain circumstances." Why is this particular question used as a proxy for attitude towards violence? Why not ask whether non-intimate partners are also justified in beating women? Are there better or more comprehensive questions to gauge attitude towards violence?
 
 In addition, for the "laws on domestic violence" indicator, the dataset creators do not explain how they quantified the abstract concept of "laws and practices". They also do not specify what they mean by laws that "fully discriminate against women's rights". This makes it difficult to determine the accuracy of the indicator.
 
-The dataset also does not contain all the countries in the world.
+The dataset also does not contain all the countries in the world. We identifies 82 missing countries in our analysis.
 
 ```{r find-missing-countries}
 missing_countries <- 
@@ -516,7 +531,10 @@ missing_countries <-
 
 If we perform an anti-join of the countries dataset with the violence dataset, we can see that there are around `r nrow(missing_countries)` missing countries. Most of these countries are small islands that may not have enough data on violence against women.
 
+
 ## Predicting Prevalence of Violence
+
+
 
 # Correlation Coefficients
 
@@ -713,7 +731,7 @@ A counterfactual that arises from our research is imagining a country in which t
 # Conclusions
 We cannot single out or highlight one single indicator in the WEOI that is most influential in decreasing violence against women. Our research highlights the complexities and the varying number of factors that result in the persistence of violence against women. However, it still might be useful to investigate further the sub-indicators within each indicator for the WEOI and analyze what they can provide as insights. Singling out countries, like Russia, and analyze closely what is the situation in violence against women through both quantitative and qualitative research can further reveal indicators that can be useful in measuring degrees of such forms of gendered violence. 
 
-#Bibliography
+# Bibliography
 Pathak, S., Goltz, S. and W. Buche, M. "Influences of gendered institutions on women ' s entry into entrepreneurship", International Journal of Entrepreneurial Behavior & Research. 19:5 (2013), 478-502. https://doi.org/10.1108/IJEBR-09-2011-0115
 Acker, Joan. "HIERARCHIES, JOBS, BODIES: A Theory of Gendered Organizations." Gender and Society. 4:2 (1990): 139-158
 Okenwa-Emgwa, L., von Strauss, E. Higher education as a platform for capacity building to address violence against women and promote gender equality: the Swedish example. Public Health Rev 39, 31 (2018). https://doi.org/10.1186/s40985-018-0108-5
