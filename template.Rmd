@@ -720,13 +720,10 @@ by how favorable is women's legal stats (0-100)",
 plot(women_legal_social_status_reg)
 summary(women_legal_social_status_reg)
 ```
-When regressing attitudes towards violence and women's legal status we found that with every one unit increase in women's legal status there is a negative decrease of -0.83 in attitudes towards violence. 
-
-After running the regression of attitudes towards violence and each of the four indicators we found that the indicator with the best effect on attitudes towards violence is women's legal status. 
-
-Also noticing that the confidence intervals of each of the regressions is fairly small which means the uncertainty interval is fairly small. Additionally, the standard error of each coefficient were low. 
 
 The estimate for Women's Legal Status is -0.80. This is the highest estimate we found. Hence, With every one unit increase in Women's Legal Status there is a decrease of -0.80 in attitudes towards violence. The confidence levels range from -0.95 and -0.66, with an uncertainty of 0.07. This is the indicator with strongest correlation with a reduction in Attitude Towards Violence.
+
+Also noticing that the confidence intervals of each of the regressions is fairly small which means the uncertainty interval is fairly small. Additionally, the standard error of each coefficient were low. 
 
 With those results in mind, we draw a multivariate regression:
 
