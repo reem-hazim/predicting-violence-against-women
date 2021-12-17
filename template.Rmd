@@ -11,7 +11,7 @@ output: distill::distill_article
 
 # Introduction
 
-Even though "\[Achieving\] gender equality and \[empowering\] all women and girls" is among one of the 17 Sustainable Development Goals by the United Nations (United Nations), such goal swims against an enormous wave of violence against women in the contemporary world. Investigation on the causes of such violence is neither non-exhaustive nor simple. This paper aims to investigate what are possible reasons for the bugging persistence of violence against women, specifically positive attitudes towards violence against women. Believing in the importance of promoting women's economic well-being in order to achieve equality, we aim to understand the relationship between violence against women and the Women's Economic Opportunity Index (WEOI). Providing a violence-free environment for women and girls will immensely support their empowerment, which in turn represents countless gains for society as a whole (King 6).
+Even though "[Achieving gender equality and empowering all women and girls" is among one of the 17 Sustainable Development Goals by the United Nations (United Nations), such goal swims against an enormous wave of violence against women in the contemporary world. Investigation on the causes of such violence is neither non-exhaustive nor simple. This paper aims to investigate what are possible reasons for the bugging persistence of violence against women, specifically positive attitudes towards violence against women. Believing in the importance of promoting women's economic well-being in order to achieve equality, we aim to understand the relationship between violence against women and the Women's Economic Opportunity Index (WEOI). Providing a violence-free environment for women and girls will immensely support their empowerment, which in turn represents countless gains for society as a whole (King 6).
 
 After a brief literature review on the subject of women's economic well-being, we explain our two-part methodology. Then, we present the data we obtained. Data was pulled from the Organisation for Economic Co-operation and Development (OECD), the United Nations (UN), and the World Bank (WB). Our analysis points out that even though women's legal status seem to be one of the best predictors within the WEOI for violence against women, we must be attentive to ways in which indicators interact and affect each other.
 
@@ -41,7 +41,7 @@ Access to finance consists in four indicators: building credit histories, women'
 
 Education and training consists of four indicators: School life expectancy (primary and secondary), school life expectancy (tertiary), adult literacy rate, and existence of government or non-government programmes offering small and medium-sized enterprise (SME) support/development training.(Women's Economic Opportunity Index Report 11).
 
-Women's legal status consists of five indicators: existence of laws protecting women against violence, freedom of movement, property ownership rights, adolescent fertility rate, and wether a country ratification of the Convention on the Elimination of All Forms of Discrimination against Women (CEDAW) \[(Women's Economic Opportunity Index Report 11\].
+Women's legal status consists of five indicators: existence of laws protecting women against violence, freedom of movement, property ownership rights, adolescent fertility rate, and wether a country ratification of the Convention on the Elimination of All Forms of Discrimination against Women (CEDAW) (Women's Economic Opportunity Index Report 11).
 
 # Data
 ## Part 1: Exploration of Dependent Variables
@@ -359,9 +359,6 @@ violence_region_coordinates_wide %>%
 
 
 
-\[Reem Writes Interpretation\]
-
-
 ```{r prevviol_attitude_corr}
 cor(violence_region_coordinates_wide$PREVVIOLLIFETIME, violence_region_coordinates_wide$ATTITUDEVIOL, use="complete.obs")
 ```
@@ -563,8 +560,6 @@ corr_matrix <-
 corrplot(corr_matrix, method="color", tl.col="black", tl.srt=45, type="upper", addCoef.col = "black", diag=FALSE, insig = "blank", tl.cex=1.75, number.font=7, number.cex=1.75 )
 ```
 
-\[CORRELATION MATRIX EXPLAINATION\]
-
 The matrix reveals that attitude towards women seem to negatively correlated with many of the indicators in the WEOI, especially education and training. However, it also evident that the indicators seem to be strongly correlated positively with each other as well. Such interactions could turn difficult to see confounding variables in our study. 
 
 ```{r}
@@ -608,7 +603,7 @@ summary(prev_opp_index)
 plot(prev_opp_index)
 ```
 
-\[interpretation\]
+WRITE INTERPRETATION HERE
 
 ```{r regression-lpp}
 # Regression For Labour, Policy and Practice 
@@ -648,7 +643,7 @@ ggplot(data=prev_viol_factors, mapping = aes(x = womens_opp_index, y = ATTITUDEV
     y = "Attitude Towards Violence")
 ```
 
-\[interpretation\]
+WRITE INTERPRETATION HERE
 
 ```{r renaming-in-main-dataset, include=FALSE}
 #geom_text()
