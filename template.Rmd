@@ -270,10 +270,6 @@ violence from an intimate partner at some time in their life",
   )
 ```
 
-<<<<<<< HEAD
-```{r}
-=======
-
 ```{r ploting-data-all-variables, include=FALSE}
 #Plotting data 
 
@@ -298,7 +294,6 @@ ggplot(violence_region_wide, aes(x = PREVVIOLLIFETIME, y = ATTITUDEVIOL)) +
 ```
 
 ```{r somewritingideas,include=FALSE}
->>>>>>> 4c760d6f8539c7cdb738d4a43ffa61dccbaec139
 #Problems and limits with the data
 #- causation and correlation: Even though we find that NA and European countries ( high income countries) have better laws on domestic violence, as well as less worse attitudes on violence against women, and lower prevalence of women who experience abuse, this does not really tell us that these countries are "better" for women or men 
 #- questions that indicators are asking versus what they are trying to measure, analyse each indicator and how they are measure the stuff they are measuring
