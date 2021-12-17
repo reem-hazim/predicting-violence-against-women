@@ -670,6 +670,8 @@ summary(labour_policy_practice_reg)
 plot(labour_policy_practice_reg)
 ```
 
+When regressing attidtudes towards violence and labour policy and practice we found that with every one unit increase in labour policy there was a negative decrease of -0.50 in attitudes towrads violence. 
+
 ```{r plotreg-accesstofinance}
 ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = accessfinance)) + 
   stat_smooth(method="lm")+
@@ -685,6 +687,8 @@ summary(access_finance_reg)
 plot(access_finance_reg)
 ```
 
+When regression attitudes towards violence and access to finance we found that with every one unit increase in access to finance there was a negative decrease of -0.49 in attitudes towards violence. 
+
 ```{r}
 ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = educationtraining)) + 
   stat_smooth(method="lm")+
@@ -699,6 +703,7 @@ by how favorable is Education and Traning (0-100) to women",
 summary(edu_training_reg)
 plot(edu_training_reg)
 ```
+When regressing attitudes towards violence and education and training we found with every one unit increase in eductaion and training there is a negative decrease of -0.62 in attitudes towards violence. 
 
 ```{r plotreg-legalstatus}
 ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = legalstatus)) + 
@@ -714,6 +719,11 @@ by how favorable is women's legal stats (0-100)",
 summary(women_legal_social_status_reg)
 plot(women_legal_social_status_reg)
 ```
+When regressing attitudes towards violence and women's legal status we found that with every one unit increase in women's legal status there is a negative decrease of -0.83 in attitudes towards violence. 
+
+After running the regression of attitudes towards violence and each of the four indicators we found that the indicator with the best effect on attitudes towards violence is women's legal status. 
+
+Also noticing that the confidence intervals of each of the regressions is fairly small which means the uncertainty interval is fairly small. Additionally, the standard error of each coefficient were low. 
 
 We draw a multivariate regression:
 
