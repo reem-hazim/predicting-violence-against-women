@@ -35,11 +35,11 @@ With the literature in mind, and with a curiosity towards measurements taken by 
 
 Even though we explore four out of the five indicators used in WEOI in order to possibly find out which indicators seem to best predict attitude towards violence, we also pay attention to the interactions between such indicators. We do so because we are well aware of possible confounding variables.
 
-Labour participation consists in four indicators: equal pay for equal work, non-discrimination, Degree of de facto discrimination against women in the workplace, and availability, affordability, and, quality of childcare services (Women's Economic Opportunity Index Report 10).
+Labour participation consists in four indicators: equal pay for equal work, non-discrimination, degree of de facto discrimination against women in the workplace, and availability, affordability, and, quality of childcare services (Women's Economic Opportunity Index Report 10).
 
 Access to finance consists in four indicators: building credit histories, women's access to finance programmes, delivering financial services, private-sector credit as a percent of Gross Domestic Product.(Women's Economic Opportunity Index Report 11).
 
-Education and training consists of four indicators: School life expectancy (primary and secondary), School life expectancy (tertiary), Adult literacy rate, and Existence of government or non-government programmes offering small and medium-sized enterprise (SME) support/development training.(Women's Economic Opportunity Index Report 11).
+Education and training consists of four indicators: School life expectancy (primary and secondary), school life expectancy (tertiary), adult literacy rate, and existence of government or non-government programmes offering small and medium-sized enterprise (SME) support/development training.(Women's Economic Opportunity Index Report 11).
 
 Women's legal status consists of five indicators: existence of laws protecting women against violence, freedom of movement, property ownership rights, adolescent fertility rate, and wether a country ratification of the Convention on the Elimination of All Forms of Discrimination against Women (CEDAW) \[(Women's Economic Opportunity Index Report 11\].
 
@@ -749,7 +749,13 @@ plot(multivariate_reg)
 ```
 
 # Limitations of Independent Variable
+The variables we have explored in the Women's Economic Index Composite index are composite variables. Hence, even if we are looking for one specific variable that could particularly be causing higher levels of Attitude Towards Violence, this would not particularly be helpful. We would have to pay attention to the variables behind the larger indicators we are investigating. Besides that, being composite variables give large possibility of confounding variables to complicate our analysis. In other words, all the subcategories for each indicator are correlated, thus increasing the chances of having an unseen confounding variable.
 
+Similar data limitations with our dependent variables return here, as well. The index has the very complicated way to measure an abstract concept such as “women’s economic opportunities.” Selecting which variables are put together to form one single indicator involves many human biases and interested/bias decisions. For example, since the indicator is developed by The Economist, many of the variables hint that they particularly considered important private sector entrepreneurship and initiatives as a measure for women's opportunities. Same is applied to the importance they seem to attach in women's entrance in finance and business. There could possibly been equally rigorous indexed that take into acount public policy and state-sponsored opportunities. 
+
+This is also connected with the fact that many of the qualitative indicators were created by the Economist Intelligence Unit rather than being collected by national statistics sources, which might further increase human and organizational bias in the collection and analysis of the data.
+
+A final limitation is that our independent variable only includes 128 countries.
 
 # Analysis and Interpretation of Results
 
