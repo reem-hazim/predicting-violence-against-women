@@ -363,7 +363,6 @@ violence_region_coordinates_wide %>%
 cor(violence_region_coordinates_wide$PREVVIOLLIFETIME, violence_region_coordinates_wide$ATTITUDEVIOL, use="complete.obs")
 ```
 
-
 X-axis shows Prevalence of Violence in Lifetime, Y-axis shows Attitude Towards Violence, and the colored dots indicate Laws Against Domestic Violence.  The visualization shows a moderate positive relationship between Prevalence of Violence in the Lifetime and Attitude Towards Violence (correlation coefficient = 0.45). We can also visualize that yellow-dots countries are concentrated in the left lower side of the plot, thus revealing that countries that have decent laws on Domestic Violence also tend to perform better in the other two indicators. 
 
 The annotated countries in the graph are countries in which the Laws Against Domestic Violence are completely discriminatory against women: Equatorial Guinea and the Russian Federation. Whereas Equatorial Guinea, besides a completely discriminatory Laws Against Domestic Violence, also has higher levels of Prevalence of Violence and Attitude Towards Violence, the Russian Federation is an interesting case. It shows lower levels of Prevalence of Violence and Attitude Towards Violence, but its legislation seem to completely discriminate against women. It is closer to the yellow dots on the graph, which are countries with good Laws on Domestic Violence. This sets Russia apart as an notable out liar when plotting the relationship between the three dependent variable. Research on its case will be interesting when analyzing  potential causes for the persistence of violence against women. 
@@ -464,9 +463,7 @@ autoplot(world_map, geom = 'polygon', col="white", fill="grey", ylim=c(-54,85), 
 
 ### Visualizing Independent Variables
 
-
->>>>>>> d179090f983762c1646a2b961b6fe8e83125d06f
-```{r read-datasets1, show_col_types = FALSE}
+```{r read-datasets1, show_col_types = FALSE, include=FALSE}
 #If we perform an anti-join of the countries dataset with the violence dataset, we can see that there are around `r nrow(missing_countries)` missing countries. Most of these countries are small islands that may not have enough data on violence against women.
 ```
 
@@ -513,8 +510,6 @@ relevant_factors_long %>%
   )
 ```
 
-
-
 ### Issues with the Data and Limitations of Dependent Variables 
 
 For our dependent variables, we found some recurring data limitations. 
@@ -540,7 +535,6 @@ If we perform an anti-join of the countries dataset with the violence dataset, w
 ## Part 2: Predicting Attitude Towards Violence
 
 Having explored out dependent variables, we proceed to exploring the relationship between out dependent variables and our chosen independent variable -- The Women's Economic Opportunity Index. (WOEI)
-
 
 # Correlation Coefficients
 
@@ -569,6 +563,8 @@ The matrix reveals that attitude towards women seem to negatively correlated wit
   round(digits = 2)
 ```
 
+From drawing correlations between the WEOI's and the dependent variables, we notice that Attitude Towards Violence seems to offer the highest level of correlation (-0.67). For that reasons, we continue our analysis focusing on this variable in specific. Having chosen to focus on Attitude towards violence, we drew a causal diagram schematizing what can be the causes of higher levels of attitude towards violence.
+
 ```{r causal-diagram}
 ###causal diagram 
 
@@ -595,10 +591,16 @@ tidy_dagitty(attitude_dag) %>%
 
 ```
 
+INTERPRETATION ON CAUSAL DIAGRAM HERE 
+
+Next, we plot and calculate the correlation between the Women's opportunity index and Attitude Towards Violence further: 
+
+```{r corr-womenoppindex message=FALSE, warning=FALSE, include=FALSE}
+prev_opp_index <- brm(formula = prev_viol~womens_opp_index, data=relevant_factors,refresh=0)
+```
 
 ```{r message=FALSE, warning=FALSE}
-prev_opp_index <- brm(formula = prev_viol~womens_opp_index, data=relevant_factors,refresh=0)
-
+womens_opp_index_reg <- brm(formula= attitude ~ labour_policy, data= relevant_factors, refresh =0)
 summary(prev_opp_index)
 plot(prev_opp_index)
 ```
@@ -632,17 +634,6 @@ women_legal_social_status_reg <- brm(formula= attitude ~ legal_status, data= rel
 
 ```
 
-```{r plotreg-index, include=FALSE}
-ggplot(data=prev_viol_factors, mapping = aes(x = womens_opp_index, y = ATTITUDEVIOL, color=IncomeGroup)) + 
-  stat_smooth(method="lm")+
-  facet_wrap(~IncomeGroup)+
-  geom_point()+
-  labs (
-    title="Attitude Towards Violence by Women Opportunities Index",
-    x = "Women Economic Opportunities Index",
-    y = "Attitude Towards Violence")
-```
-
 WRITE INTERPRETATION HERE
 
 ```{r renaming-in-main-dataset, include=FALSE}
@@ -666,9 +657,11 @@ by how favorable is labour policy and practice (0-100) to women",
     x = "Attitude Towards Violence",
     y = "Labour Policy and Practice")
 
-summary(labour_policy_practice_reg)
 plot(labour_policy_practice_reg)
+summary(labour_policy_practice_reg)
 ```
+
+The estimate for Labour Policy and Practice is -0.47. Hence, With every one unit increase in Labour Policy and Practice there is a decrease of -0.47 in attitudes towards violence. The confidence levels range from -0.62 and -0.31, with an uncertainty of 0.08. 
 
 ```{r plotreg-accesstofinance}
 ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = accessfinance)) + 
@@ -681,9 +674,11 @@ by how favorable is access to finance (0-100) to women",
     x = "Attitude Towards Violence",
     y = "Access to Finance")
 
-summary(access_finance_reg)
 plot(access_finance_reg)
+summary(access_finance_reg)
 ```
+
+The estimate for Access to Finance is also -0.47. Hence, With every one unit increase in Access to Finance there is a decrease of -0.47 in attitudes towards violence. The confidence levels range are a bit smaller then from Labour Policy and Practice, ranging from -0.57 and -0.37, with an also smaller uncertainty of 0.05. 
 
 ```{r}
 ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = educationtraining)) + 
@@ -696,9 +691,11 @@ by how favorable is Education and Traning (0-100) to women",
     x = "Attitude Towards Violence",
     y = "Education and Training")
 
-summary(edu_training_reg)
 plot(edu_training_reg)
+summary(edu_training_reg)
 ```
+
+The estimate for Education and Training is -0.59. Hence, With every one unit increase in Education and Training there is a decrease of -0.59 in attitudes towards violence. This is a more significant change then the previous two variables explored.The confidence levels range from -0.69 and -0.49, with an uncertainty of 0.05. 
 
 ```{r plotreg-legalstatus}
 ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = legalstatus)) + 
@@ -711,17 +708,19 @@ by how favorable is women's legal stats (0-100)",
     x = "Attitude Towards Violence",
     y = "Women's Legal Status")
 
-summary(women_legal_social_status_reg)
 plot(women_legal_social_status_reg)
+summary(women_legal_social_status_reg)
 ```
 
-We draw a multivariate regression:
+The estimate for Women's Legal Status is -0.80. This is the highest estimate we found. Hence, With every one unit increase in Women's Legal Status there is a decrease of -0.80 in attitudes towards violence. The confidence levels range from -0.95 and -0.66, with an uncertainty of 0.07. This is the indicator with strongest correlation with a reduction in Attitude Towards Violence.
+
+With those results in mind, we draw a multivariate regression:
 
 ```{r multivariate regression}
 multivariate_reg <- brm(formula= attitude ~ labour_policy + education + legal_status + finance_access, data=relevant_factors, refresh =0)
 
-summary(multivariate_reg)
 plot(multivariate_reg)
+summary(multivariate_reg)
 ```
 
 <<<<<<< HEAD
