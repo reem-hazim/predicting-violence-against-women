@@ -41,7 +41,7 @@ Education and training consists of four indicators: School life expectancy (prim
 Women's legal status consists of five indicators: existence of laws protecting women against violence, freedom of movement, property ownership rights, adolescent fertility rate, and wether a country ratification of the Convention on the Elimination of All Forms of Discrimination against Women (CEDAW) [(Women's Economic Opportunity Index Report 11].
 
 # Data
-Part 1: Exploration of Dependent Variables
+# Part 1: Exploration of Dependent Variables
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -354,9 +354,9 @@ violence_region_coordinates_wide %>%
 cor(violence_region_coordinates_wide$PREVVIOLLIFETIME, violence_region_coordinates_wide$ATTITUDEVIOL, use="complete.obs")
 ```
 
-X-axis shows Prevelance of Violence in Lifetime, Y-axis shows Attitude Towards Violence, and the colored dots indicate Laws Against Domestic Violence.  The visualization shows a moderate positive relationship between Prevalence of Violence in the Lifetime and Attitude Towards Violence (correlation coefficient = 0.45). We can also visualize that yellow-dots countries are concentrated in the left lower side of the plot, thus revealing that countries that have decent laws on Domestic Violence also tend to perform better in the other two indicators. 
+X-axis shows Prevalence of Violence in Lifetime, Y-axis shows Attitude Towards Violence, and the colored dots indicate Laws Against Domestic Violence.  The visualization shows a moderate positive relationship between Prevalence of Violence in the Lifetime and Attitude Towards Violence (correlation coefficient = 0.45). We can also visualize that yellow-dots countries are concentrated in the left lower side of the plot, thus revealing that countries that have decent laws on Domestic Violence also tend to perform better in the other two indicators. 
 
-The annotated countries in the graph are countries in which the Laws Against Domestic Violence are completely discriminatory against women: Equatorial Guinea and the Russian Federation. Whereas Equatorial Guinea, besides a completely discriminatory Laws Against Domestic Violence, also has higher levels of Prevalence of Violence and Attitude Towards Violence, the Russian Federation is an interesting case. It shows lower levels of Prevelance of Violence and Attitude Towards Violence, but its legislation seem to completely discriminate against women. It is closer to the yellow dots on the graph, which are countries with good Laws on Domestic Violence. This sets Russia apart as an notable outlier when plotting the relationship between the three dependent varibale. Research on its case will be interesting when analysizng potential causes for the persistance of violence against women. 
+The annotated countries in the graph are countries in which the Laws Against Domestic Violence are completely discriminatory against women: Equatorial Guinea and the Russian Federation. Whereas Equatorial Guinea, besides a completely discriminatory Laws Against Domestic Violence, also has higher levels of Prevalence of Violence and Attitude Towards Violence, the Russian Federation is an interesting case. It shows lower levels of Prevalence of Violence and Attitude Towards Violence, but its legislation seem to completely discriminate against women. It is closer to the yellow dots on the graph, which are countries with good Laws on Domestic Violence. This sets Russia apart as an notable out liar when plotting the relationship between the three dependent variable. Research on its case will be interesting when analyzing  potential causes for the persistence of violence against women. 
 
 
 ### Comparing OECD and UN in Prevalence of Violence Againt Women
@@ -557,7 +557,7 @@ relevant_factors_long %>%
 ```
 
 
-### Issues with the Data and Limitations
+### Issues with the Data and Limitations of Dependent Variables 
 
 For our dependent variables, we found some recurring data limitations. 
 
@@ -580,6 +580,10 @@ head(missing_countries)
 ```
 
 If we perform an anti-join of the countries dataset with the violence dataset, we can see that there are around `r nrow(missing_countries)` missing countries. Most of these countries are small islands that may not have enough data on violence against women.
+
+# Part 2: Predicting Attitude Towards Violence
+
+Having explored out dependent variables, we proceed to exploring the relationship between out dependent variables and our chosen independent variable -- The Women's Economic Opportunity Index. (WOEI)
 
 # Correlation Coefficients
 
@@ -831,6 +835,7 @@ plot(multivariate_reg)
   #geom_point()
 ```
 
+# Limitations of Independent Variable
 
 # Analysis and Interpretation of Results
 When we ran the regression between attitudes towards violence individually with each of the four indicators from WEOI, we noticed that women's legal status seemed to be the most strongly negatively correlated with the dependent variable (-0.80). Running a multivariate regression with all indicators, however, decreased the correlation of women's legal status to (NUMBER). Even though it remains moderately correlated, such interaction reveal that it is difficult to isolate one single cause for the increase or decrease of levels in attitudes towards violence.
