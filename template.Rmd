@@ -41,7 +41,7 @@ Access to finance consists in four indicators: building credit histories, women'
 
 Education and training consists of four indicators: School life expectancy (primary and secondary), school life expectancy (tertiary), adult literacy rate, and existence of government or non-government programmes offering small and medium-sized enterprise (SME) support/development training.(Women's Economic Opportunity Index Report 11).
 
-Women's legal status consists of five indicators: existence of laws protecting women against violence, freedom of movement, property ownership rights, adolescent fertility rate, and wether a country ratification of the Convention on the Elimination of All Forms of Discrimination against Women (CEDAW) (Women's Economic Opportunity Index Report 11).
+Women's legal status consists of five indicators: existence of laws protecting women against violence, freedom of movement, property ownership rights, adolescent fertility rate, and whether a country ratification of the Convention on the Elimination of All Forms of Discrimination against Women (CEDAW) (Women's Economic Opportunity Index Report 11).
 
 # Data
 ## Part 1: Exploration of Dependent Variables
@@ -440,7 +440,7 @@ Using Income Groups might reveal interesting patterns in what regards how differ
 
 One tidiness issue in the data is that the dataset is in long format, which makes it difficult to visualize the relationship between the different indicators. Therefore, we had to transform the dataset into wide format to create these plots.
 
-There are also some discrepancies between what the indicators are trying to measure and what they actually measure. Quantifying such a large-scale phenomenon as violence against women is a non-trivial effort, since violence comes in many diverse forms. For example, the prevalence in lifetime indicator only quantifies violence from an intimate partner, excluding levels of harrasment that come from outside intimate circles, such as sex trafficking. Similarly, to measure "attitude towards violence", the dataset creators used "the percentage of women who agree that a husband/partner is justified in beating his wife/partner under certain circumstances." Why is this particular question used as a proxy for attitude towards violence? Why not ask whether non-intimate partners are also justified in beating women? Are there better or more comprehensive questions to gauge attitude towards violence?
+There are also some discrepancies between what the indicators are trying to measure and what they actually measure. Quantifying such a large-scale phenomenon as violence against women is a non-trivial effort, since violence comes in many diverse forms. For example, the prevalence in lifetime indicator only quantifies violence from an intimate partner, excluding levels of harassment that come from outside intimate circles, such as sex trafficking. Similarly, to measure "attitude towards violence", the dataset creators used "the percentage of women who agree that a husband/partner is justified in beating his wife/partner under certain circumstances." Why is this particular question used as a proxy for attitude towards violence? Why not ask whether non-intimate partners are also justified in beating women? Are there better or more comprehensive questions to gauge attitude towards violence?
 
 In addition, for the "laws on domestic violence" indicator, the dataset creators do not explain how they quantified the abstract concept of "laws and practices". They also do not specify what they mean by laws that "fully discriminate against women's rights". This makes it difficult to determine the accuracy of the indicator.
 
@@ -634,7 +634,7 @@ summary(woe_reg)
 plot(woe_reg)
 ```
 
-[todo]: interpretation
+When regressing the women's oppurtunity index with attitudes towards violence we found that with evey one unit increase in woman's oppurtunity index there is a negative decrease of -0.39 in attitudes towards violence with a confidence interval of -0.56 and -0.22 and a uncertainty of 0.09. 
 
 ```{r plotreg-labour}
 # Plotting labour policy and practice
