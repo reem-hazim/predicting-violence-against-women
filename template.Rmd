@@ -511,13 +511,20 @@ relevant_factors_long %>%
 
 [Todo]: interpretation
 
-### Issues with the Independent Variables and Limitations
+### Limitations of the Independent Variables
 
-[Todo]: Writeup
+[talk about year difference - WOEI in 2012]
+The variables we have explored in the Women's Economic Index Composite index are composite variables. Hence, even if we are looking for one specific variable that could particularly be causing higher levels of Attitude Towards Violence, this would not particularly be helpful. We would have to pay attention to the variables behind the larger indicators we are investigating. Besides that, being composite variables give large possibility of confounding variables to complicate our analysis. In other words, all the subcategories for each indicator are correlated, thus increasing the chances of having an unseen confounding variable.
+
+Similar data limitations with our dependent variables return here, as well. The index has the very complicated way to measure an abstract concept such as “women’s economic opportunities.” Selecting which variables are put together to form one single indicator involves many human biases and interested/bias decisions. For example, since the indicator is developed by The Economist, many of the variables hint that they particularly considered important private sector entrepreneurship and initiatives as a measure for women's opportunities. Same is applied to the importance they seem to attach in women's entrance in finance and business. There could possibly been equally rigorous indexed that take into acount public policy and state-sponsored opportunities. 
+
+This is also connected with the fact that many of the qualitative indicators were created by the Economist Intelligence Unit rather than being collected by national statistics sources, which might further increase human and organizational bias in the collection and analysis of the data.
+
+A final limitation is that our independent variable only includes 128 countries.
 
 ## Part 2: Predicting Attitude Towards Violence
 
-# Correlation Coefficients
+### Correlation Coefficients
 Having explored out dependent variables, we proceed to exploring the relationship between out dependent variables and our chosen independent variable -- The Women's Economic Opportunity Index. (WOEI)
 
 
@@ -550,25 +557,29 @@ The matrix reveals that attitude towards women seem to negatively correlated wit
 From drawing correlations between the WEOI's and the dependent variables, we notice that Attitude Towards Violence seems to offer the highest level of correlation (-0.67). For that reasons, we continue our analysis focusing on this variable in specific. Having chosen to focus on Attitude towards violence, we drew a causal diagram schematizing what can be the causes of higher levels of attitude towards violence.
 
 ```{r causal-diagram}
-###causal diagram 
+# causal diagram 
+attitude_dag <- dagify(viol ~ prev + attitude + laws,
+       woe ~ labour + education + legal + finance,
+       labour ~ democracy,
+       finance ~ democracy,
+       education ~ democracy,
+       legal ~ democracy,
+       attitude ~ woe,
+       labels = c("viol" = "Violence Against Women", 
+                  "education" = "Women's Education and Training",
+                  "labour" = "Labour Policy and Practice",
+                  "laws" = "Laws on Domestic Violence",
+                  "finance" = "Access to Finance",
+                  "prev"= "Prevalence of Violence",
+                  "attitude"= "Attitude Towards Violence",
+                  "woe"= "Women's Economic Opportunities Index",
+                  "democracy"="Democracy Index",
+                  "legal"="Legal Status")) %>% 
+  tidy_dagitty()
 
-attitude_dag <- dagitty("dag{ 
-                      prevalance of violence -> violence towards women;
-                      attitudes towards violence-> violence towards women;
-                      laws on domestic violence -> violence towards women;
-                      labor policy and practice -> attitudes towards violence;
-                      education and training -> attitudes towards violence;
-                      women legal status -> attitudes towards violence;
-                      access to finance -> attitudes towards violence;}")
-                      
 
-tidy_dagitty(attitude_dag) %>% 
-  ggplot(aes(x=x, y=y, xend=xend, yend=yend))+
-  geom_dag_point(colour="red", size=25)+
-  geom_dag_text(colour="white")+
-  geom_dag_edges(colour="black")+
-  theme_dag()+
-  expand_plot()
+ggdag(attitude_dag, text = FALSE, use_labels = "label")+
+  theme_dag()
 
 ```
 
@@ -750,17 +761,69 @@ by how favorable is women's legal stats (0-100)",
 
 [todo]: add interpretation
 
+```{r plot-contraceptive-use}
+ggplot(data=legal_status_data, mapping = aes(x = contraceptive_use, y = attitude)) + 
+  stat_smooth(method="lm")+
+  geom_point()+
+  labs (
+    title="Attitude Towards Violence by Use of Contraceptions",
+    subtitle = "Share of Women (%) who agrees violence is justifibiable 
+by how favorable is women's legal stats (0-100)",
+    x = "Contraceptive use - modern methods",
+    y = "Attitudes Towards Violence")
+```
+
+```
 
 [todo]: add democracy as an explanatory variable for the independent variables
 
-# Limitations of Independent Variable
-The variables we have explored in the Women's Economic Index Composite index are composite variables. Hence, even if we are looking for one specific variable that could particularly be causing higher levels of Attitude Towards Violence, this would not particularly be helpful. We would have to pay attention to the variables behind the larger indicators we are investigating. Besides that, being composite variables give large possibility of confounding variables to complicate our analysis. In other words, all the subcategories for each indicator are correlated, thus increasing the chances of having an unseen confounding variable.
+### Exploring the Effects of Democracy
 
-Similar data limitations with our dependent variables return here, as well. The index has the very complicated way to measure an abstract concept such as “women’s economic opportunities.” Selecting which variables are put together to form one single indicator involves many human biases and interested/bias decisions. For example, since the indicator is developed by The Economist, many of the variables hint that they particularly considered important private sector entrepreneurship and initiatives as a measure for women's opportunities. Same is applied to the importance they seem to attach in women's entrance in finance and business. There could possibly been equally rigorous indexed that take into acount public policy and state-sponsored opportunities. 
+```{r read-democracy-index-data}
+library(xfun)
+install.packages('remotes')
+install_github("xmarquez/democracyData")
 
-This is also connected with the fact that many of the qualitative indicators were created by the Economist Intelligence Unit rather than being collected by national statistics sources, which might further increase human and organizational bias in the collection and analysis of the data.
+library(democracyData)
+library(countrycode)
+library(dplyr)
 
-A final limitation is that our independent variable only includes 128 countries.
+
+democracy_dataset <- eiu %>% 
+  filter(year == 2020) %>% 
+  select(eiu_country, eiu, GWn) %>% 
+  mutate(GWn = countrycode(GWn, "gwn", "iso3c", custom_match=c("678" = "YEM", "816" = "VNM"))) %>% 
+  mutate(GWn = ifelse(is.na(GWn) & eiu_country == "Hong Kong", "HKG", GWn)) %>% 
+  mutate(GWn = ifelse(is.na(GWn) & eiu_country == "Palestine", "PSE", GWn)) %>% 
+  rename("democracy_index"=eiu, "country"=eiu_country, "location"=GWn) 
+  
+  
+relevant_factors <- relevant_factors %>% 
+  left_join(democracy_dataset, by="location")
+```
+
+```{r legal-democracy-reg}
+democracy_legal_reg <- brm(formula= legal_status ~ democracy_index, data=relevant_factors, refresh =0)
+
+plot(democracy_legal_reg)
+summary(democracy_legal_reg)
+```
+
+```{r attitude-dem-reg}
+attitude_dem_reg <- brm(formula= attitude ~ democracy_index, data=relevant_factors, refresh =0)
+
+plot(attitude_dem_reg)
+summary(attitude_dem_reg)
+```
+
+```{r attitude-dem-legal-reg}
+attitude_dem_legal_reg <- brm(formula= attitude ~ democracy_index + legal_status, data=relevant_factors, refresh =0)
+
+plot(attitude_dem_legal_reg)
+summary(attitude_dem_legal_reg)
+```
+
+[todo]: write interpretation (super cool!)
 
 # Analysis and Interpretation of Results
 
