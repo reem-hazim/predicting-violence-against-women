@@ -45,7 +45,7 @@ Women's legal status consists of five indicators: existence of laws protecting w
 
 # Data
 
-Part 1: Exploration of Dependent Variables
+## Part 1: Exploration of Dependent Variables
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -55,9 +55,10 @@ library(ggfortify)
 library(brms)
 library(ggthemes)
 library(lubridate)
-install.packages("corrplot")
-install.packages("dagitty")
-install.packages("ggdag")
+# Uncomment the following lines if you don't have these packages installed
+#install.packages("corrplot")
+#install.packages("dagitty")
+#install.packages("ggdag")
 library(corrplot)
 library(dagitty)
 library(ggdag)
@@ -65,7 +66,7 @@ library(ggdag)
 
 ```{r read-clean-oecd-data, include=FALSE}
 oecd_violence <- 
-  read_csv("violence.csv", show_col_types=FALSE) %>% 
+  read_csv("data/violence.csv", show_col_types=FALSE) %>% 
   filter(TIME=="2019") %>% 
   select(LOCATION, SUBJECT, Value) %>% 
   rename(location=LOCATION, indicator=SUBJECT, value=Value)
@@ -74,11 +75,9 @@ oecd_violence <-
 ```{r join-regions-data, include=FALSE}
 # Reading continents/regions data
 regions_data<-
-  read_csv("regionsdata.csv", show_col_types=FALSE) %>% 
-  select(-"...6", -"SpecialNotes")
-
-
-regions_data <- rename(regions_data, c("location" = "Country Code"))
+  read_csv("data/regionsdata.csv", show_col_types=FALSE) %>% 
+  select(-"...6", -"SpecialNotes") %>% 
+  rename(c("location" = "Country Code"))
 
 # Merging datasets
 violence_with_region <- merge(oecd_violence, regions_data, by="location")
@@ -87,13 +86,12 @@ violence_with_region <- merge(oecd_violence, regions_data, by="location")
 violence_region_wide <- violence_with_region %>% 
   pivot_wider(names_from="indicator", values_from="value") %>% 
   mutate(LAWDOMVIOL = as.character(LAWDOMVIOL)) %>% 
-  mutate(LAWDOMVIOL = fct_relevel(LAWDOMVIOL, "0.25", "0.5",  "0.75", "1")) 
+  mutate(LAWDOMVIOL = fct_relevel(LAWDOMVIOL, "0.25", "0.5",  "0.75", "1")) %>% 
+  na.omit()
 
 # Reordering group factor levels for IncomeGroup
 violence_region_wide$IncomeGroup <- factor(violence_region_wide$IncomeGroup,
                          levels = c("High income", "Upper middle income", "Lower middle income", "Low income"))
-
-violence_region_wide <- na.omit(violence_region_wide)
 
 ```
 
@@ -315,7 +313,7 @@ ggplot(violence_region_wide, aes(x = PREVVIOLLIFETIME, y = ATTITUDEVIOL)) +
 
 ```{r read-country-coordinates, include=FALSE}
 # Read country coordinates
-country_coordinates <- read_csv("countries_codes_and_coordinates.csv")
+country_coordinates <- read_csv("data/countries_codes_and_coordinates.csv")
 
 # Clean country coordinates
 country_coordinates <- country_coordinates %>% 
@@ -369,7 +367,7 @@ cor(violence_region_coordinates_wide$PREVVIOLLIFETIME, violence_region_coordinat
 ```{r join-un-data}
 
 # Read UN data on prevalence of violence in past 12 months
-un_women_violence <- read_csv("un_women_violence_data.csv") %>% 
+un_women_violence <- read_csv("data/un_women_violence_data.csv") %>% 
   select(-`Source Link`) %>% 
   rename(country = `Country Name`, un_year = `Reference year`, un_prev_viol_12m = `48. Proportion of women subjected to physical and/or sexual violence by a current or former intimate partner, in the last 12 months`)
 
@@ -512,11 +510,11 @@ prev_viol <- violence_region_coordinates_wide %>%
   #select("LOCATION", "Value") %>% 
   #rename("location" = "LOCATION", "women_in_politics" = "Value")
 
-womens_opp_index <- read_csv("violence_factors/womens-economic-opportunity-2012-index.csv", show_col_types=FALSE) %>% 
+womens_opp_index <- read_csv("data/violence_factors/womens-economic-opportunity-2012-index.csv", show_col_types=FALSE) %>% 
   select(-Entity, -Year) %>% 
   rename("location" = "Code", "womens_opp_index" = "WEO Index overall score (Economist Intelligence Unit (2012))")
 
-women_opp_index_breakdown <- read_csv("violence_factors/women_opps_index_breakdown.csv", show_col_types=FALSE) %>% 
+women_opp_index_breakdown <- read_csv("data/violence_factors/women_opps_index_breakdown.csv", show_col_types=FALSE) %>% 
   select(-"INDI_CODE", -"Explanation") %>% 
   rename("name"="NAME", ) %>% 
   mutate(across(where(is.character), ~na_if(., "n/a"),)) %>% 
@@ -748,8 +746,6 @@ by how favorable is labour policy and practice (0-100) to women",
     x = "Attitude Towards Violence",
     y = "Labour Policy and Practice")
 
-ggsave("plot1.png", last_plot())
-
 summary(labour_policy_practice_reg)
 plot(labour_policy_practice_reg)
 ```
@@ -764,7 +760,6 @@ ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = accessfinance
 by how favorable is access to finance (0-100) to women",
     x = "Attitude Towards Violence",
     y = "Access to Finance")
-ggsave("plot2.png", last_plot())
 
 summary(access_finance_reg)
 plot(access_finance_reg)
@@ -780,7 +775,6 @@ ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = educationtrai
 by how favorable is Education and Traning (0-100) to women",
     x = "Attitude Towards Violence",
     y = "Education and Training")
-ggsave("plot3.png", last_plot())
 
 summary(edu_training_reg)
 plot(edu_training_reg)
@@ -796,7 +790,6 @@ ggplot(data=prev_viol_factors, mapping = aes(x = ATTITUDEVIOL, y = legalstatus))
 by how favorable is women's legal stats (0-100)",
     x = "Attitude Towards Violence",
     y = "Women's Legal Status")
-ggsave("plot4.png", last_plot())
 
 summary(women_legal_social_status_reg)
 plot(women_legal_social_status_reg)
