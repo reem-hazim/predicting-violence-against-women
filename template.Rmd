@@ -448,8 +448,6 @@ relevant_factors_long %>%
   )
 ```
 
-[Todo]: interpretation
-
 Deciding to plot histograms of each of the four indicators under the WEO Index as well as the WEO Index its self we see that the education and legal status indicators are skewered more to the right of the scale closer to the 100 range which is more desirable. While for access to finance the values are more clustered around the center of the scale. The women opportunity index as well is fairly skewered to the right of the scale. The indicator labour policy is fairly clustered between the range of 25 to 75. 
 
 ### Limitations of the Independent Variables
