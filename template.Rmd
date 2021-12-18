@@ -56,14 +56,10 @@ Education and training consists of four indicators: School life expectancy (prim
 
 Women's legal status consists of five indicators: existence of laws protecting women against violence, freedom of movement, property ownership rights, adolescent fertility rate, and whether a country ratification of the Convention on the Elimination of All Forms of Discrimination against Women (CEDAW) [@noauthor_womens_nodate].
 
-<<<<<<< HEAD
 ### Data Analysis
-## Part 1: Exploration of Dependent Variables
-=======
-# Data
 
 ## Part 1: Exploration of Dependent and Independent Variables
->>>>>>> d91c22c111d6b0cf0d9c03b91ceb5e20122f7d1c
+
 
 ### Visualizing the Dependent Variables: The OECD Violence Against Women Indicators
 
