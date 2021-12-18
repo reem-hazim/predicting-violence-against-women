@@ -560,8 +560,11 @@ ggplot(data=relevant_factors, mapping = aes(x = womens_opp_index, y = attitude, 
     x = "Women's Economic Opportunities Index",
     y = "Attitude Towards Violence")
 
-summary(woe_reg)
 plot(woe_reg)
+```
+
+```{r summary-reg-woe, include=FALSE}
+summary(woe_reg)
 ```
 
 When regressing the women's oppurtunity index with attitudes towards violence we found that with evey one unit increase in woman's oppurtunity index there is a negative decrease of -0.39 in attitudes towards violence with a confidence interval of -0.56 and -0.22 and a uncertainty of 0.09.
@@ -580,9 +583,11 @@ by how favorable is labour policy and practice (0-100) to women",
     y = "Attitude Towards Violence")
 
 plot(labour_policy_practice_reg)
-summary(labour_policy_practice_reg)
 ```
 
+```{r summary-reg-lpp, include=FALSE}
+summary(labour_policy_practice_reg)
+```
 The estimate for Labour Policy and Practice is -0.47. Hence, With every one unit increase in Labour Policy and Practice there is a decrease of -0.47 in attitudes towards violence. The confidence levels range from -0.62 and -0.31, with an uncertainty of 0.08.
 
 ```{r plotreg-access-to-finance}
@@ -600,9 +605,11 @@ by how favorable is access to finance (0-100) to women",
     y = "Attitude Towards Violence")
 
 plot(access_finance_reg)
-summary(access_finance_reg)
 ```
 
+```{r summary-reg-af, include=FALSE}
+summary(access_finance_reg)
+```
 The estimate for Access to Finance is also -0.47. Hence, With every one unit increase in Access to Finance there is a decrease of -0.47 in attitudes towards violence. The confidence levels range are a bit smaller then from Labour Policy and Practice, ranging from -0.57 and -0.37, with an also smaller uncertainty of 0.05.
 
 ```{r plot-reg-ed-training}
@@ -620,6 +627,9 @@ by how favorable is Education and Traning (0-100) to women",
     y = "Attitude Towards Violence")
 
 plot(edu_training_reg)
+```
+
+```{r summary-reg-et, include=FALSE}
 summary(edu_training_reg)
 ```
 
@@ -640,6 +650,9 @@ by how favorable is women's legal stats (0-100)",
     y = "Attitude Towards Violence")
 
 plot(women_legal_social_status_reg)
+```
+
+```{r summary-reg-wlst, include=FALSE}
 summary(women_legal_social_status_reg)
 ```
 
