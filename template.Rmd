@@ -595,7 +595,7 @@ INTERPRETATION ON CAUSAL DIAGRAM HERE
 
 Next, we plot and calculate the correlation between the Women's opportunity index and Attitude Towards Violence further: 
 
-```{r corr-womenoppindex message=FALSE, warning=FALSE, include=FALSE}
+```{r corr-womenoppindex, message=FALSE, warning=FALSE, include=FALSE}
 prev_opp_index <- brm(formula = prev_viol~womens_opp_index, data=relevant_factors,refresh=0)
 ```
 
