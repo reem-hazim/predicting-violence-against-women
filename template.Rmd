@@ -752,6 +752,15 @@ plot(attitude_dem_legal_reg)
 summary(attitude_dem_legal_reg)
 
 ```
+We ran three regressions one in which observed the relationship between democracy and legal status, another observed the relationship between democracy and attitudes towards violence and a final multivariate regression observing the relationship between legal status and democracy on attitudes towards violence. 
+
+For the first regression with every one unit increase in democracy there is a 6.06 positive increase in legal status with a confidence interval of 4.99 and 7.10 with an uncertainty of 0.54.
+
+For the second regression with every one unit increase in democracy there is a negative decrease of -6.99 in attitudes towards violence with a confidence interval of -8.50 and -5.52 with an uncertainty of 0.76. 
+
+As for the multivariate regression of legal status and democracy on attitudes towards violence with every one unit increase in democracy there is a negative decrease of -1.53 on attitudes towards violence with a confidence interval of -3.80 and 0.69 and an uncertainty of 1.13. For every one unit increase in legal status there is a negative decrease in attitudes towards violence by -0.68 with a confidence interval of -0.96 and -0.40 with an uncertainty of 0.14. 
+
+Interestingly we can clearly see that democracy does in fact have an affect on legal status which could be a reason for why legal status indicator had the highest effect on attitudes towards violence. 
 
 # Analysis and Interpretation of Results
 
