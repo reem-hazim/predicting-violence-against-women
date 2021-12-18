@@ -56,8 +56,14 @@ Education and training consists of four indicators: School life expectancy (prim
 
 Women's legal status consists of five indicators: existence of laws protecting women against violence, freedom of movement, property ownership rights, adolescent fertility rate, and whether a country ratification of the Convention on the Elimination of All Forms of Discrimination against Women (CEDAW) [@noauthor_womens_nodate].
 
+<<<<<<< HEAD
 ### Data Analysis
 ## Part 1: Exploration of Dependent Variables
+=======
+# Data
+
+## Part 1: Exploration of Dependent and Independent Variables
+>>>>>>> d91c22c111d6b0cf0d9c03b91ceb5e20122f7d1c
 
 ### Visualizing the Dependent Variables: The OECD Violence Against Women Indicators
 
@@ -117,7 +123,7 @@ violence_region_wide$IncomeGroup <- factor(violence_region_wide$IncomeGroup,
 
 ```
 
-In our first stage of data exploration, we determin whether there is an association between a country's economy and its citizens' attitudes towards violence against women. Intuitively, we expected wealthier and more developed economies to have more economic opportunities for women, leading to more favourable attitudes towards women.
+In our first stage of data exploration, we determine whether there is an association between a country's economy and its citizens' attitudes towards violence against women. Intuitively, we expected wealthier and more developed economies to have more economic opportunities for women, leading to more favourable attitudes towards women.
 
 ```{r plot-ATTITUDEVIOL-by-IncomeGroup}
 #Exploring ATTITUDEVIOL by incomegroup
@@ -168,7 +174,7 @@ ggplot(violence_region_wide, aes(x=LAWDOMVIOL, fill=IncomeGroup))+
   )
 ```
 
-Compared with the other indicators, laws on domestic violence does not appear to have a clear association with income group. In the graph, we can see that most countries, regardless of income group, fall in the "0.75" measure for Laws on Domestic Violence, suggesting that their laws and practices are insuficcient to guarantee the well-being of women. Even though there are very few countries with a value of 1 unit (laws and practices are completely discriminatory against women), it is incredibly worrying that most countries in the globe still have insuficcient laws to protect women's rights. We also observe that there is a higher proportion of countries with favourable laws towards women (indicator value at level 0.25) among high income and upper middle income countries. For both lower middle income and low income, however, there seems to be more countries in the 0.5 and 0.75 levels than in the 0.25 level.
+Compared with the other indicators, laws on domestic violence does not appear to have a clear association with income group. In the graph, we can see that most countries, regardless of income group, fall in the "0.75" measure for Laws on Domestic Violence, suggesting that their laws and practices are insufficcient to guarantee the well-being of women. Even though there are very few countries with a value of 1 unit (laws and practices are completely discriminatory against women), it is incredibly worrying that most countries in the globe still have insufficcient laws to protect women's rights. We also observe that there is a higher proportion of countries with favourable laws towards women (indicator value at level 0.25) among high income and upper middle income countries. For both lower middle income and low income, however, there seems to be more countries in the 0.5 and 0.75 levels than in the 0.25 level.
 
 This unveils a pattern where higher income countries, despite having a large proportion of countries with an indicator level equal to 0.75, also have a more countries with somewhat beneficial laws and practices against domestic violence. However, this does not seem to be a causal effect. It is highly unlikely that a country's income group alone establishes the laws on domestic violence, but it points us in the direction of establishing a connection between higher levels of economic development and better legislation on domestic violence.
 
@@ -285,15 +291,15 @@ violence_region_coordinates_wide %>%
 prev_att_corr <- cor(violence_region_coordinates_wide$PREVVIOLLIFETIME, violence_region_coordinates_wide$ATTITUDEVIOL, use="complete.obs")
 ```
 
-Intuitively, we would expect prevalence of violence and attitudes towards violence to have a positive linear relationship: As more women agree that their husbands are justified in beating them, domestic violence will become more widespread. We create a scatter plot to verify that our data follows this intuition.  
+Intuitively, we would expect prevalence of violence and attitudes towards violence to have a positive linear relationship: As more women agree that their husbands are justified in beating them, domestic violence will become more widespread. We create a scatter plot to verify that our data follows this intuition.
 
-The x-axis shows attitudes towards violence, the y-axis shows prevalence of violence in the lifetime, and the color indicates the level of laws on domestic violence. The visualization shows a positive linear relationship between prevalence of violence in the Lifetime and attitudes towards violence (correlation coefficient = `r prev_att_corr`). 
+The x-axis shows attitudes towards violence, the y-axis shows prevalence of violence in the lifetime, and the color indicates the level of laws on domestic violence. The visualization shows a positive linear relationship between prevalence of violence in the Lifetime and attitudes towards violence (correlation coefficient = `r round(prev_att_corr, digits=2)`).
 
-Looking at laws on domestic violence, we see tha the yellow countries (level equals 0.25) are concentrated in the bottom left side of the plot, thus revealing that countries that have bettter laws on Domestic Violence also tend to a lower prevalence of domestic violence and better attitudes towards women. However, the 0.75, 0.5 and 1 levels of laws do not appear to have a particular pattern and are spread throughout the graph. 
+Looking at laws on domestic violence, we see the the yellow countries (level equals 0.25) are concentrated in the bottom left side of the plot, thus revealing that countries that have better laws on Domestic Violence also tend to a lower prevalence of domestic violence and better attitudes towards women. However, the 0.75, 0.5 and 1 levels of laws do not appear to have a particular pattern and are spread throughout the graph.
 
-The annotated countries in the graph are the two countries where the laws on domestic violence are completely discriminatory against women: Equatorial Guinea and the Russian Federation. Equatorial Guinea has a higher prevlance of violence and worse attitudes towards women, which agrees with our intuition. However, the Russian Federation is an interesting case because it has a relatively low prevalence of violence and better attitudes towards violence, but its legislation completely discriminates against women. It is closer to the yellow dots on the graph, which are countries with better laws on domestic violence. This sets Russia apart as an notable outlier when plotting the relationship between the three dependent variable. It would be interesting to conduct further research on Russia when analyzing potential causes for the persistence of violence against women.
+The annotated countries in the graph are the two countries where the laws on domestic violence are completely discriminatory against women: Equatorial Guinea and the Russian Federation. Equatorial Guinea has a higher prevalance of violence and worse attitudes towards women, which agrees with our intuition. However, the Russian Federation is an interesting case because it has a relatively low prevalence of violence and better attitudes towards violence, but its legislation completely discriminates against women. It is closer to the yellow dots on the graph, which are countries with better laws on domestic violence. This sets Russia apart as a notable outlier when plotting the relationship between the three dependent variable. It would be interesting to conduct further research on Russia when analyzing potential causes for the persistence of violence against women.
 
-### Comparing OECD and UN in Prevalence of Violence Againt Women
+### Comparing OECD and UN in Prevalence of Violence Against Women
 
 ```{r join-un-data, include=FALSE, warning=FALSE, message=FALSE}
 # Read UN data on prevalence of violence in past 12 months
@@ -365,7 +371,7 @@ un_oecd_women_violence_wide %>%
 un_oecd_corr <- cor(un_oecd_women_violence_wide$PREVVIOLLIFETIME, un_oecd_women_violence_wide$un_prev_viol_12m, use="complete.obs")
 ```
 
-We use a scatter plot to verify the relation we observed between the UN and OECD indicators. As we can see, the indicators appear to have a very strong positive relationship, with a correlation coefficient of `r un_oecd_corr`. This comparison verifies the accuracy of the OECD data by comparing it to an external source. 
+We use a scatter plot to verify the relation we observed between the UN and OECD indicators. As we can see, the indicators appear to have a very strong positive relationship, with a correlation coefficient of `r un_oecd_corr`. This comparison verifies the accuracy of the OECD data by comparing it to an external source.
 
 ### Mapping Attitudes Towards Violence
 
@@ -383,7 +389,7 @@ autoplot(world_map, geom = 'polygon', col="white", fill="grey", ylim=c(-54,85), 
   )
 ```
 
-This map shows the attitudes towards violence against women across different countries. Similarly to the pattern we observed in prevalence of violence, the wealthier and more developed countries of the global North seem to have a lower share of women who justify violence than countries in the global South. This observation further reinforces our interest in explaining these indicators using measures of economic development and opportunity. 
+This map shows the attitudes towards violence against women across different countries. Similarly to the pattern we observed in prevalence of violence, the wealthier and more developed countries of the global North seem to have a lower share of women who justify violence than countries in the global South. This observation further reinforces our interest in explaining these indicators using measures of economic development and opportunity.
 
 ### Issues with the Dependent Variable Data and Limitations
 
@@ -521,6 +527,7 @@ attitude_dag <- dagify(viol ~ prev + attitude + laws,
 ggdag(attitude_dag, text = FALSE, use_labels = "label")+
   theme_dag()
 
+impliedConditionalIndependencies(attitude_dag)
 ```
 
 When making our causal diagram we observed that the four indicators that are causing attitudes towards violence are: labour policy and practice, education and training, woman's legal status and access to finance which fall under the Woman's Economic Opportunity Index. We also observed a separate confounding variable affecting attitudes towards violence is gender segregation.
@@ -784,15 +791,16 @@ summary(democracy_legal_reg)
 summary(attitude_dem_reg)
 summary(attitude_dem_legal_reg)
 ```
-We ran three regressions one in which observed the relationship between democracy and legal status, another observed the relationship between democracy and attitudes towards violence and a final multivariate regression observing the relationship between legal status and democracy on attitudes towards violence. 
+
+We ran three regressions one in which observed the relationship between democracy and legal status, another observed the relationship between democracy and attitudes towards violence and a final multivariate regression observing the relationship between legal status and democracy on attitudes towards violence.
 
 For the first regression with every one unit increase in democracy there is a 6.06 positive increase in legal status with a confidence interval of 4.99 and 7.10 with an uncertainty of 0.54.
 
-For the second regression with every one unit increase in democracy there is a negative decrease of -6.99 in attitudes towards violence with a confidence interval of -8.50 and -5.52 with an uncertainty of 0.76. 
+For the second regression with every one unit increase in democracy there is a negative decrease of -6.99 in attitudes towards violence with a confidence interval of -8.50 and -5.52 with an uncertainty of 0.76.
 
-As for the multivariate regression of legal status and democracy on attitudes towards violence with every one unit increase in democracy there is a negative decrease of -1.53 on attitudes towards violence with a confidence interval of -3.80 and 0.69 and an uncertainty of 1.13. For every one unit increase in legal status there is a negative decrease in attitudes towards violence by -0.68 with a confidence interval of -0.96 and -0.40 with an uncertainty of 0.14. 
+As for the multivariate regression of legal status and democracy on attitudes towards violence with every one unit increase in democracy there is a negative decrease of -1.53 on attitudes towards violence with a confidence interval of -3.80 and 0.69 and an uncertainty of 1.13. For every one unit increase in legal status there is a negative decrease in attitudes towards violence by -0.68 with a confidence interval of -0.96 and -0.40 with an uncertainty of 0.14.
 
-Interestingly we can clearly see that democracy does in fact have an affect on legal status which could be a reason for why legal status indicator had the highest effect on attitudes towards violence. 
+Interestingly we can clearly see that democracy does in fact have an affect on legal status which could be a reason for why legal status indicator had the highest effect on attitudes towards violence.
 
 # Analysis and Interpretation of Results
 
