@@ -97,18 +97,6 @@ violence_region_wide$IncomeGroup <- factor(violence_region_wide$IncomeGroup,
 
 ```
 
-```{r plot-laws-by-region,include=FALSE}
-ggplot(violence_region_wide)+
-  geom_bar(mapping=aes(x=LAWDOMVIOL, fill=Region))+
-  facet_wrap(~Region, ncol=3)+
-  theme(legend.position = "none")+
-  labs (
-    title="Laws on Domestic Violence by Region of the World",
-    subtitle="On a scale of 0 to 1, where 1 indicates that the laws completely discriminate against women’s rights",
-    x="Laws on Domestic Violence Indicator",
-    y="Count"
-  )
-```
 
 ```{r plot-ATTITUDEVIOL-by-IncomeGroup}
 #Exploring ATTITUDEVIOL by incomegroup
@@ -126,20 +114,6 @@ beating his wife/partner under certain circumstances",
 ```
 
 There seems to be a clear association between attitude towards violence against women and a country's group income. High and upper middle income countries seem to have a lower share of women who agree that the husband is justified in inflicted violence in their wives.
-
-```{r plot-ATTITUDEVIOL-By-Region, include=FALSE}
-ggplot(violence_region_wide)+
-  geom_histogram(mapping=aes(x=ATTITUDEVIOL, fill=Region))+
-  facet_wrap(~Region)+
-  theme(legend.position = "none")+
-  labs (
-    title="Attitude toward violence by Region",
-    subtitle="The percentage of women who agree that a husband/partner is justified in 
-beating his wife/partner under certain circumstances",
-    x="Share of Women (%)",
-    y="Count"
-  )
-```
 
 ```{r PREVVLIFETIMEByIncome}
 #Exploring PREVVLIFETIME by incomegroup
@@ -159,19 +133,6 @@ violence from an intimate partner at some time in their life",
 
 Similar to Attitudes Towards Violence, when it comes to prevalence of violence in the lifetime, we can observe that high income countries (colored red) are concentrated towards the left side of the graph. This means that fewer women have been exposed to physical or sexual violence in comparison to countries falling in other income groups.
 
-```{r PREVVIOLIFETIMEByRegion, include=FALSE}
-ggplot(violence_region_wide)+
-  geom_histogram(mapping=aes(x=PREVVIOLLIFETIME, fill=Region), bins=40)+
-  facet_wrap(~Region)+
-  theme(legend.position = "none")+
-  labs (
-    title="Prevalence of violence in the lifetime by Region",
-    subtitle="The percentage of women who have experienced physical and/or sexual 
-violence from an intimate partner at some time in their life",
-    x="Share of Women (%)",
-    y="Count"
-  )
-```
 
 ```{r LAWDOMVIOLincome}
 #Exploring LAWDOMVIOL by incomegroup
@@ -252,28 +213,6 @@ violence from an intimate partner at some time in their life",
   )
 ```
 
-```{r ploting-data-all-variables, include=FALSE}
-#Plotting data 
-
-ggplot(violence_region_wide, aes(x = LAWDOMVIOL, y = ATTITUDEVIOL)) +
-  geom_point()+
-  labs(title = "Relationship between Law on domestic violence and attitudes towards violence", x = "Law on domestic violence", y = "attitudes towards violence")
-
-###
-
-ggplot(violence_region_wide, aes(x = LAWDOMVIOL, y = PREVVIOLLIFETIME)) +
-  geom_point()+
-  labs(title = "Relationship between Law on domestic violence and Prevalance in Lifetime", x = "Law on domestic violence", y = "Prevalance in lifetime")
-
-###
-
-ggplot(violence_region_wide, aes(x = PREVVIOLLIFETIME, y = ATTITUDEVIOL)) +
-  geom_point()+
-  labs(title = "Relationship between Prevelance on lifteime and attitudes towards violence", x = "Prevalance on lifetime", y = "attitudes towards violence")
-
-##Relationship between Prevalence on lifetime and attitudes towards violence. Analysis: The relationship between prevalence on lifetime and attitudes towards violence in this data set is sporadic however there is a clear visible relationship that there is a positive correlation between the two. When there is higher prevalence on lifetime the attitudes towards violence is also high & vice versa. 
-
-```
 
 ```{r somewritingideas,include=FALSE}
 #Problems and limits with the data
@@ -415,6 +354,8 @@ un_oecd_women_violence_wide %>%
 cor(un_oecd_women_violence_wide$PREVVIOLLIFETIME, un_oecd_women_violence_wide$un_prev_viol_12m, use="complete.obs")
 ```
 
+[todo lucas]: More interpretation here
+
 ### Mapping Attitudes Towards Violence
 
 ```{r}
@@ -428,6 +369,8 @@ autoplot(world_map, geom = 'polygon', col="white", fill="grey", ylim=c(-54,85), 
     title="Attitudes Towards Violence Against Women",
   )
 ```
+
+[todo lucas]: more interpretation here
 
 ### Issues with the Dependent Variable Data and Limitations
 
@@ -536,8 +479,6 @@ corrplot(corr_matrix, method="color", tl.col="black", tl.srt=45, type="upper", a
 
 todo Reem: fix correlation matrix
 
-CORRELATION MATRIX EXPLAINATION
-
 The matrix reveals that attitude towards women seem to negatively correlated with many of the indicators in the WEOI, especially education and training. However, it also evident that the indicators seem to be strongly correlated positively with each other as well. Such interactions could turn difficult to see confounding variables in our study.
 
 ```{r}
@@ -617,7 +558,7 @@ access_finance_reg <- brm(formula = attitude ~ finance_access, data= relevant_fa
 women_legal_social_status_reg <- brm(formula= attitude ~ legal_status, data= relevant_factors, refresh=0)
 ```
 
-```{r plot-reg-woe, include=FALSE, message=FALSE, warning=FALSE}
+```{r plot-reg-woe, message=FALSE, warning=FALSE}
 ggplot(data=relevant_factors, mapping = aes(x = womens_opp_index, y = attitude, color=IncomeGroup)) + 
   stat_smooth(method="lm")+
   facet_wrap(~IncomeGroup)+
@@ -760,6 +701,7 @@ As seen from the graph as well as from the regression we ran on the indicator le
 
 We then followed up by observing the relationship between contraception usage, which is a factor that falls under the legal status indicator, and attitudes towards violence because of contraception usage coming second highest in negatively decreasing attitudes towards violence with a decrease of -0.18 with a confidence interval of -0.32 and -0.04 with an uncertainty of 0.07.
 
+
 ```{r plot-contraceptive-use}
 ggplot(data=legal_status_data, mapping = aes(x = contraceptive_use, y = attitude)) + 
   stat_smooth(method="lm")+
@@ -772,7 +714,8 @@ by how favorable is women's legal stats (0-100)",
     y = "Attitudes Towards Violence")
 ```
 
-From the graph we see that there is a negitive relationship between contraception use and attitudes towards violence the linear decrease pattern is more observable in this graph as the data is fairly clustered around the line as well as a decrease motion is visible while there still is a few outliers.
+From the graph we see that there is a negative relationship between contraception use and attitudes towards violence the linear decrease pattern is more observable in this graph as the data is fairly clustered around the line as well as a decrease motion is visible while there still is a few outliers. 
+
 
 ### Exploring the Effects of Democracy
 
@@ -829,9 +772,11 @@ A counterfactual that arises from our research is imagining a country in which t
 
 (maybe write more about the russian case. what are its scores on the WEOI?)
 
+[todo lucas further interpretation]
+
 # Conclusions
 
-We cannot single out or highlight one single indicator in the WEOI that is most influential in decreasing violence against women. Our research highlights the complexities and the varying number of factors that result in the persistence of violence against women. However, it still might be useful to investigate further the sub-indicators within each indicator for the WEOI and analyze what they can provide as insights. Singling out countries, like Russia, and analyze closely what is the situation in violence against women through both quantitative and qualitative research can further reveal indicators that can be useful in measuring degrees of such forms of gendered violence. While the four indicators we observed and analysied did in fact demonstarte a decrease in attitudes towards violence there are confoudnig variables that we perhaps have not considered which makes it hard to come to a causal conclusion. It is also interesting to see that indicators when obsereved seperately demonstarte an effect on attitudes towards violence however when observed alongside other indicators have completely opposing effects. Conducting this reserach truly justifies how data is complex and immense while certain indicators and factors might demonstarte an effect on a variable the reason for such an effect could be due to many cofounding variables and other reasonings to what one might original have thought.
+We cannot single out or highlight one single indicator in the WEOI that is most influential in decreasing violence against women. Our research highlights the complexities and the varying number of factors that result in the persistence of violence against women. However, it still might be useful to investigate further the sub-indicators within each indicator for the WEOI and analyze what they can provide as insights. Singling out countries, like Russia, and analyze closely what is the situation in violence against women through both quantitative and qualitative research can further reveal indicators that can be useful in measuring degrees of such forms of gendered violence. While the four indicators we observed and analysed did in fact demonstrate a decrease in attitudes towards violence there are confounding variables that we perhaps have not considered which makes it hard to come to a causal conclusion. It is also interesting to see that indicators when observed separately demonstarte an effect on attitudes towards violence however when observed alongside other indicators have completely opposing effects. Conducting this research truly justifies how data is complex and immense while certain indicators and factors might demonstrate an effect on a variable the reason for such an effect could be due to many confounding variables and other reasonings to what one might original have thought.    
 
 # Bibliography
 
