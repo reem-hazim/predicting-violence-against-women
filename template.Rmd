@@ -472,8 +472,6 @@ corr_matrix <-
 corrplot(corr_matrix, method="color", tl.col="black", tl.srt=45, type="upper", addCoef.col = "black", diag=FALSE, insig = "blank", tl.cex=1.25, number.font=7, number.cex=1.25)
 ```
 
-todo Reem: fix correlation matrix
-
 The matrix reveals that attitude towards women seem to negatively correlated with many of the indicators in the WEOI, especially education and training. However, it also evident that the indicators seem to be strongly correlated positively with each other as well. Such interactions could turn difficult to see confounding variables in our study.
 
 ```{r}
