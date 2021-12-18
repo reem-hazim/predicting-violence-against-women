@@ -1,5 +1,5 @@
 ---
-title: "Predicting Violence Against Women Using the Women's Economic Opportunity Index (WEOI)"
+title: "Predicting Violence Against Women Using the Women's Economic Opportunity Index (WEOI) Word Count: 6075"
 description: "An exploration of the the main indicators of the WEOI and what they can tell us about violence against women"
 author:
   - name: Reem Hazim
