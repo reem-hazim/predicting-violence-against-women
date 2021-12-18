@@ -14,7 +14,7 @@ bibliography: references.bib
 
 Even though "achieving gender equality and empowering all women and girls" is among one of the 17 Sustainable Development Goals by the United Nations [@noauthor_goal_nodate], such goal swims against an enormous wave of violence against women in the contemporary world. Investigation on the causes of such violence is neither exhaustive nor simple. This paper aims to investigate what are possible reasons for the bugging persistence of violence against women, specifically in what regard to a positive attitudes towards violence against women, i.e., more women finding justifiable that a husband would beat their wives.
 
-Believing in the importance of promoting Women's economic well-being in order to achieve equality, we aim to understand the relationship between violence against women and the Women's Economic Opportunity Index (WEOI). Providing a violence-free environment for women and girls will immensely support their empowerment, which in turn represents countless gains for society as a whole \[@king_engendering_2001 6\].
+Believing in the importance of promoting Women's economic well-being in order to achieve equality, we aim to understand the relationship between violence against women and the Women's Economic Opportunity Index (WEOI). Providing a violence-free environment for women and girls will immensely support their empowerment, which in turn represents countless gains for society as a whole [@king_engendering_2001].
 
 After a brief literature review on the subject of women's economic well-being, we explain our two-part methodology. We pulled our data from the Organisation for Economic Co-operation and Development (OECD), the United Nations (UN), the World Bank (WB), and the Economist Intelligence Unit (EIU). Our analysis reveals that even though women's legal status seems to be one of the best predictors within the WEOI for attitude towards violence against women, we must be attentive to the ways in which indicators interact within and outside of the Women's Economic Opportunity Index affect each other.
 
@@ -28,7 +28,7 @@ Women's education and legal status can both potentially decrease levels of viole
 
 This study consists of two parts. The first part is an exploration of three indicators that the Organisation for Economic Co-operation and Development (OECD) has linked to Violence Against Women [@oecd_inequality]. The first indicator is Attitude Towards Violence, which represents the share of women who agree that a husband is justified in beating his wife. The second is Prevalence of Violence in Lifetime (0-100%), which indicates the share of women exposed to physical and/or sexual violence from an intimate partner at least once in their lives. Finally, Laws on Domestic Violence (0.25-1) measures whether legal frameworks adequately protect women from domestic violence. It is measured on a scale from 0 to 1, where 1 indicates that the laws are completely discriminatory against women.
 
-The second part of this research uses the Women's Economic Opportunity Index (WEOI) to predict violence against women. Created by the Economist Intelligence Unit, the research division of the Economist Group, this index "is a dynamic quantitative and qualitative scoring model, constructed from 29 indicators, that measures specific attributes of the environment for women employees and entrepreneurs in 128 economies" [@noauthor_womens_nodate-1]. The index is measured on a scale from 0 - 100 where 0 refers to the least favorable situation for women and 100 refers to the most favorable situation to women.
+The second part of this research uses the Women's Economic Opportunity Index (WEOI) to predict violence against women. Created by the Economist Intelligence Unit, the research division of the Economist Group, this index "is a dynamic quantitative and qualitative scoring model, constructed from 29 indicators, that measures specific attributes of the environment for women employees and entrepreneurs in 128 economies" [@noauthor_womens_nodate]. The index is measured on a scale from 0 - 100 where 0 refers to the least favorable situation for women and 100 refers to the most favorable situation to women.
 
 We dissect the index into four out of its five main variables (labour participation, access to finance, women's legal status, and women's education and training), and we use these four factors as our independent variables. Our dependent variable is attitudes towards violence against women. We draw a causal graph to predict the factors involved in causing negative attitudes towards violence, and then we then run several univariate and multivariate regression models were between our dependent and independent variables.
 
@@ -40,13 +40,13 @@ With the literature in mind, and with a curiosity towards measurements taken by 
 
 Even though we explore four out of the five indicators used in WEOI in order to possibly find out which indicators seem to best predict attitude towards violence, we also pay attention to the interactions between such indicators. We do so because we are well aware of possible confounding variables. We have decided to drop the fifth main indicator "General Business Environment." Whereas this could be a good indicator for observing practical obstacles for the women in the workplace, we thought that focusing on the first four indicators could make our research more consistent.
 
-Labour participation consists in four indicators: equal pay for equal work, non-discrimination, degree of de facto discrimination against women in the workplace, and availability, affordability, and, quality of childcare services \[@noauthor_womens_nodate 10\].
+Labour participation consists in four indicators: equal pay for equal work, non-discrimination, degree of de facto discrimination against women in the workplace, and availability, affordability, and, quality of childcare services [@noauthor_womens_nodate]
 
-Access to finance consists in four indicators: building credit histories, women's access to finance programmes, delivering financial services, private-sector credit as a percent of Gross Domestic Product \[@noauthor_womens_nodate 10\].
+Access to finance consists in four indicators: building credit histories, women's access to finance programmes, delivering financial services, private-sector credit as a percent of Gross Domestic Product [@noauthor_womens_nodate].
 
-Education and training consists of four indicators: School life expectancy (primary and secondary), school life expectancy (tertiary), adult literacy rate, and existence of government or non-government programmes offering small and medium-sized enterprise (SME) support/development training \[@noauthor_womens_nodate 10\].
+Education and training consists of four indicators: School life expectancy (primary and secondary), school life expectancy (tertiary), adult literacy rate, and existence of government or non-government programmes offering small and medium-sized enterprise (SME) support/development training [@noauthor_womens_nodate].
 
-Women's legal status consists of five indicators: existence of laws protecting women against violence, freedom of movement, property ownership rights, adolescent fertility rate, and whether a country ratification of the Convention on the Elimination of All Forms of Discrimination against Women (CEDAW) \[@noauthor_womens_nodate 10\].
+Women's legal status consists of five indicators: existence of laws protecting women against violence, freedom of movement, property ownership rights, adolescent fertility rate, and whether a country ratification of the Convention on the Elimination of All Forms of Discrimination against Women (CEDAW) [@noauthor_womens_nodate].
 
 # Data
 
@@ -778,6 +778,15 @@ summary(democracy_legal_reg)
 summary(attitude_dem_reg)
 summary(attitude_dem_legal_reg)
 ```
+We ran three regressions one in which observed the relationship between democracy and legal status, another observed the relationship between democracy and attitudes towards violence and a final multivariate regression observing the relationship between legal status and democracy on attitudes towards violence. 
+
+For the first regression with every one unit increase in democracy there is a 6.06 positive increase in legal status with a confidence interval of 4.99 and 7.10 with an uncertainty of 0.54.
+
+For the second regression with every one unit increase in democracy there is a negative decrease of -6.99 in attitudes towards violence with a confidence interval of -8.50 and -5.52 with an uncertainty of 0.76. 
+
+As for the multivariate regression of legal status and democracy on attitudes towards violence with every one unit increase in democracy there is a negative decrease of -1.53 on attitudes towards violence with a confidence interval of -3.80 and 0.69 and an uncertainty of 1.13. For every one unit increase in legal status there is a negative decrease in attitudes towards violence by -0.68 with a confidence interval of -0.96 and -0.40 with an uncertainty of 0.14. 
+
+Interestingly we can clearly see that democracy does in fact have an affect on legal status which could be a reason for why legal status indicator had the highest effect on attitudes towards violence. 
 
 # Analysis and Interpretation of Results
 
