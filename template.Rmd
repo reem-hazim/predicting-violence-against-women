@@ -500,27 +500,28 @@ From drawing correlations between the WEOI's and the dependent variables, we not
 
 ```{r causal-diagram}
 # causal diagram 
-attitude_dag <- dagify(viol ~ prev + attitude + laws,
+  attitude_dag <- dagify(viol ~ prev + attitude + laws,
        woe ~ labour + education + legal + finance,
        labour ~ democracy,
        finance ~ democracy,
        education ~ democracy,
        legal ~ democracy,
        attitude ~ woe,
-       labels = c("viol" = "Violence Against Women", 
-                  "education" = "Women's Education and Training",
-                  "labour" = "Labour Policy and Practice",
-                  "laws" = "Laws on Domestic Violence",
-                  "finance" = "Access to Finance",
-                  "prev"= "Prevalence of Violence",
-                  "attitude"= "Attitude Towards Violence",
-                  "woe"= "Women's Economic Opportunities Index",
-                  "democracy"="Democracy Index",
-                  "legal"="Legal Status")) %>% 
+       labels = c("viol" = "VAW", 
+                  "education" = "Education",
+                  "labour" = "Labour",
+                  "laws" = "Laws",
+                  "finance" = "Finance",
+                  "prev"= "Prev of Viol",
+                  "attitude"= "Attitude",
+                  "woe"= "WEO",
+                  "democracy"="Democracy",
+                  "legal"="Legal Status")) 
+
+ggdag_attitude_dag <- attitude_dag %>% 
   tidy_dagitty()
 
-
-ggdag(attitude_dag, text = FALSE, use_labels = "label")+
+ggdag(ggdag_attitude_dag, text = FALSE, use_labels = "label")+
   theme_dag()
 ```
 
