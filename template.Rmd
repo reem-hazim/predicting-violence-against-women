@@ -26,11 +26,9 @@ Women's education and legal status can both potentially decrease levels of viole
 
 # Methodology
 
-This study consists of two parts. The first part is an exploration of three indicators that the Organisation for Economic Co-operation and Development (OECD) has linked to Violence Against Women [@oecd_inequality]. The first indicator is Attitude Towards Violence, which represents the share of women who agree that a husband is justified in beating his wife. The second is Prevalence of Violence in Lifetime (0-100%), which indicates the share of women exposed to physical and/or sexual violence from an intimate partner at least once in their lives. Finally, Laws on Domestic Violence (0.25-1) measures whether legal frameworks adequately protect women from domestic violence. It is measured on a scale from 0 to 1, where 1 indicates that the laws are completely discriminatory against women.
+This study consists of two parts. The first part is an exploration of three indicators that the Organisation for Economic Co-operation and Development (OECD) has linked to Violence Against Women [@oecd_inequality]. 
 
-The second part of this research uses the Women's Economic Opportunity Index (WEOI) to predict violence against women. Created by the Economist Intelligence Unit, the research division of the Economist Group, this index "is a dynamic quantitative and qualitative scoring model, constructed from 29 indicators, that measures specific attributes of the environment for women employees and entrepreneurs in 128 economies" [@noauthor_womens_nodate]. The index is measured on a scale from 0 - 100 where 0 refers to the least favorable situation for women and 100 refers to the most favorable situation to women.
-
-We dissect the index into four out of its five main variables (labour participation, access to finance, women's legal status, and women's education and training), and we use these four factors as our independent variables. Our dependent variable is attitudes towards violence against women. We draw a causal graph to predict the factors involved in causing negative attitudes towards violence, and then we then run several univariate and multivariate regression models were between our dependent and independent variables.
+The second part of this research uses the Women's Economic Opportunity Index (WEOI) to predict violence against women. We dissect the index into four out of its five main variables (labour participation, access to finance, women's legal status, and women's education and training), and we use these four factors as our independent variables. Our dependent variable is attitudes towards violence against women. We draw a causal graph to predict the factors involved in causing negative attitudes towards violence, and then we then run several univariate and multivariate regression models were between our dependent and independent variables.
 
 We conclude that from our four main indicators, Women's Legal Status seems to have the biggest potential to predict a decrease in attitude towards violence. From there, we highlight subvariables within women's legal status that have a relationship with our main dependent variable. Finally, we analyze the causal relationship between the democracy index and the legal status of women, which may be influencing attitudes towards women
 
@@ -38,7 +36,17 @@ We conclude that from our four main indicators, Women's Legal Status seems to ha
 
 With the literature in mind, and with a curiosity towards measurements taken by the Women's Economic Opportunity Index, our research question consists on how do labour participation, women's legal status, access to finance and women's education and training appear to reduce or increase violence against women? Specifically, which one of those four variables seem to be the best predictor for an increase or reduction in attitude towards violence?
 
-Even though we explore four out of the five indicators used in WEOI in order to possibly find out which indicators seem to best predict attitude towards violence, we also pay attention to the interactions between such indicators. We do so because we are well aware of possible confounding variables. We have decided to drop the fifth main indicator "General Business Environment." Whereas this could be a good indicator for observing practical obstacles for the women in the workplace, we thought that focusing on the first four indicators could make our research more consistent.
+Even though we explore four out of the five indicators used in WEOI in order to possibly find out which indicators seem to best predict attitude towards violence, we also pay attention to the interactions between such indicators. We do so because we are well aware of possible confounding variables. 
+
+Even though we highlight Women's Legal Status as a significant predictor to Attitude Towards Violence, We argue that it's not possible to isolate one single indicator that seems to impact attitude towards women the most. 
+
+# An Overview of the Data
+
+Our dependent variables consists on the three indicators by the OECD. The first indicator is Attitude Towards Violence, which represents the share of women who agree that a husband is justified in beating his wife. The second is Prevalence of Violence in Lifetime (0-100%), which indicates the share of women exposed to physical and/or sexual violence from an intimate partner at least once in their lives. Finally, Laws on Domestic Violence (0.25-1) measures whether legal frameworks adequately protect women from domestic violence. It is measured on a scale from 0 to 1, where 1 indicates that the laws are completely discriminatory against women.
+
+Our independent variables are the main indicators in the Women's Economic Opportunity Index (WEOI). Created by the Economist Intelligence Unit, the research division of the Economist Group, this index "is a dynamic quantitative and qualitative scoring model, constructed from 29 indicators, that measures specific attributes of the environment for women employees and entrepreneurs in 128 economies" [@noauthor_womens_nodate]. The index is measured on a scale from 0 - 100 where 0 refers to the least favorable situation for women and 100 refers to the most favorable situation to women.
+
+We have decided to drop the fifth main indicator "General Business Environment." Whereas this could be a good indicator for observing practical obstacles for the women in the workplace, we thought that focusing on the first four indicators could make our research more consistent.
 
 Labour participation consists in four indicators: equal pay for equal work, non-discrimination, degree of de facto discrimination against women in the workplace, and availability, affordability, and, quality of childcare services [@noauthor_womens_nodate]
 
@@ -48,9 +56,10 @@ Education and training consists of four indicators: School life expectancy (prim
 
 Women's legal status consists of five indicators: existence of laws protecting women against violence, freedom of movement, property ownership rights, adolescent fertility rate, and whether a country ratification of the Convention on the Elimination of All Forms of Discrimination against Women (CEDAW) [@noauthor_womens_nodate].
 
-# Data
+### Data Analysis
 
 ## Part 1: Exploration of Dependent and Independent Variables
+
 
 ### Visualizing the Dependent Variables: The OECD Violence Against Women Indicators
 
@@ -176,8 +185,6 @@ violence_region_wide %>%
 ```
 
 There are 39 high income, 33 upper middle income, 37 lower middle income, and only 19 lower income countries in the data set.
-
-todo: lucas can you explain why the unequal number of countries will affect visualization? Also, if you're already fixing for this issue by using frequency instead of count, I think we can get rid of this part right? Since we're trying to cut down on words
 
 ```{r barstack-LAWDOMVIOLByIncome}
 #barstack comparing this data by incomegroup
