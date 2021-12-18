@@ -515,8 +515,6 @@ attitude_dag <- dagify(viol ~ prev + attitude + laws,
 
 ggdag(attitude_dag, text = FALSE, use_labels = "label")+
   theme_dag()
-
-impliedConditionalIndependencies(attitude_dag)
 ```
 
 When making our causal diagram we observed that the four indicators that are causing attitudes towards violence are: labour policy and practice, education and training, woman's legal status and access to finance which fall under the Woman's Economic Opportunity Index. We also observed a separate confounding variable affecting attitudes towards violence is gender segregation.
