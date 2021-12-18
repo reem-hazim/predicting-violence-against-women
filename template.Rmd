@@ -1,6 +1,6 @@
 ---
-title: "Predicting Violence Against Women Using the Women's Economic Opportunity Index (WEOI) Word Count: 6075"
-description: "An exploration of the the main indicators of the WEOI and what they can tell us about violence against women"
+title: "Predicting Violence Against Women Using the Women's Economic Opportunity Index (WEOI)"
+description: "An exploration of the the main indicators of the WEOI and what they can tell us about violence against women. Word Count: 6075"
 author:
   - name: Reem Hazim
   - name: Lucas De Lellis
@@ -204,7 +204,7 @@ women’s rights",
 
 A stacked bar helps in the visualization and reveals that indeed most of the countries that have a value of 0.25 on Laws on Domestic Violence (better laws on domestic violence) are high income countries. However, it is important to note that in the 0.75 value, there seems to be a more balanced distribution throughout all income groups. In the value of "1", i.e., laws on domestic violence that completely discriminate against women, we find only upper middle income countries.
 
-We also produced a bar stack for prevalence of violence in the lifetime and Attitude Against Violence, but instead of using a proportion stacked bar we opted for a frequency one. Even though this plot suffers from the total number of high income countries being greater than the number of countries in other income categories, the concentration of such countries in the left side of the graph once again reveal the pattern of high income countries performing better in such indicators.
+We also produced a bar stack for Attitude Against Violence, but instead of using a proportion stacked bar we opted for a frequency one. Even though this plot suffers from the total number of high income countries being greater than the number of countries in other income categories, the concentration of such countries in the left side of the graph once again reveal the pattern of high income countries performing better in such indicators.
 ```{r BarStackATTITUDEVIOLByIncomeGroup}
 ggplot(violence_region_wide, 
        aes(x = ATTITUDEVIOL, 
@@ -221,7 +221,7 @@ violence from an intimate partner at some time in their life",
 ```
 
 
-```{r BarStackPREVVIOLLIFETIMEByIncomeGroup}
+```{r BarStackPREVVIOLLIFETIMEByIncomeGroup, include=FALSE}
 ggplot(violence_region_wide, 
        aes(x = PREVVIOLLIFETIME, 
            fill = IncomeGroup,
