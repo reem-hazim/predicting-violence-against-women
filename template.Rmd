@@ -565,9 +565,11 @@ ggplot(data=relevant_factors, mapping = aes(x = womens_opp_index, y = attitude, 
     title="Attitude Towards Violence by Women Opportunities Index",
     x = "Women's Economic Opportunities Index",
     y = "Attitude Towards Violence")
-
-summary(woe_reg)
 plot(woe_reg)
+```
+
+```{r reg-woe-sum, include=FALSE}
+summary(woe_reg)
 ```
 
 When regressing the women's oppurtunity index with attitudes towards violence we found that with evey one unit increase in woman's oppurtunity index there is a negative decrease of -0.39 in attitudes towards violence with a confidence interval of -0.56 and -0.22 and a uncertainty of 0.09.
@@ -586,6 +588,9 @@ by how favorable is labour policy and practice (0-100) to women",
     y = "Attitude Towards Violence")
 
 plot(labour_policy_practice_reg)
+```
+
+```{r labour-reg-sum, include=FALSE}
 summary(labour_policy_practice_reg)
 ```
 
@@ -606,6 +611,9 @@ by how favorable is access to finance (0-100) to women",
     y = "Attitude Towards Violence")
 
 plot(access_finance_reg)
+```
+
+```{r finance-reg-sum, include=FALSE}
 summary(access_finance_reg)
 ```
 
@@ -626,6 +634,9 @@ by how favorable is Education and Traning (0-100) to women",
     y = "Attitude Towards Violence")
 
 plot(edu_training_reg)
+```
+
+```{r edu-reg-sum, include=FALSE}
 summary(edu_training_reg)
 ```
 
@@ -646,6 +657,9 @@ by how favorable is women's legal stats (0-100)",
     y = "Attitude Towards Violence")
 
 plot(women_legal_social_status_reg)
+```
+
+```{r legal-reg-sum}
 summary(women_legal_social_status_reg)
 ```
 
@@ -661,6 +675,9 @@ multivariate_reg <- brm(formula= attitude ~ labour_policy + education + legal_st
 
 ```{r plot-mvr}
 plot(multivariate_reg)
+```
+
+```{r mvr-reg-sum, include=FALSE}
 summary(multivariate_reg)
 ```
 
@@ -682,6 +699,9 @@ legal_status_reg <- brm(formula= attitude ~ addressing_violence + citizen_rights
 
 ```{r plot-legal-reg}
 plot(legal_status_reg)
+```
+
+```{r legal-break-reg-sum, include=FALSE}
 summary(legal_status_reg)
 ```
 
@@ -747,16 +767,16 @@ attitude_dem_reg <- brm(formula= attitude ~ democracy_index, data=relevant_facto
 attitude_dem_legal_reg <- brm(formula= attitude ~ democracy_index + legal_status, data=relevant_factors, refresh =0)
 ```
 
-```{r plot-reg}
+```{r dem-legal-reg-plot}
 plot(democracy_legal_reg)
-summary(democracy_legal_reg)
-
 plot(attitude_dem_reg)
-summary(attitude_dem_reg)
-
 plot(attitude_dem_legal_reg)
-summary(attitude_dem_legal_reg)
+```
 
+```{r dem-legal-reg-sum, include=FALSE}
+summary(democracy_legal_reg)
+summary(attitude_dem_reg)
+summary(attitude_dem_legal_reg)
 ```
 
 # Analysis and Interpretation of Results
