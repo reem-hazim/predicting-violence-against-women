@@ -8,7 +8,6 @@ author:
 date: "`r Sys.Date()`"
 output: distill::distill_article
 bibliography: references.bib
-word count: 6710
 ---
 
 # Introduction
@@ -205,6 +204,7 @@ women’s rights",
 
 A stacked bar helps in the visualization and reveals that indeed most of the countries that have a value of 0.25 on Laws on Domestic Violence (better laws on domestic violence) are high income countries. However, it is important to note that in the 0.75 value, there seems to be a more balanced distribution throughout all income groups. In the value of "1", i.e., laws on domestic violence that completely discriminate against women, we find only upper middle income countries.
 
+We also produced a bar stack for prevalence of violence in the lifetime and Attitude Against Violence, but instead of using a proportion stacked bar we opted for a frequency one. Even though this plot suffers from the total number of high income countries being greater than the number of countries in other income categories, the concentration of such countries in the left side of the graph once again reveal the pattern of high income countries performing better in such indicators.
 ```{r BarStackATTITUDEVIOLByIncomeGroup}
 ggplot(violence_region_wide, 
        aes(x = ATTITUDEVIOL, 
@@ -212,7 +212,7 @@ ggplot(violence_region_wide,
            )) + 
   geom_histogram(alpha=0.8, position = "stack", bins=50)+
  labs(
-   title="Prevalence of violence in the lifetime by Region",
+   title="Prevalence of violence in the lifetime by Income Group",
     subtitle="The percentage of women who have experienced physical and/or sexual 
 violence from an intimate partner at some time in their life",
     x="Share of Women (%)",
@@ -220,7 +220,6 @@ violence from an intimate partner at some time in their life",
 )
 ```
 
-We also produced a bar stack for prevalence of violence in the lifetime, but instead of using a proportion stacked bar we opted for a frequency one. Even though this plot suffers from the total number of high income countries being greater than the number of countries in other income categories, the concentration of such countries in the left side of the graph once again reveal the pattern of high income countries performing better in such indicators.
 
 ```{r BarStackPREVVIOLLIFETIMEByIncomeGroup}
 ggplot(violence_region_wide, 
