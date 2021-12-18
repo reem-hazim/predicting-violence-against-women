@@ -8,6 +8,7 @@ author:
 date: "`r Sys.Date()`"
 output: distill::distill_article
 bibliography: references.bib
+word count: 6710
 ---
 
 # Introduction
@@ -56,7 +57,7 @@ Education and training consists of four indicators: School life expectancy (prim
 
 Women's legal status consists of five indicators: existence of laws protecting women against violence, freedom of movement, property ownership rights, adolescent fertility rate, and whether a country ratification of the Convention on the Elimination of All Forms of Discrimination against Women (CEDAW) [@noauthor_womens_nodate].
 
-### Data Analysis
+## Data Analysis
 
 ## Part 1: Exploration of Dependent and Independent Variables
 
@@ -184,7 +185,7 @@ violence_region_wide %>%
 #The problem with doing this split by regions is that the number of countries per category fluctuates a lot. There are only two high income countries compared to many Sub-Saharan African countries, which limit our possibilities of seeing patterns. 
 ```
 
-There are 39 high income, 33 upper middle income, 37 lower middle income, and only 19 lower income countries in the data set.
+There are 39 high income, 33 upper middle income, 37 lower middle income, and only 19 lower income countries in the data set. This is important to keep in mind when looking at barstacks that only include count instead of frequency (Attitude Towards Violence by Income Group).
 
 ```{r barstack-LAWDOMVIOLByIncome}
 #barstack comparing this data by incomegroup
