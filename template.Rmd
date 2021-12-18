@@ -11,29 +11,33 @@ output: distill::distill_article
 
 # Introduction
 
-Even though "[Achieving gender equality and empowering all women and girls" is among one of the 17 Sustainable Development Goals by the United Nations (United Nations), such goal swims against an enormous wave of violence against women in the contemporary world. Investigation on the causes of such violence is neither non-exhaustive nor simple. This paper aims to investigate what are possible reasons for the bugging persistence of violence against women, specifically positive attitudes towards violence against women. Believing in the importance of promoting women's economic well-being in order to achieve equality, we aim to understand the relationship between violence against women and the Women's Economic Opportunity Index (WEOI). Providing a violence-free environment for women and girls will immensely support their empowerment, which in turn represents countless gains for society as a whole (King 6).
+Even though "achieving gender equality and empowering all women and girls" is among one of the 17 Sustainable Development Goals by the United Nations (United Nations), such goal swims against an enormous wave of violence against women in the contemporary world. Investigation on the causes of such violence is neither exhaustive nor simple. This paper aims to investigate what are possible reasons for the bugging persistence of violence against women, specifically in what regard to a positive attitudes towards violence against women, i.e., more women finding justifiable that a husband would beat their wives. 
 
-After a brief literature review on the subject of women's economic well-being, we explain our two-part methodology. We pulled our data from the Organisation for Economic Co-operation and Development (OECD), the United Nations (UN), the World Bank (WB), and the Economist Intelligence Unit. Our analysis reveals that even though women's legal status seems to be one of the best predictors within the WEOI for attitude towards violence against women, we must be attentive to the ways in which indicators interact and affect each other.
+Believing in the importance of promoting Women's economic well-being in order to achieve equality, we aim to understand the relationship between violence against women and the Women's Economic Opportunity Index (WEOI). Providing a violence-free environment for women and girls will immensely support their empowerment, which in turn represents countless gains for society as a whole (King 6).
+
+After a brief literature review on the subject of women's economic well-being, we explain our two-part methodology. We pulled our data from the Organisation for Economic Co-operation and Development (OECD), the United Nations (UN), the World Bank (WB), and the Economist Intelligence Unit (EIU). Our analysis reveals that even though women's legal status seems to be one of the best predictors within the WEOI for attitude towards violence against women, we must be attentive to the ways in which indicators interact within and outside of the Women's Economic Opportunity Index affect each other.
 
 # Literature Review
 
-Women are disadvantaged in entrepreneurship. An assumption that institutions of entrepreneurship are genderless have resulted in structures that pretend to be "genderless" when they are not (Pathak et. al.). It is well-known that organizations, by not identifying or addressing the barriers that women might uniquely face, such as childrearing and domestic labour (Acker), have failed to provide equality in the workplace. Our research dialogues with previous literature in asserting that difficulty in women's access to finance and labor participation further limit the possibility of women gaining independence from, at best, their domestic and childrearing duties, and at worse, from their partners. By constraining women from participating in labor in equal and fair manners, as well accessing finance, we argue that this could be increasing violence against women.
+Women are disadvantaged in entrepreneurship. Part of that is because structures that push for entrepreneurship have for long pretended to be "genderless" when they are not (Pathak et. al.). It is well-known that organizations, by not identifying or addressing the barriers that women might uniquely face, such as child-rearing and domestic labour (Acker), have failed to provide equality in the workplace. Our research dialogues with previous literature in asserting that difficulty in women's access to finance and labor participation further limit the possibility of women gaining independence from, at best, their domestic and child-rearing duties, and at worse, from their partners. By constraining women from participating in labor in equal and fair manners, as well accessing finance, we argue that this could be increasing violence against women.
 
-Women's education and legal status can both potentially decrease levels of violence against women. When education is intentionally design to address gender inequality, it has the potential to provide the tools women need to both identify and report experiences of violence (Okenwa-Emgwa et. al.). Similarly, women's legal status is especially important because it provides them with access to institutions and legal frameworks they can resort to when experiencing violence (Tavares & Wodon). Not only does "legal status" include explicit regulation against violence experienced by intimate partners, but also legal frameworks protecting their rights to freedom of movement, property ownership, adolescent fertility, and regulations addressing all forms of discrimination (Women's Economic Opportunity Index). However, the literature has raised questions on the effectiveness of both of education and legal status in raising the stature of women and preventing violence. For example, even though the benefits of education alone are evident (Girl Rising), in order to effectively reduce violence against women, it is necessary to formulate curricula that include gender equality and information on violence against women (Okenwa-Emgwa et. al.). In the case of women's legal status, adequate implementation and observation of such laws are needed for them to be effectively enforced (Tavares & Wodon). Our research interacts with such limitations by exploring whether WEO's indicators on education and training and women's legal status can predict a decrease in pro-violence attitudes.
+Women's education and legal status can both potentially decrease levels of violence against women. When education is intentionally designed to address gender inequality, it has the potential to provide the tools women need to both identify and report experiences of violence (Okenwa-Emgwa et. al.). Similarly, women's legal status is especially important because it provides them with access to institutions and legal frameworks they can resort to when experiencing violence (Tavares & Wodon). Not only does "legal status" include explicit regulation against violence experienced by intimate partners, but also legal frameworks protecting their rights to freedom of movement, property ownership, adolescent fertility, and regulations addressing all forms of discrimination (Women's Economic Opportunity Index). However, the literature has raised questions on the effectiveness of both education and legal status in raising the stature of women and preventing violence alone. For example, even though the benefits of education alone are evident (Girl Rising), in order to effectively reduce violence against women, it is necessary to formulate curricula that include gender equality and information on violence against women (Okenwa-Emgwa et. al.). In the case of women's legal status, adequate implementation and observation of such laws are needed for them to be effectively enforced (Tavares & Wodon). Our research interacts with such limitations by exploring whether WEOI's indicators on education and training and women's legal status can predict a decrease in positive attitude towards violence.
 
 # Methodology
 
-This study consists of two parts. The first part is an exploration of three indicators that the Organisation for Economic Co-operation and Development (OECD) has linked to Violence Against Women. The first indicator is attitude towards violence, which represents the share of women who agree that a husband is justified in beating his wife(s). The second is prevalence of violence in womens' lifetime (0-100%), which indicates the share of women exposed to physical and/or sexual violence from an intimate partner at least once in their lives. Finally laws on domestic violence (0.25-1) measures whether legal frameworks adequately protect women from domestic violence. It is measured on a scale from 0 to 1, where 1 indicates that the laws are completely discriminatory against women.
+This study consists of two parts. The first part is an exploration of three indicators that the Organisation for Economic Co-operation and Development (OECD) has linked to Violence Against Women. The first indicator is Attitude Towards Violence, which represents the share of women who agree that a husband is justified in beating his wife. The second is Prevalence of Violence in Lifetime (0-100%), which indicates the share of women exposed to physical and/or sexual violence from an intimate partner at least once in their lives. Finally, Laws on Domestic Violence (0.25-1) measures whether legal frameworks adequately protect women from domestic violence. It is measured on a scale from 0 to 1, where 1 indicates that the laws are completely discriminatory against women.
 
 The second part of this research uses the Women's Economic Opportunity Index (WEOI) to predict violence against women. Created by the Economist Intelligence Unit, the research division of the Economist Group, this index "is a dynamic quantitative and qualitative scoring model, constructed from 29 indicators, that measures specific attributes of the environment for women employees and entrepreneurs in 128 economies." (Economist Intelligence Unit). The index is measured on a scale from 0 - 100 where 0 refers to the least favorable situation for women and 100 refers to the most favorable situation to women.
 
 We dissect the index into four out of its five main variables (labour participation, access to finance, women's legal status, and women's education and training), and we use these four factors as our independent variables. Our dependent variable is attitudes towards violence against women. We draw a causal graph to predict the factors involved in causing negative attitudes towards violence, and then we then run several univariate and multivariate regression models were between our dependent and independent variables.
 
+We conclude that from our four main indicators, Women's Legal Status seems to have the biggest potential to predict a decrease in attitude towards violence. From there, we highlight subvariables within women's legal status that have a relationship with our main dependent variable. Finally, we analyze the causal relationship between the democracy index and the legal status of women, which may be influencing attitudes towards women
+
 # Theory/Hypotheses
 
 With the literature in mind, and with a curiosity towards measurements taken by the Women's Economic Opportunity Index, our research question consists on how do labour participation, women's legal status, access to finance and women's education and training appear to reduce or increase violence against women? Specifically, which one of those four variables seem to be the best predictor for an increase or reduction in attitude towards violence?
 
-Even though we explore four out of the five indicators used in WEOI in order to possibly find out which indicators seem to best predict attitude towards violence, we also pay attention to the interactions between such indicators. We do so because we are well aware of possible confounding variables.
+Even though we explore four out of the five indicators used in WEOI in order to possibly find out which indicators seem to best predict attitude towards violence, we also pay attention to the interactions between such indicators. We do so because we are well aware of possible confounding variables. We have decided to drop the fifth main indicator "General Business Environment." Whereas this could be a good indicator for observing practical obstacles for the women in the workplace, we thought that focusing on the first four indicators could make our research more consistent.
 
 Labour participation consists in four indicators: equal pay for equal work, non-discrimination, degree of de facto discrimination against women in the workplace, and availability, affordability, and, quality of childcare services (Women's Economic Opportunity Index Report 10).
 
@@ -96,6 +100,7 @@ violence_region_wide$IncomeGroup <- factor(violence_region_wide$IncomeGroup,
 
 ```
 
+In our first stage in our data exploration, we decide to observe whether there were patterns in a country's economy and our dependent variables. We expected that we would find patterns because a more developed economy might mean more economic opportunities for women.
 
 ```{r plot-ATTITUDEVIOL-by-IncomeGroup}
 #Exploring ATTITUDEVIOL by incomegroup
@@ -112,7 +117,7 @@ beating his wife/partner under certain circumstances",
   )
 ```
 
-There seems to be a clear association between attitude towards violence against women and a country's group income. High and upper middle income countries seem to have a lower share of women who agree that the husband is justified in inflicted violence in their wives.
+There seems to be a clear association between attitude towards violence against women and a country's income group. High and upper middle income countries seem to have a lower share of women who agree that the husband is justified in inflicted violence in their wives.
 
 ```{r PREVVLIFETIMEByIncome}
 #Exploring PREVVLIFETIME by incomegroup
@@ -147,9 +152,11 @@ ggplot(violence_region_wide, aes(x=LAWDOMVIOL, fill=IncomeGroup))+
   )
 ```
 
-Whereas in regards to the previous variables it was clearer to see the distribution of data in regards to income group, Laws on domestic violence don't see to follow the same pattern. The graph shows that most countries, regardless of income group, fall in the "0.75" measure for Laws on Domestic Violence. That means that their laws and practices are unsuficcient to garantee the well-being of women. It is evident that even though there are few countries in which the number reaches the value 1 (laws and practices are completely discriminatory against women), the realization that most countries in the global still have unsuficcient laws that protect women's rights is incredibly worrying. We can also observe that there are more countries with better laws and practices for women's rights among high income countries (that is, countries in which the indicator equals 0.25). This also holds true in a lesser extent for upper middle income countries. For both lower middle income and low income, however, there seems to be more countries in the 0.5 and 0.75 levels then in the 0.25. This unvels a pattern that establishes that higher income coutries, despite also having large number of countries that have a indicator of law on domestic violence equal to 0.75, have also higher number of countries that have a somewhat benefitial laws and practices against domestic violence. However, this does not seem to be a causal effect. It is highly unlikely that a countrie's income group alone establishes the laws on domestic violence, but it points us in the direction of establishing a connection between higher levels of economic develpment and better legislation on domestic violence.
+Whereas in regards to the previous variables it was clearer to see the distribution of data in regards to income group, Laws on domestic violence doesn't seem to follow the same pattern. The graph shows that most countries, regardless of income group, fall in the "0.75" measure for Laws on Domestic Violence. That means that their laws and practices are unsuficcient to garantee the well-being of women. It is evident that even though there are few countries in which the number reaches the value 1 (laws and practices are completely discriminatory against women), the realization that most countries in the globe still have unsuficcient laws that protect women's rights is incredibly worrying. We can also observe that there are more countries with better laws and practices for women's rights among high income countries (that is, countries in which the indicator equals 0.25). This also holds true in a lesser extent for upper middle income countries. For both lower middle income and low income, however, there seems to be more countries in the 0.5 and 0.75 levels then in the 0.25. 
 
-We proceed to design stacked bars in order to bette r understand patterns in the data, specially when it came to laws on domestic violence. However, one important aspect to notice is that the total number of countries in each income category will affect the visualization of these stack bars when they are not designed to take into acount proportion.
+This unveils a pattern that establishes that higher income coutries, despite also having large number of countries that have a indicator of law on domestic violence equal to 0.75, have also higher number of countries that have a somewhat benefitial laws and practices against domestic violence. However, this does not seem to be a causal effect. It is highly unlikely that a countrie's income group alone establishes the laws on domestic violence, but it points us in the direction of establishing a connection between higher levels of economic develpment and better legislation on domestic violence.
+
+We proceed to design stacked bars in order to better understand patterns in the data, specially when it came to laws on domestic violence. However, one important aspect to notice is that the total number of countries in each income category will affect the visualization of these stack bars when they are not designed to take into account proportion. See below:
 
 ```{r n-countries-per-income-group}
 violence_region_wide %>% 
@@ -159,7 +166,7 @@ violence_region_wide %>%
 #The problem with doing this split by regions is that the number of countries per category fluctuates a lot. There are only two high income countries compared to many Sub-Saharan African countries, which limit our possibilities of seeing patterns. 
 ```
 
-There are 39 high income, 33 upper middle income, 37 lowe middle income, and only 19 lower income countries in the dataset.
+There are 39 high income, 33 upper middle income, 37 lower middle income, and only 19 lower income countries in the data set.
 
 ```{r barstack-LAWDOMVIOLByIncome}
 #barstack comparing this data by incomegroup
@@ -210,17 +217,6 @@ violence from an intimate partner at some time in their life",
     x="Share of Women (%)",
     y="Count"
   )
-```
-
-
-```{r somewritingideas,include=FALSE}
-#Problems and limits with the data
-#- causation and correlation: Even though we find that NA and European countries ( high income countries) have better laws on domestic violence, as well as less worse attitudes on violence against women, and lower prevalence of women who experience abuse, this does not really tell us that these countries are "better" for women or men 
-#- questions that indicators are asking versus what they are trying to measure, analyse each indicator and how they are measure the stuff they are measuring
-#ex: prevalence in lifetime: they are only calculating violence coming from intimate partner, what about the levels of harassment that come from outside intimate circles?
-#ex: law on domestic violence, how do you quantify that?
-#ex: attitude towards violence: what questions are they asking. "the percentage of women who agree that a husband/partner is justified in beating his wife/partner under certain circumstances" why is this only women's complicity on it? is this really the best question to ask around attitude towards violence?
-#- Which countries are excluded from the data? Are there countries excluded from the data? (Would be interesting to find out)
 ```
 
 ```{r read-country-coordinates, include=FALSE}
@@ -274,9 +270,9 @@ violence_region_coordinates_wide %>%
 cor(violence_region_coordinates_wide$PREVVIOLLIFETIME, violence_region_coordinates_wide$ATTITUDEVIOL, use="complete.obs")
 ```
 
-X-axis shows Prevalence of Violence in Lifetime, Y-axis shows Attitude Towards Violence, and the colored dots indicate Laws Against Domestic Violence.  The visualization shows a moderate positive relationship between Prevalence of Violence in the Lifetime and Attitude Towards Violence (correlation coefficient = 0.45). We can also visualize that yellow-dots countries are concentrated in the left lower side of the plot, thus revealing that countries that have decent laws on Domestic Violence also tend to perform better in the other two indicators. 
+X-axis shows Prevalence of Violence in Lifetime, Y-axis shows Attitude Towards Violence, and the colored dots indicate Laws Against Domestic Violence. The visualization shows a moderate positive relationship between Prevalence of Violence in the Lifetime and Attitude Towards Violence (correlation coefficient = 0.45). We can also visualize that yellow-dots countries are concentrated in the left lower side of the plot, thus revealing that countries that have decent laws on Domestic Violence also tend to perform better in the other two indicators. 
 
-The annotated countries in the graph are countries in which the Laws Against Domestic Violence are completely discriminatory against women: Equatorial Guinea and the Russian Federation. Whereas Equatorial Guinea, besides a completely discriminatory Laws Against Domestic Violence, also has higher levels of Prevalence of Violence and Attitude Towards Violence, the Russian Federation is an interesting case. It shows lower levels of Prevalence of Violence and Attitude Towards Violence, but its legislation seem to completely discriminate against women. It is closer to the yellow dots on the graph, which are countries with good Laws on Domestic Violence. This sets Russia apart as an notable out liar when plotting the relationship between the three dependent variable. Research on its case will be interesting when analyzing  potential causes for the persistence of violence against women. 
+The annotated countries in the graph are countries in which the Laws Against Domestic Violence are completely discriminatory against women: Equatorial Guinea and the Russian Federation.Equatorial Guinea, besides having very discriminatory laws against domestic Violence, also has higher levels of Prevalence of Violence and Attitude Towards Violence. On the other hand, the Russian Federation is an interesting case. It shows lower levels of Prevalence of Violence and Attitude Towards Violence, but its legislation seem to completely discriminate against women. It is closer to the yellow dots on the graph, which are countries with good Laws on Domestic Violence. This sets Russia apart as an notable outlier when plotting the relationship between the three dependent variable. Research on its case will be interesting when analyzing  potential causes for the persistence of violence against women. 
 
 ### Comparing OECD and UN in Prevalence of Violence Againt Women
 
@@ -353,7 +349,7 @@ un_oecd_women_violence_wide %>%
 cor(un_oecd_women_violence_wide$PREVVIOLLIFETIME, un_oecd_women_violence_wide$un_prev_viol_12m, use="complete.obs")
 ```
 
-[todo lucas]: More interpretation here
+[todo reem]: More interpretation here
 
 ### Mapping Attitudes Towards Violence
 
@@ -377,9 +373,9 @@ For our dependent variables, we found some recurring data limitations.
 
 Using Income Groups might reveal interesting patterns in what regards how differently countries with different income levels deal with violence against women, but it tells little about what are the causes of such discrepancies. Hence, whereas our graphs were helpful in revealing the path in which research can take, it did not necessary reveal to us what could be some of the causes for our indicators. Finally, using Income Group as a category might ignore nuances in regard to the socio-economic development of different countries. For example, countries like Brazil are classified as Upper Middle Income, but it also has one of the largest inequalities in the world (Gini Coefficient = 53.3), ranking 9th globally. Such incredible inequality could be driving some of our dependent variable, which separating countries by Income Group would not necessarily reveal.
 
-One tidiness issue in the data is that the dataset is in long format, which makes it difficult to visualize the relationship between the different indicators. Therefore, we had to transform the dataset into wide format to create these plots.
+One tidiness issue in the data is that the data set is in long format, which makes it difficult to visualize the relationship between the different indicators. Therefore, we had to transform the data set into wide format to create these plots.
 
-There are also some discrepancies between what the indicators are trying to measure and what they actually measure. Quantifying such a large-scale phenomenon as violence against women is a non-trivial effort, since violence comes in many diverse forms. For example, the prevalence in lifetime indicator only quantifies violence from an intimate partner, excluding levels of harassment that come from outside intimate circles, such as sex trafficking. Similarly, to measure "attitude towards violence", the dataset creators used "the percentage of women who agree that a husband/partner is justified in beating his wife/partner under certain circumstances." Why is this particular question used as a proxy for attitude towards violence? Why not ask whether non-intimate partners are also justified in beating women? Are there better or more comprehensive questions to gauge attitude towards violence?
+There are also some discrepancies between what the indicators are trying to measure and what they actually measure. Quantifying such a large-scale phenomenon as violence against women is a non-trivial effort, since violence comes in many diverse forms. For example, the prevalence in lifetime indicator only quantifies violence from an intimate partner, excluding levels of harassment that come from outside intimate circles, such as sex trafficking. Similarly, to measure "attitude towards violence", the data set creators used "the percentage of women who agree that a husband/partner is justified in beating his wife/partner under certain circumstances." Why is this particular question used as a proxy for attitude towards violence? Why not ask whether non-intimate partners are also justified in beating women? Are there better or more comprehensive questions to gauge attitude towards violence?
 
 In addition, for the "laws on domestic violence" indicator, the dataset creators do not explain how they quantified the abstract concept of "laws and practices". They also do not specify what they mean by laws that "fully discriminate against women's rights". This makes it difficult to determine the accuracy of the indicator.
 
@@ -452,7 +448,8 @@ relevant_factors_long %>%
 
 ### Limitations of the Independent Variables
 
-[talk about year difference - WOEI in 2012]
+One important limitation is the difference in dates. Whereas out dependent variable explores data collected in 2019, our independent variable (WEOI) is from 2012. It might be the case that countries have significantly improved or worsen their scores in the WEOI in the time between 2012 and 2019, which hence could be affecting our analysis. 
+
 The variables we have explored in the Women's Economic Index Composite index are composite variables. Hence, even if we are looking for one specific variable that could particularly be causing higher levels of Attitude Towards Violence, this would not particularly be helpful. We would have to pay attention to the variables behind the larger indicators we are investigating. Besides that, being composite variables give large possibility of confounding variables to complicate our analysis. In other words, all the subcategories for each indicator are correlated, thus increasing the chances of having an unseen confounding variable.
 
 Similar data limitations with our dependent variables return here, as well. The index has the very complicated way to measure an abstract concept such as “women’s economic opportunities.” Selecting which variables are put together to form one single indicator involves many human biases and interested/bias decisions. For example, since the indicator is developed by The Economist, many of the variables hint that they particularly considered important private sector entrepreneurship and initiatives as a measure for women's opportunities. Same is applied to the importance they seem to attach in women's entrance in finance and business. There could possibly been equally rigorous indexed that take into acount public policy and state-sponsored opportunities. 
@@ -465,7 +462,6 @@ A final limitation is that our independent variable only includes 128 countries.
 
 ### Correlation Coefficients
 Having explored out dependent variables, we proceed to exploring the relationship between out dependent variables and our chosen independent variable -- The Women's Economic Opportunity Index. (WOEI)
-
 
 ```{r renaming, layout="l-body-outset", fig.height=5}
 corr_matrix <- 
@@ -563,9 +559,8 @@ women_legal_social_status_reg <- brm(formula= attitude ~ legal_status, data= rel
 ```
 
 ```{r plot-reg-woe, message=FALSE, warning=FALSE}
-ggplot(data=relevant_factors, mapping = aes(x = womens_opp_index, y = attitude, color=IncomeGroup)) + 
+ggplot(data=relevant_factors, mapping = aes(x = womens_opp_index, y = attitude, )) + 
   stat_smooth(method="lm")+
-  facet_wrap(~IncomeGroup)+
   geom_point()+
   labs (
     title="Attitude Towards Violence by Women Opportunities Index",
@@ -686,7 +681,8 @@ legal_status_reg <- brm(formula= attitude ~ addressing_violence + citizen_rights
 plot(legal_status_reg)
 summary(legal_status_reg)
 ```
-When running a regression on further exploration of the indicator legal status we found that within the factors under legal status the one with the highest effect on attitudes towards violence was property ownership with a negtive decrease of -0.19 with every on unit increase with a uncertainty of 0.06 and a confidence interval of -0.31 and -0.07. 
+
+When running a regression on further exploration of the indicator legal status, we found that within the factors under legal status the one with the highest effect on attitudes towards violence was property ownership with a negative decrease of -0.19 with every on unit increase with a uncertainty of 0.06 and a confidence interval of -0.31 and -0.07. 
 
 ```{r plot-prop-ownership}
 ggplot(data=legal_status_data, mapping = aes(x = prop_ownership, y = attitude)) + 
@@ -700,9 +696,9 @@ by how favorable is women's legal stats (0-100)",
     y = "Attitudes Towards Violence")
 ```
 
-As seen from the graph as well as from the regression we ran on the indicator legal status the higher property ownership roghts there is there is a decrease in positive attitudes towards vioelnce. While there are some outliers the graph demonstartes a linear decrease pattern between the two. 
+As seen from the graph as well as from the regression we ran on the indicator legal status, a higher level on property ownership rights results in a decrease in positive attitudes towards violence. While it is possible for outliers to be impacting the data, the graph demonstrates a linear decrease pattern between the two. 
 
-We then followed up by observing the relationship between contraception usage, which is a factor that falls under the legal status indicator, and attitudes towards violence because of contraception usage coming second highest in negatively decreasing attitudes towards violence with a decrease of -0.18 with a confidence interval of -0.32 and -0.04 with an uncertainty of 0.07. 
+We then continued by observing the relationship between contraception usage, which is a factor that falls under the legal status indicator, and attitudes towards violence. That's because in our previous analysis contraception usage came second highest in negatively decreasing attitudes towards violence with a decrease of -0.18 with a confidence interval of -0.32 and -0.04 with an uncertainty of 0.07. 
 
 ```{r plot-contraceptive-use}
 ggplot(data=legal_status_data, mapping = aes(x = contraceptive_use, y = attitude)) + 
@@ -716,12 +712,14 @@ by how favorable is women's legal stats (0-100)",
     y = "Attitudes Towards Violence")
 ```
 
-From the graph we see that there is a negative relationship between contraception use and attitudes towards violence the linear decrease pattern is more observable in this graph as the data is fairly clustered around the line as well as a decrease motion is visible while there still is a few outliers. 
+From the graph we see that there is a negative relationship between contraception use and attitudes towards violence. The linear decrease pattern is more observable in this graph as the data is fairly clustered around the line as well as a decrease motion is visible while there still is a few outliers. 
 
-From the graph we see that there is a negitive relationship between contraception use and attitudes towards violence the linear decrease pattern is more observable in this graph as the data is fairly clustered around the line as well as a decrease motion is visible while there still is a few outliers. 
+From the graph we see that there is a negative relationship between contraception use and attitudes towards violence. The linear decrease pattern is more observable in this graph as the data is fairly clustered around the line as well as a decrease motion is visible while there still is a few outliers. 
 
 
 [todo]: add democracy as an explanatory variable for the independent variables
+
+Upon reflecting on what are some of the factors that might be influencing or causing women's legal status, we moved our research forward by analyzing the role that democracy has on women's legal status. 
 
 ### Exploring the Effects of Democracy
 
@@ -774,17 +772,27 @@ summary(attitude_dem_legal_reg)
 
 # Analysis and Interpretation of Results
 
-When we ran the regression between attitudes towards violence individually with each of the four indicators from WEOI, we noticed that women's legal status seemed to be the most strongly negatively correlated with the dependent variable (-0.80). Running a multivariate regression with all indicators, however, decreased the correlation of women's legal status to (-0.45). Even though it remains moderately correlated, such interaction reveal that it is difficult to isolate one single cause for the increase or decrease of levels in attitudes towards violence. Interestingly the indicator labour policy had a negitive value of (-0.47) and when we ran the multivariate regression the value became (0.21) which signifncatly changed as well as has an increase in positive attitudes towards violnece which wasnt something we anticipated but is intereting to find out why that is the case. 
+When we ran the regression between attitudes towards violence individually with each of the four indicators from the WEOI, we noticed that women's legal status seemed to be the most strongly negatively correlated with the dependent variable (-0.80). Running a multivariate regression with all indicators, however, decreased the correlation of women's legal status to (-0.45). Even though it remains moderately correlated, such interaction reveal that it is difficult to isolate one single cause for the increase or decrease of levels in attitudes towards violence. Interestingly, when we ran the multivariate regression, the indicator Labour Policy and Practice went from a negative coefficient of -0.47 to 0.21.
 
-A counterfactual that arises from our research is imagining a country in which the women's legal status was signficantly lower than the rest of the indicators. Would such a country have lower levels of attitude against violence (less women agreeing that violence is justified)? Even though we cannot find such a case within the indicators of the WOEI, the exploration on the dependent variables highlighted the Russian Federation as having laws on domestic violence that completely discriminated against women but had decent levels in prevalence of violence in lifetime and attitude towards women. A further study on the case of the Russian Federation could reveal the effectiveness of women's legal status (and especifically laws against domestic violence) in causing a decrease in violence against women.
+A counterfactual that arises from our research is imagining a country in which the women's legal status was significantly lower than the rest of the indicators. Would such a country have lower levels of attitude against violence (less women agreeing that violence is justified)? Even though we cannot find such a case within the indicators of the WOEI, the exploration on the dependent variables highlighted the Russian Federation as having laws on domestic violence that completely discriminated against women but had decent levels in prevalence of violence in lifetime and attitude towards women. A further study on the case of the Russian Federation could reveal the effectiveness of women's legal status (and specifically laws against domestic violence) in causing a decrease in violence against women.
 
-(maybe write more about the russian case. what are its scores on the WEOI?)
+we found that among the sub-indicators that form Women's Legal Status, property rights and contraceptive use were among the ones driving Attitude Towards Violence the most, with respectively coefficients of -0.19 (uncertainty of 0.06) and -0.18 (uncertainty of 0.07).
 
-[todo lucas further interpretation]
+When analyzing the causal relationship between the democracy index and the legal status of women, we notice that democracy seems to be driving Women's legal status up, which in turn drives attitude towards violence to decrease. This was an interesting finding: the higher the levels of democracy, the higher the status of women legally, which in turn produce lower levels of acceptance of violence against women.
+
+Hence, our findings do corroborated that strengthening democracy and, hence, the legal status of women might be a path for decreasing attitude towards violence. Increasing women's legal status can be also be done by significantly increasing women's property rights and contraception use.
+
+Obviously, it might be far-fetched to suggest democracy as a remedy for decreasing attitude towards violence across the globe, as it suggests this is applicable to all cultures. It is important to take into account different political and socio-economy, as well as historical contingencies, when designing public policy and in the process of policy-making. 
 
 # Conclusions
 
-We cannot single out or highlight one single indicator in the WEOI that is most influential in decreasing violence against women. Our research highlights the complexities and the varying number of factors that result in the persistence of violence against women. However, it still might be useful to investigate further the sub-indicators within each indicator for the WEOI and analyze what they can provide as insights. Singling out countries, like Russia, and analyze closely what is the situation in violence against women through both quantitative and qualitative research can further reveal indicators that can be useful in measuring degrees of such forms of gendered violence. While the four indicators we observed and analysed did in fact demonstrate a decrease in attitudes towards violence there are confounding variables that we perhaps have not considered which makes it hard to come to a causal conclusion. It is also interesting to see that indicators when observed separately demonstarte an effect on attitudes towards violence however when observed alongside other indicators have completely opposing effects. Conducting this research truly justifies how data is complex and immense while certain indicators and factors might demonstrate an effect on a variable the reason for such an effect could be due to many confounding variables and other reasonings to what one might original have thought.    
+We cannot single out or highlight one single indicator in the WEOI that is most influential in decreasing violence against women. Our research highlights the complexities and the varying number of factors that result in the persistence of violence against women. However, it still might be useful to investigate further the sub-indicators within each indicator for the WEOI and analyze what they can provide as insights. Singling out countries, like Russia, and analyze closely what is the situation in violence against women through both quantitative and qualitative research can further reveal indicators that can be useful in measuring degrees of such forms of gendered violence. 
+
+While the four indicators we observed and analysed did in fact demonstrate a decrease in attitudes towards violence there are confounding variables that we perhaps have not considered which makes it hard to come to a causal conclusion. It is also interesting to see that indicators when observed separately demonstrate an effect on attitudes towards violence however when observed alongside other indicators have completely opposing effects. 
+
+This studies shows how data is complex and immense while certain indicators and factors might demonstrate an effect on a variable the reason for such an effect could be due to many confounding variables and other reasoning to what one might original have thought. 
+
+With that being said, the "top-to-bottom" structure of this research, in which we started from one single index and proceeded to slowly peeling off its layers was extremely insightful in terms of shedding light into how complex indexes and composite variables are constructed. It highlights how several measures, some obvious, some more ominous, converse to each other to finally measure an index. It also reminds us that the construction of such indexes are attempts to measure incredibly abstract concepts into truly useful ones. Whereas this was helpful for us in schematizing causal diagrams, we also found ourselves constantly puzzled on what we were truly measuring. 
 
 # Bibliography
 
