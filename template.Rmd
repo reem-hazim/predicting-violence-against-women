@@ -569,7 +569,7 @@ ggplot(data=relevant_factors, mapping = aes(x = womens_opp_index, y = attitude, 
 plot(woe_reg)
 ```
 
-```{r reg-woe-sum, include=FALSE}
+```{r summary-reg-woe, include=FALSE}
 summary(woe_reg)
 ```
 
@@ -594,6 +594,7 @@ plot(labour_policy_practice_reg)
 ```{r labour-reg-sum, include=FALSE}
 summary(labour_policy_practice_reg)
 ```
+
 
 The estimate for Labour Policy and Practice is -0.47. Hence, With every one unit increase in Labour Policy and Practice there is a decrease of -0.47 in attitudes towards violence. The confidence levels range from -0.62 and -0.31, with an uncertainty of 0.08.
 
@@ -660,7 +661,7 @@ by how favorable is women's legal stats (0-100)",
 plot(women_legal_social_status_reg)
 ```
 
-```{r legal-reg-sum}
+```{r summary-reg-wlst, include=FALSE}
 summary(women_legal_social_status_reg)
 ```
 
