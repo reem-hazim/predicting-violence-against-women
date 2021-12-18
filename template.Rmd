@@ -469,7 +469,7 @@ corr_matrix <-
   round(digits = 2)
 
 
-corrplot(corr_matrix, method="color", tl.col="black", tl.srt=45, type="upper", addCoef.col = "black", diag=FALSE, insig = "blank", tl.cex=1.75, number.font=7, number.cex=1.75 )
+corrplot(corr_matrix, method="color", tl.col="black", tl.srt=45, type="upper", addCoef.col = "black", diag=FALSE, insig = "blank", tl.cex=1.25, number.font=7, number.cex=1.25)
 ```
 
 todo Reem: fix correlation matrix
