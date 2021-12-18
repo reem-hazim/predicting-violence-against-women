@@ -593,7 +593,7 @@ plot(labour_policy_practice_reg)
 ```
 
 
-With every one unit increase in Labour Policy and Practice there is a decrease of `r round(fixef(labour_policy_practice_reg)[2][1], 2)` in attitudes towards violence. This variable also has a low standard error of `r round(fixef(labour_policy_practice_reg)[2][2], 2)`, meaning we can be fairly certain that labour policy has a negative impact on the share of women who justify being abused. The 95% confidence interval for the coefficient ranges from `r round(fixef(labour_policy_practice_reg)[2][3], 2)` to `r round(fixef(labour_policy_practice_reg)[2][4], 2)`.
+With every one unit increase in Labour Policy and Practice there is a decrease of `r round(fixef(labour_policy_practice_reg)[2][1], 2)` in attitudes towards violence. This variable also has a low standard error, meaning we can be fairly certain that labour policy has a negative impact on the share of women who justify being abused.
 
 ```{r plotreg-access-to-finance}
 
@@ -676,11 +676,14 @@ fixef(multivariate_reg)
 
 After running this multivariate regression, we see that for many of our factors, the estimated coefficient decreased significantly while the uncertainty levels increased. Labour policy now has a positive estimated effect rather than a negative one, but its confidence interval spans both negative and positive values, which indicates that it could have no effect on attitudes towards violence. While the other variables still have negative effects on attitudes towards violence, access to finance has a negligible estimated effect and its interval is very wide, spanning 0. The two variables that seem to be influencing attitudes most significantly are education and legal status, with very similar estimated coefficients, estimated errors, and confidence intervals. 
 
-It is unclear what the results of this regression mean in terms of the interdependence of the independent variables. Could legal status and education be confounding variables that are causing the effects we saw in labour policy and access to finance? This regression is insufficient to draw such conclusions. 
+It is unclear what the results of this regression mean in terms of the interdependence of the independent variables. Could legal status and education be confounding variables that are causing the effects we saw in labour policy and access to finance to decrease? This regression alone is insufficient to draw such conclusions. 
 
 Legal status and education appear to have the strongest effects on attitudes towards violence, but they are both composite measurements made of several indicators. Therefore, we select one of them (legal status) and break it down into its components to pinpoint exactly which one is driving attitudes towards violence.
 
 ### Breakdown of Legal Status
+
+According to the Women's Economic Opportunities 2012 report, the Legal and Social Status of Women is broken down into 7 indicators: Addressing violence against women "(existence
+of laws protecting women against [violence]"), citizenship rights (which includes freedom of movement and access to passport), property ownership rights (whether men and women have equal rights over property), adolescent fertility rates, prevalence of contraceptive use, whether a country has ratified the convention on the Elimination of All Forms of Discrimination against Women (CEDAW), and political participation (which includes the share of women in parliament). 
 
 ```{r reading-legal-status-data, include=FALSE}
 legal_status_data <- violence_factors %>% 
