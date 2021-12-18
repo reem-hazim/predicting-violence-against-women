@@ -460,9 +460,7 @@ As the histograms show, all the categories as well as the indicator lie on a sca
 
 Our independent variables also have some limitations that may make it difficult to compare them with our dependent variables. Firstly, one important limitation is the difference in dates between our dependent and independent variables. Whereas the OECD violence against women data was measured in 2019, the WEOI was measured back in 2012. It might be the case that countries have significantly improved or worsen their scores in the WEOI in the time between 2012 and 2019, which could bias our analysis.
 
-In addition, one major limiting factor is the fact that the variables we have explored in the Women's Economic Index Composite index are composite variables. Hence, if we are looking for one specific variable that could explain violence against women, it would be unclear from the composite indicator which particular underlying indicator is the causal one. The large number of indicators (29) that contribute to the WEO index may give rise to many confounding variables that complicate our analysis. Specifically, if all the independent indicators are correlated, there might be a confounding variable causing all of them and causing our dependent variables at the same time.
-
-todo: maybe cite seductions of quantification here?
+In addition, one major limiting factor is the fact that the variables we have explored in the Women's Economic Index Composite index are composite variables. Hence, if we are looking for one specific variable that could explain violence against women, it would be unclear from the composite indicator which particular underlying indicator is the causal one. The large number of indicators (29) that contribute to the WEO index may give rise to many confounding variables that complicate our analysis. If all the independent indicators are correlated, there might be a confounding variable causing all of them and causing our dependent variables at the same time.
 
 Similarly to our dependent variables, the WEO index cannot accurately or perfectly measure an abstract, complicated concept such as women's economic opportunities. A lot of human biases and motivations are involved in the process of selecting which variables to combine into a single indicator. For example, since the indicator was developed by The Economist and sponsored by Exxon-Mobil, they mostly considered private sector entrepreneurship and initiatives as a measure of women's economic opportunities, rather than taking into account public policy and state-sponsored opportunities. In addition, many of the qualitative indicators in the index, such as the availability and affordability of childcare, did not exist and had to be created and measured by analysts from the Economist Intelligence Unit [@noauthor_womens_nodate]. Therefore, these qualitative assessments were made by external agents rather than being made by national statistics agencies, possibly introducing external biases into the data and excluding local knowledge and data.
 
@@ -472,7 +470,19 @@ A final limitation is that our independent variable was only measured for 128 co
 
 ### Correlation Coefficients
 
-Having explored out dependent variables, we proceed to exploring the relationship between out dependent variables and our chosen independent variable -- The Women's Economic Opportunity Index. (WOEI)
+Having explored out dependent and independent variables separately, we proceed to explore the relationship between them.
+
+First, we want to get a general sense of the relationship between the women's economic opportunity index and the three dependent variables. Is the WEOI correlated at all with our variables?
+
+```{r correlation-dep-vars}
+  relevant_factors %>% 
+  select(attitude, law, prev_viol) %>% 
+  cor(y=relevant_factors$womens_opp_index, use="na.or.complete") %>% 
+  round(digits = 2)
+```
+We can infer from the correlation coefficients that the WEOI is negatively correlated with all of the dependent variables to varying extents, as we would have expected. As women receive more economic opportunities, we would expect the prevalence of domestic violence to decrease, attitudes towards women to become more favourable, and laws on domestic violence to become more supportive of survivors. 
+
+We are intrigued by the fact that attitudes towards violence against women has the strongest correlation with the WEOI (correlation coefficient = -0.68). Therefore, we decided to proceed with this variable and further examine its relation with the categories that make up the WEOI.
 
 ```{r renaming, layout="l-body-outset", fig.height=5}
 corr_matrix <- 
@@ -486,30 +496,22 @@ corr_matrix <-
 corrplot(corr_matrix, method="color", tl.col="black", tl.srt=45, type="upper", addCoef.col = "black", diag=FALSE, insig = "blank", tl.cex=1.25, number.font=7, number.cex=1.25)
 ```
 
-The matrix reveals that attitude towards women seem to negatively correlated with many of the indicators in the WEOI, especially education and training. However, it also evident that the indicators seem to be strongly correlated positively with each other as well. Such interactions could turn difficult to see confounding variables in our study.
-
-```{r}
-  relevant_factors %>% 
-  select(attitude, law, prev_viol) %>% 
-  cor(y=relevant_factors$womens_opp_index, use="na.or.complete") %>% 
-  round(digits = 2)
-```
+We can see from this correlation matrix that attitudes towards violence against women has a moderate to strong negative correlation with all the WEOI categories, especially education and training. In addition, the WEOI indicators seem to be strongly correlated positively with each other. Intuitively, it makes sense for these correlations to exist as countries where women are better educated are usually those where women have better access to finance, a better legal status, and more favourable labour policies. However, these correlations complicate our effort to find an explanatory variable for violence against women, as it is difficult to disentangle which of these indicators is responsible for any effects we observe on attitudes towards violence. 
 
 ### Causal Diagram
 
-From drawing correlations between the WEOI's and the dependent variables, we notice that Attitude Towards Violence seems to offer the highest level of correlation (-0.67). For that reasons, we continue our analysis focusing on this variable in specific. Having chosen to focus on Attitude towards violence, we drew a causal diagram schematizing what can be the causes of higher levels of attitude towards violence.
+To help us better understand the complicated relationships between the different variables, we draw a causal diagram. 
 
 ```{r causal-diagram}
 # causal diagram 
-  attitude_dag <- dagify(viol ~ prev + attitude + laws,
+  attitude_dag <- dagify(prev ~ attitude + laws,
        woe ~ labour + education + legal + finance,
        labour ~ democracy,
        finance ~ democracy,
        education ~ democracy,
        legal ~ democracy,
        attitude ~ woe,
-       labels = c("viol" = "VAW", 
-                  "education" = "Education",
+       labels = c("education" = "Education",
                   "labour" = "Labour",
                   "laws" = "Laws",
                   "finance" = "Finance",
@@ -526,44 +528,34 @@ ggdag(ggdag_attitude_dag, text = FALSE, use_labels = "label")+
   theme_dag()
 ```
 
-When making our causal diagram we observed that the four indicators that are causing attitudes towards violence are: labour policy and practice, education and training, woman's legal status and access to finance which fall under the Woman's Economic Opportunity Index. We also observed a separate confounding variable affecting attitudes towards violence is gender segregation.
+This diagram showcases the relations between both the dependent and independent variables, incorporating external variables as well. We assumed that, among our dependent variables, prevalence of violence against women can be caused by discriminatory laws on domestic violence and supportive attitudes towards violence. Among our independent variables, we noted that the four categories (labour policy and practice, education and training, woman's legal status and access to finance) are all direct causes of the WEOI, since the index is composed of them. In addition, one common cause we noted for all of these variables could be democracy, since democratic countries are likely to have political structures that are conducive to the economic empowerment of women.
 
-```{r corr-womenoppindex, message=FALSE, warning=FALSE, include=FALSE}
-prev_opp_index <- brm(formula = prev_viol~womens_opp_index, data=relevant_factors,refresh=0)
+We now use our causal diagram to determine the set of variables we need to adjust for when predicting our dependent variables using our independent variables.
+
+```{r}
+ggdag_adjustment_set(attitude_dag, exposure="legal",outcome="attitude", text_col="black", text_size=2.8)+
+  theme_dag()
 ```
+
+We only run the adjustment set method on one independent variable: legal status. However, the resulting adjustment sets will be analogous for the other independent variables, since they all share the same relationships. We find that there are two sets of variables we may need to adjust for: the level of democracy in a country, or the rest of the independent variables (finance, education, labour policy). We may need to adjust for democracy because it is a direct cause of all our independent variables. We may also need to adjust for the other independent variables since they can all potentially be causes of attitudes towards violence.
 
 ### Regressions
 
-Next, we plot and calculate the correlation between the Women's opportunity index and Attitude Towards Violence further:
+Next, we run regression models to evaluate whether there is a linear relationship between attitudes towards violence and our independent variables. We first run univariate regressions between the attitudes indicator and each of the independent indicators to observe their individual effects before making adjustments.
 
-```{r regression-woe, message=FALSE, warning=FALSE, results='hide'}
+```{r ind-var-regressions, message=FALSE, warning=FALSE, results='hide'}
 # Regression for Women's Econoic Opportunity Index
 woe_reg <- brm(formula = prev_viol~womens_opp_index, data=relevant_factors,refresh=0)
-```
-
-```{r regression-lpp, message=FALSE, warning=FALSE, results='hide'}
 # Regression For Labour, Policy and Practice 
-
 labour_policy_practice_reg <- brm(formula = attitude ~ labour_policy, data= relevant_factors, refresh =0)
-```
-
-```{r regression-eat, message=FALSE, warning=FALSE, results='hide'}
-### Regression on Education and Training 
-
+# Regression on Education and Training 
 edu_training_reg <- brm(formula = attitude ~ education, data= relevant_factors, refresh=0)
-```
-
-```{r regression-atf, message=FALSE, warning=FALSE, results='hide'}
-### Regression on Access To Finance 
-
+# Regression on Access To Finance 
 access_finance_reg <- brm(formula = attitude ~ finance_access, data= relevant_factors, refresh=0)
-```
-
-```{r regression-wllss, message=FALSE, warning=FALSE, results='hide'}
-### Regression on Women's Legal and Social Status 
-
+# Regression on Women's Legal and Social Status 
 women_legal_social_status_reg <- brm(formula= attitude ~ legal_status, data= relevant_factors, refresh=0)
 ```
+
 
 ```{r plot-reg-woe, message=FALSE, warning=FALSE}
 ggplot(data=relevant_factors, mapping = aes(x = womens_opp_index, y = attitude, )) + 
@@ -576,11 +568,13 @@ ggplot(data=relevant_factors, mapping = aes(x = womens_opp_index, y = attitude, 
 plot(woe_reg)
 ```
 
-```{r summary-reg-woe, include=FALSE}
-summary(woe_reg)
+```{r sum-woe-reg}
+fixef(woe_reg)
 ```
 
-When regressing the women's oppurtunity index with attitudes towards violence we found that with evey one unit increase in woman's oppurtunity index there is a negative decrease of -0.39 in attitudes towards violence with a confidence interval of -0.56 and -0.22 and a uncertainty of 0.09.
+We find that with evey one unit increase in the women's oppurtunity index, there is a  decrease of `r round(fixef(woe_reg)[2][1], 2)`% in the share of women who agree that men are justified in beating their wives. This effect has a very low standard error and a narrow confidence interval, which means there is less uncertainty about this relationship.
+
+Next, we model the relationship between attitudes towards violence and each of the four categories.
 
 ```{r plotreg-labour}
 # Plotting labour policy and practice
@@ -598,12 +592,8 @@ by how favorable is labour policy and practice (0-100) to women",
 plot(labour_policy_practice_reg)
 ```
 
-```{r labour-reg-sum, include=FALSE}
-summary(labour_policy_practice_reg)
-```
 
-
-The estimate for Labour Policy and Practice is -0.47. Hence, With every one unit increase in Labour Policy and Practice there is a decrease of -0.47 in attitudes towards violence. The confidence levels range from -0.62 and -0.31, with an uncertainty of 0.08.
+With every one unit increase in Labour Policy and Practice there is a decrease of `r round(fixef(labour_policy_practice_reg)[2][1], 2)` in attitudes towards violence. This variable also has a low standard error of `r round(fixef(labour_policy_practice_reg)[2][2], 2)`, meaning we can be fairly certain that labour policy has a negative impact on the share of women who justify being abused. The 95% confidence interval for the coefficient ranges from `r round(fixef(labour_policy_practice_reg)[2][3], 2)` to `r round(fixef(labour_policy_practice_reg)[2][4], 2)`.
 
 ```{r plotreg-access-to-finance}
 
@@ -622,11 +612,11 @@ by how favorable is access to finance (0-100) to women",
 plot(access_finance_reg)
 ```
 
-```{r finance-reg-sum, include=FALSE}
-summary(access_finance_reg)
+```{r finance-reg-sum}
+fixef(access_finance_reg)
 ```
 
-The estimate for Access to Finance is also -0.47. Hence, With every one unit increase in Access to Finance there is a decrease of -0.47 in attitudes towards violence. The confidence levels range are a bit smaller then from Labour Policy and Practice, ranging from -0.57 and -0.37, with an also smaller uncertainty of 0.05.
+The estimate for the effect of Access to Finance is on a similar scale as the previous two variables. With every one unit increase in Access to Finance, there is a decrease of `r round(fixef(access_finance_reg)[2][1], 2)` in attitudes towards violence. The uncertainty level is a little less than labour policy and the 95% confidence intervals are also smaller.
 
 ```{r plot-reg-ed-training}
 
@@ -646,13 +636,12 @@ plot(edu_training_reg)
 ```
 
 ```{r edu-reg-sum, include=FALSE}
-summary(edu_training_reg)
+fixef(edu_training_reg)
 ```
 
-The estimate for Education and Training is -0.59. Hence, With every one unit increase in Education and Training there is a decrease of -0.59 in attitudes towards violence. This is a more significant change then the previous two variables explored.The confidence levels range from -0.69 and -0.49, with an uncertainty of 0.05.
+Similarly, with every one unit increase in Education and Training there is a decrease of `r round(fixef(edu_training_reg)[2][1], 2)` in attitudes towards violence. This is a more significant change than the previous two variables explored, with a similarly small standard error and narrow confidence interval. Therefore, we can be fairly certain that education has a more significatn effect on attitudes than the previous two variables.
 
 ```{r plotreg-legalstatus}
-
 # Plotting legal status
 
 ggplot(data=relevant_factors, mapping = aes(x = legal_status, y = attitude)) + 
@@ -668,15 +657,13 @@ by how favorable is women's legal stats (0-100)",
 plot(women_legal_social_status_reg)
 ```
 
-```{r summary-reg-wlst, include=FALSE}
-summary(women_legal_social_status_reg)
+```{r summary-reg-wlst}
+fixef(women_legal_social_status_reg)
 ```
 
-The estimate for Women's Legal Status is -0.80. This is the highest estimate we found. Hence, With every one unit increase in Women's Legal Status there is a decrease of -0.80 in attitudes towards violence. The confidence levels range from -0.95 and -0.66, with an uncertainty of 0.07. This is the indicator with strongest correlation with a reduction in Attitude Towards Violence.
+The estimate for Women's Legal Status is `r round(fixef(women_legal_social_status_reg)[2][1], 2)`. This is the most significant effect we found among our independent variables, despite all our regressions having similarly low levels of uncertainty.
 
-Also noticing that the confidence intervals of each of the regressions is fairly small which means the uncertainty interval is fairly small. Additionally, the standard error of each coefficient were low.
-
-With those results in mind, we draw a multivariate regression:
+With these individual effects in mind, we run a multivariate regression to adjust for the effects of all the independent variables on the dependent variable:
 
 ```{r multivariate-regression, message=FALSE, warning=FALSE, results='hide'}
 multivariate_reg <- brm(formula= attitude ~ labour_policy + education + legal_status + finance_access, data=relevant_factors, refresh =0)
@@ -684,15 +671,14 @@ multivariate_reg <- brm(formula= attitude ~ labour_policy + education + legal_st
 
 ```{r plot-mvr}
 plot(multivariate_reg)
+fixef(multivariate_reg)
 ```
 
-```{r mvr-reg-sum, include=FALSE}
-summary(multivariate_reg)
-```
+After running this multivariate regression, we see that for many of our factors, the estimated coefficient decreased significantly while the uncertainty levels increased. Labour policy now has a positive estimated effect rather than a negative one, but its confidence interval spans both negative and positive values, which indicates that it could have no effect on attitudes towards violence. While the other variables still have negative effects on attitudes towards violence, access to finance has a negligible estimated effect and its interval is very wide, spanning 0. The two variables that seem to be influencing attitudes most significantly are education and legal status, with very similar estimated coefficients, estimated errors, and confidence intervals. 
 
-When running a multivariate regression of all of the four indicators with attitude towards violence we found that the indicators education, legal status and access to finance still hold a negative decrease effect on attitudes towards violence with every one unit increase, however labour policy now has a positive increase in attitudes towards violence with every one unit increase which is interesting to see. The confidence intervals of each has increased as well as the standard error coefficient which means there is a larger uncertainty range.
+It is unclear what the results of this regression mean in terms of the interdependence of the independent variables. Could legal status and education be confounding variables that are causing the effects we saw in labour policy and access to finance? This regression is insufficient to draw such conclusions. 
 
-Even when running the multivariate regression the best indicator remains still to be the legal status with the highest negitave decrease in attitudes towards violence with the coefficients of -0.45. Therefore, further exploration on the indicator should be done.
+Legal status and education appear to have the strongest effects on attitudes towards violence, but they are both composite measurements made of several indicators. Therefore, we select one of them (legal status) and break it down into its components to pinpoint exactly which one is driving attitudes towards violence.
 
 ### Breakdown of Legal Status
 
@@ -708,13 +694,10 @@ legal_status_reg <- brm(formula= attitude ~ addressing_violence + citizen_rights
 
 ```{r plot-legal-reg}
 plot(legal_status_reg)
+fixef(legal_status_reg)
 ```
 
-```{r legal-break-reg-sum, include=FALSE}
-summary(legal_status_reg)
-```
-
-When running a regression on further exploration of the indicator legal status, we found that within the factors under legal status the one with the highest effect on attitudes towards violence was property ownership with a negative decrease of -0.19 with every on unit increase with a uncertainty of 0.06 and a confidence interval of -0.31 and -0.07.
+When running a regression on further exploration of the indicator legal status, we found that within the factors under legal status the one with the highest effect on attitudes towards violence was property ownership with a negative decrease of `r round(fixef(legal_status_reg)[4][1], 2)`% in attitudes towards violence for every unit increase in property ownership. This factor also had the lowest uncertainty level and the most narrow confidence interval among the legal status indicators. However, its effect on attitudes is still very low (the upper end of the confidence interval is almost 0), as are the rest of the variables.
 
 ```{r plot-prop-ownership}
 ggplot(data=legal_status_data, mapping = aes(x = prop_ownership, y = attitude)) + 
@@ -728,27 +711,13 @@ by how favorable is women's legal stats (0-100)",
     y = "Attitudes Towards Violence")
 ```
 
-As seen from the graph as well as from the regression we ran on the indicator legal status, a higher level on property ownership rights results in a decrease in positive attitudes towards violence. While it is possible for outliers to be impacting the data, the graph demonstrates a linear decrease pattern between the two.
+Upon closer inspection, it appears that property ownership rights is a discrete variable with five categories. While attitudes towards violence appear to be concentrated at the bottom for countries with the highest levels of property ownership rights for women (level 100), this association is not very defined or clear for other categories. This explains why the effect estimated by the regression is so low. 
 
-We then continued by observing the relationship between contraception usage, which is a factor that falls under the legal status indicator, and attitudes towards violence. That's because in our previous analysis contraception usage came second highest in negatively decreasing attitudes towards violence with a decrease of -0.18 with a confidence interval of -0.32 and -0.04 with an uncertainty of 0.07.
-
-```{r plot-contraceptive-use}
-ggplot(data=legal_status_data, mapping = aes(x = contraceptive_use, y = attitude)) + 
-  stat_smooth(method="lm")+
-  geom_point()+
-  labs (
-    title="Attitude Towards Violence by Use of Contraceptions",
-    subtitle = "Share of Women (%) who agrees violence is justifibiable 
-by how favorable is women's legal stats (0-100)",
-    x = "Contraceptive use - modern methods",
-    y = "Attitudes Towards Violence")
-```
-
-From the graph we see that there is a negative relationship between contraception use and attitudes towards violence. The linear decrease pattern is more observable in this graph as the data is fairly clustered around the line as well as a decrease motion is visible while there still is a few outliers.
-
-Upon reflecting on what are some of the factors that might be influencing or causing women's legal status, we moved our research forward by analyzing the role that democracy has on women's legal status.
+Intuitively, it makes some sense for property ownership rights to have an impact on attitudes towards violence. Having property ownership rights makes women less dependent on their spouses to secure a home and make a living, which means they can afford to leave an abusive relationship. However, in countries where women do not have many property ownership rights (e.g. they cannot inherit property from their parents or relatives), women have no other resort than to remain in an abusive relationship, so they tend to justify their husbands' abuse as a mechanism to deal with their situation (e.g. "He only hit me because I offended him; if I behave he will not hurt me, etc."). Therefore, property ownership rights may have an effect on attitudes towards violence, but given the limitations in our data, it is unclear how significant these effects may be. In addition, we would expect other variables in this indicator, such as use of contraception and political participation, to have a stronger effect on attitudes towards violence. 
 
 ### Exploring the Effects of Democracy
+
+Next, we adjust our regression for the effects of democracy. As a proxy for democracy, we use the Democracy Index measured annually by the Economist Intelligence Unit. The index is measured on a scale of 1 to 10, where 1 is least democratic and 10 is most democratic. We use the most recent measurements made in 2020, and we run three regressions. First, we run a regression that predicts legal status using the democracy index to ensure that, as our causal diagram expected, democracy is a cause of improved legal status for women. Second, we look at the relationship between attitudes and democracy to ascertain whether democracy also drives attitudes towards violence. Finally, we run a regression that explains attitudes towards violence using both democracy and legal status. If democracy truly is a causal variable that explains legal status, we would expect to see a significant decrease in the effect of democracy on attitudes in the multivariate regression, since all of its effects will be transferred to legal status.
 
 ```{r read-democracy-index-data, include=FALSE, results='hide', warning=FALSE, message=FALSE}
 democracy_dataset <- eiu %>% 
@@ -758,7 +727,6 @@ democracy_dataset <- eiu %>%
   mutate(GWn = ifelse(is.na(GWn) & eiu_country == "Hong Kong", "HKG", GWn)) %>% 
   mutate(GWn = ifelse(is.na(GWn) & eiu_country == "Palestine", "PSE", GWn)) %>% 
   rename("democracy_index"=eiu, "country"=eiu_country, "location"=GWn) 
-  
   
 relevant_factors <- relevant_factors %>% 
   left_join(democracy_dataset, by="location")
@@ -782,44 +750,38 @@ plot(attitude_dem_reg)
 plot(attitude_dem_legal_reg)
 ```
 
-```{r dem-legal-reg-sum, include=FALSE}
-summary(democracy_legal_reg)
-summary(attitude_dem_reg)
-summary(attitude_dem_legal_reg)
+```{r dem-legal-reg-sum}
+fixef(democracy_legal_reg)
+fixef(attitude_dem_reg)
+fixef(attitude_dem_legal_reg)
 ```
 
-We ran three regressions one in which observed the relationship between democracy and legal status, another observed the relationship between democracy and attitudes towards violence and a final multivariate regression observing the relationship between legal status and democracy on attitudes towards violence.
+The first regression reaffirms our suspicions that the democracy index does drive the legal status. There appears to be a strong, positive correlation between the two variables, where for every unit increase in the democracy index, there is a `r round(fixef(democracy_legal_reg)[2][1], 2)` unit increase in women's legal status. This large coefficient is likely a result of the difference between the scales of the two variables. 
 
-For the first regression with every one unit increase in democracy there is a 6.06 positive increase in legal status with a confidence interval of 4.99 and 7.10 with an uncertainty of 0.54.
+The second regression also shows that the democracy index drives attitudes towards violence. The negative relationship indicates that as democracy increases, attitudes towards violence tend to decrease. It is interesting to note that the coefficients for both regressions are very close, but it is not clear how this should be interpreted.
 
-For the second regression with every one unit increase in democracy there is a negative decrease of -6.99 in attitudes towards violence with a confidence interval of -8.50 and -5.52 with an uncertainty of 0.76.
-
-As for the multivariate regression of legal status and democracy on attitudes towards violence with every one unit increase in democracy there is a negative decrease of -1.53 on attitudes towards violence with a confidence interval of -3.80 and 0.69 and an uncertainty of 1.13. For every one unit increase in legal status there is a negative decrease in attitudes towards violence by -0.68 with a confidence interval of -0.96 and -0.40 with an uncertainty of 0.14.
-
-Interestingly we can clearly see that democracy does in fact have an affect on legal status which could be a reason for why legal status indicator had the highest effect on attitudes towards violence.
+The multivariate regression of legal status and democracy on attitudes towards violence confirms our suspicion that democracy is a cause of legal status. The effect of the democracy index on attitudes towards violence dropped to `r round(fixef(attitude_dem_legal_reg)[2][1], 2)`, with a relatively large standard error that makes the confidence interval wide and spanning 0. In contrast, the effect of legal status on attitudes also decreased, but the standard remained low and the confidence intervals are narrow. This suggests that there is still a significant relation between the legal status of women and attitudes towards violence. In addition, this result could support our assumption that democracy is a cause of legal status, since we can see that the effects of democracy on attitudes are being masked by the legal status of women, which lies between the variables.
 
 # Analysis and Interpretation of Results
 
-When we ran the regression between attitudes towards violence individually with each of the four indicators from the WEOI, we noticed that women's legal status seemed to be the most strongly negatively correlated with the dependent variable (-0.80). Running a multivariate regression with all indicators, however, decreased the correlation of women's legal status to (-0.45). Even though it remains moderately correlated, such interaction reveal that it is difficult to isolate one single cause for the increase or decrease of levels in attitudes towards violence. Interestingly, when we ran the multivariate regression, the indicator Labour Policy and Practice went from a negative coefficient of -0.47 to 0.21.
+When we ran the regression between attitudes towards violence individually with each of the four indicators from the WEOI, we noticed that women's legal status and education seemed to be the most strongly negatively correlated with the dependent variable. Running a multivariate regression with all indicators, however, decreased the correlation of both variables and increased their uncertainty levels. Even though they both remain moderately correlated, it is difficult to isolate a single cause for the increase or decrease of levels in attitudes towards violence. Interestingly, when we ran the multivariate regression, the other two variables (labour policy and access to finance) had negligible effects on attitudes towards violence, revealing a deeper interplay between the variables that was difficult to clarify.
 
-A counterfactual that arises from our research is imagining a country in which the women's legal status was significantly lower than the rest of the indicators. Would such a country have lower levels of attitude against violence (less women agreeing that violence is justified)? Even though we cannot find such a case within the indicators of the WOEI, the exploration on the dependent variables highlighted the Russian Federation as having laws on domestic violence that completely discriminated against women but had decent levels in prevalence of violence in lifetime and attitude towards women. A further study on the case of the Russian Federation could reveal the effectiveness of women's legal status (and specifically laws against domestic violence) in causing a decrease in violence against women.
+A counterfactual that arises from our research is a country in which women's legal status is significantly lower than the rest of the indicators. Would such a country still have worse attitudes towards violence against women (more women agreeing that violence is justified)? Even though we cannot find such a case within the indicators of the WEOI, the exploration on the dependent variables highlighted the Russian Federation as having laws on domestic violence that completely discriminated against women, but relatively women justified domestic violence. While we do not have data on Russia's legal status as part of the WEOI, further study on the case of the Russian Federation could reveal the effectiveness of women's legal status in causing a decrease in violence against women.
 
-we found that among the sub-indicators that form Women's Legal Status, property rights and contraceptive use were among the ones driving Attitude Towards Violence the most, with respectively coefficients of -0.19 (uncertainty of 0.06) and -0.18 (uncertainty of 0.07).
+After further examining women's legal status, we found that most of the indicators within this category seem to have negligible effects on attitudes towards violence, and the indicator with the strongest effect was property ownership rights. However, even this factor had a very small effect on attitudes towards violence, and we would have expected other factors to be more impactful.
 
-When analyzing the causal relationship between the democracy index and the legal status of women, we notice that democracy seems to be driving Women's legal status up, which in turn drives attitude towards violence to decrease. This was an interesting finding: the higher the levels of democracy, the higher the status of women legally, which in turn produce lower levels of acceptance of violence against women.
+After analyzing the causal relationship between the democracy index and the legal status of women, we note that democracy seems to be driving women's legal status up, which in turn causes attitude towards violence to decrease. This was an interesting finding: the higher the levels of democracy, the better the legal status of women, which in turn produces lower levels of acceptance of violence against women. We can hypothesize that there may be a similar causal pattern between legal status and the other categories (education, access to finance, and labour policy), since democracy can be a driver of all of them.
 
-Hence, our findings do corroborated that strengthening democracy and, hence, the legal status of women might be a path for decreasing attitude towards violence. Increasing women's legal status can be also be done by significantly increasing women's property rights and contraception use.
+Hence, our findings do corroborate to some extent the hypothesis that strengthening democracy and, hence, the legal status of women, might be a path for improving attitudes towards violence against women, and thereby decreasing violence against women. However, given our use of composite indicators such as the democracy index and the WEOI, it is unclear exactly how democracy should be strengthened, or what aspect of women's legal status is the most significant in driving attitudes towards violence. In addition, since we could not test the counter-factual hypothesis or all the possible confounding variables, we are uncertain if this relationship is purely causal, or if it is influenced by an unseen external variable.
 
-Obviously, it might be far-fetched to suggest democracy as a remedy for decreasing attitude towards violence across the globe, as it suggests this is applicable to all cultures. It is important to take into account different political and socio-economy, as well as historical contingencies, when designing public policy and in the process of policy-making.
+Of course, it is important to keep in mind the limitations of our data mentioned earlier. The democracy index and the WEOI are both composite indicators created by the Economist Intelligence Unit, an institution that may be imposing its own biases and motivations on these indices. Similarly, the OECD violence against women indicators do not exactly measure violence against women, but rather proxies that were chosen by analysts and experts. The relationships we see between these proxies may not necessarily persist when applied to the diverse definitions and understandings of these concepts around the world. 
 
 # Conclusions
 
-We cannot single out or highlight one single indicator in the WEOI that is most influential in decreasing violence against women. Our research highlights the complexities and the varying number of factors that result in the persistence of violence against women. However, it still might be useful to investigate further the sub-indicators within each indicator for the WEOI and analyze what they can provide as insights. Singling out countries, like Russia, and analyze closely what is the situation in violence against women through both quantitative and qualitative research can further reveal indicators that can be useful in measuring degrees of such forms of gendered violence.
+We cannot single out or highlight one single indicator in the WEOI that is most influential in decreasing violence against women, but we can see that education and legal status have reasonable effects on attitudes towards violence. Our research highlights the complexities and the varying number of factors that result in the persistence of violence against women. However, it still might be useful to investigate further the sub-indicators within each indicator for the WEOI and analyze what they can provide as insights. Singling out outlier countries and counterfactuals, like Russia, and closely analyzing violence against women through both quantitative and qualitative research can further reveal indicators that can be useful in measuring degrees of such forms of gendered violence.
 
-While the four indicators we observed and analysed did in fact demonstrate a decrease in attitudes towards violence there are confounding variables that we perhaps have not considered which makes it hard to come to a causal conclusion. It is also interesting to see that indicators when observed separately demonstrate an effect on attitudes towards violence however when observed alongside other indicators have completely opposing effects.
+While the four indicators we observed and analysed did in fact correlate with better attitudes towards violence, there are confounding variables that we perhaps have not considered, making it difficult to come to a causal conclusion. We consider one causal variable, democracy, that may be driving these effects, and discover that it could potentially be an explanatory variable for legal status.
 
-This studies shows how data is complex and immense while certain indicators and factors might demonstrate an effect on a variable the reason for such an effect could be due to many confounding variables and other reasoning to what one might original have thought.
-
-With that being said, the "top-to-bottom" structure of this research, in which we started from one single index and proceeded to slowly peeling off its layers was extremely insightful in terms of shedding light into how complex indexes and composite variables are constructed. It highlights how several measures, some obvious, some more ominous, converse to each other to finally measure an index. It also reminds us that the construction of such indexes are attempts to measure incredibly abstract concepts into truly useful ones. Whereas this was helpful for us in schematizing causal diagrams, we also found ourselves constantly puzzled on what we were truly measuring.
+We found the "top-to-bottom" structure of this research, in which we started from one index and peeled off its layers was extremely insightful in terms of shedding light into how complex indexes and composite variables are constructed. It reminds us that the construction of such indexes are attempts to measure incredibly abstract concepts into truly useful ones. Whereas this was helpful for us in schematizing causal diagrams, we also found ourselves constantly puzzled by what we were truly measuring.
 
 # References
