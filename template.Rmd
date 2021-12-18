@@ -96,18 +96,6 @@ violence_region_wide$IncomeGroup <- factor(violence_region_wide$IncomeGroup,
 
 ```
 
-```{r plot-laws-by-region,include=FALSE}
-ggplot(violence_region_wide)+
-  geom_bar(mapping=aes(x=LAWDOMVIOL, fill=Region))+
-  facet_wrap(~Region, ncol=3)+
-  theme(legend.position = "none")+
-  labs (
-    title="Laws on Domestic Violence by Region of the World",
-    subtitle="On a scale of 0 to 1, where 1 indicates that the laws completely discriminate against women’s rights",
-    x="Laws on Domestic Violence Indicator",
-    y="Count"
-  )
-```
 
 ```{r plot-ATTITUDEVIOL-by-IncomeGroup}
 #Exploring ATTITUDEVIOL by incomegroup
@@ -125,20 +113,6 @@ beating his wife/partner under certain circumstances",
 ```
 
 There seems to be a clear association between attitude towards violence against women and a country's group income. High and upper middle income countries seem to have a lower share of women who agree that the husband is justified in inflicted violence in their wives.
-
-```{r plot-ATTITUDEVIOL-By-Region, include=FALSE}
-ggplot(violence_region_wide)+
-  geom_histogram(mapping=aes(x=ATTITUDEVIOL, fill=Region))+
-  facet_wrap(~Region)+
-  theme(legend.position = "none")+
-  labs (
-    title="Attitude toward violence by Region",
-    subtitle="The percentage of women who agree that a husband/partner is justified in 
-beating his wife/partner under certain circumstances",
-    x="Share of Women (%)",
-    y="Count"
-  )
-```
 
 ```{r PREVVLIFETIMEByIncome}
 #Exploring PREVVLIFETIME by incomegroup
@@ -158,19 +132,6 @@ violence from an intimate partner at some time in their life",
 
 Similar to Attitudes Towards Violence, when it comes to prevalence of violence in the lifetime, we can observe that high income countries (colored red) are concentrated towards the left side of the graph. This means that fewer women have been exposed to physical or sexual violence in comparison to countries falling in other income groups.
 
-```{r PREVVIOLIFETIMEByRegion, include=FALSE}
-ggplot(violence_region_wide)+
-  geom_histogram(mapping=aes(x=PREVVIOLLIFETIME, fill=Region), bins=40)+
-  facet_wrap(~Region)+
-  theme(legend.position = "none")+
-  labs (
-    title="Prevalence of violence in the lifetime by Region",
-    subtitle="The percentage of women who have experienced physical and/or sexual 
-violence from an intimate partner at some time in their life",
-    x="Share of Women (%)",
-    y="Count"
-  )
-```
 
 ```{r LAWDOMVIOLincome}
 #Exploring LAWDOMVIOL by incomegroup
@@ -251,28 +212,6 @@ violence from an intimate partner at some time in their life",
   )
 ```
 
-```{r ploting-data-all-variables, include=FALSE}
-#Plotting data 
-
-ggplot(violence_region_wide, aes(x = LAWDOMVIOL, y = ATTITUDEVIOL)) +
-  geom_point()+
-  labs(title = "Relationship between Law on domestic violence and attitudes towards violence", x = "Law on domestic violence", y = "attitudes towards violence")
-
-###
-
-ggplot(violence_region_wide, aes(x = LAWDOMVIOL, y = PREVVIOLLIFETIME)) +
-  geom_point()+
-  labs(title = "Relationship between Law on domestic violence and Prevalance in Lifetime", x = "Law on domestic violence", y = "Prevalance in lifetime")
-
-###
-
-ggplot(violence_region_wide, aes(x = PREVVIOLLIFETIME, y = ATTITUDEVIOL)) +
-  geom_point()+
-  labs(title = "Relationship between Prevelance on lifteime and attitudes towards violence", x = "Prevalance on lifetime", y = "attitudes towards violence")
-
-##Relationship between Prevalence on lifetime and attitudes towards violence. Analysis: The relationship between prevalence on lifetime and attitudes towards violence in this data set is sporadic however there is a clear visible relationship that there is a positive correlation between the two. When there is higher prevalence on lifetime the attitudes towards violence is also high & vice versa. 
-
-```
 
 ```{r somewritingideas,include=FALSE}
 #Problems and limits with the data
@@ -593,7 +532,6 @@ prev_opp_index <- brm(formula = prev_viol~womens_opp_index, data=relevant_factor
 
 ### Regressions
 
-
 Next, we plot and calculate the correlation between the Women's opportunity index and Attitude Towards Violence further:
 
 ```{r regression-woe, message=FALSE, warning=FALSE, results='hide'}
@@ -778,7 +716,7 @@ by how favorable is women's legal stats (0-100)",
     y = "Attitudes Towards Violence")
 ```
 
-From the graph we see that there is a negitive relationship between contraception use and attitudes towards violence the linear decrease pattern is more observable in this graph as the data is fairly clustered around the line as well as a decrease motion is visible while there still is a few outliers. 
+From the graph we see that there is a negative relationship between contraception use and attitudes towards violence the linear decrease pattern is more observable in this graph as the data is fairly clustered around the line as well as a decrease motion is visible while there still is a few outliers. 
 ```
 
 [todo]: add democracy as an explanatory variable for the independent variables
